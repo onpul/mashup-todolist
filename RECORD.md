@@ -1,6 +1,6 @@
 # 개발 설명
 ### 참고 링크
-- 벨로퍼트 모던 리액트: [https://react.vlpt.us/][https://react.vlpt.us/]
+- 벨로퍼트 모던 리액트: https://react.vlpt.us/
    
 * * *
    
