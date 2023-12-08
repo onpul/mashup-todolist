@@ -21,8 +21,7 @@ const App = () => {
                 <Route path="/about" element={<About />} />
                 <Route
                     path="/profiles/:username"
-                    component={Profile}
-                    element={<Profile />}
+                    element={<Profile animate={true} />}
                 />
             </Routes>
         </div>
