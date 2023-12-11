@@ -1,31 +1,28 @@
 import React from 'react';
-import { Route, Routes, Link } from 'react-router-dom';
-import About from './About';
-import Home from './Home';
-import Profile from './Profile';
+import { createGlobalStyle } from 'styled-components';
+import TodoTemplate from './components/TodoTemplate';
+import TodoHead from './components/TodoHead';
+import TodoList from './components/TodoList';
+import TodoCreate from './components/TodoCreate';
+import { TodoProvider } from './TodoContext';
 
-const App = () => {
+const GlobalStyle = createGlobalStyle`
+  body {
+    background: #e9ecef;
+  }
+`;
+
+function App() {
     return (
-        <div>
-            <ul>
-                <li>
-                    <Link to="/">HOME</Link>
-                </li>
-                <li>
-                    <Link to="/about">ABOUT</Link>
-                </li>
-            </ul>
-            <hr />
-            <Routes>
-                <Route path="/" exact={true} element={<Home />} />
-                <Route path="/about" element={<About />} />
-                <Route
-                    path="/profiles/:username"
-                    element={<Profile animate={true} />}
-                />
-            </Routes>
-        </div>
+        <TodoProvider>
+            <GlobalStyle />
+            <TodoTemplate>
+                <TodoHead />
+                <TodoList />
+                <TodoCreate />
+            </TodoTemplate>
+        </TodoProvider>
     );
-};
+}
 
 export default App;
