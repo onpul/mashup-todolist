@@ -2,7 +2,7 @@
 
 import React, { useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import Todos from '../components/Todos';
+import Todos from '../temp/Todos';
 import { addTodo, toggleTodo } from '../modules/todos';
 
 function TodosContainer() {
