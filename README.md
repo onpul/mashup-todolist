@@ -1,70 +1,39 @@
-# Getting Started with Create React App
+# 개발 설명
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### 참고 링크
 
-## Available Scripts
+-   벨로퍼트 모던 리액트: https://react.vlpt.us/
 
-In the project directory, you can run:
+# 개발 기록
 
-### `npm start`
+### 20231205
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+1. react app 실행, 필요한 라이브러리 다운로드
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+-   'create-react-app' 실행 후 vscode 내에서 라이브러리 다운로드함
 
-### `npm test`
+### 20231206
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. 회사 PC 내에서 두 개의 깃 계정(회사, 개인)을 사용하기 위한 설정
 
-### `npm run build`
+-   https://onpul.tistory.com/entry/git-%ED%9A%8C%EC%82%AC-pc%EC%97%90%EC%84%9C-%EA%B3%84%EC%A0%95-%EB%91%90-%EA%B0%9C-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0-%EC%86%8C%EC%8A%A4%ED%8A%B8%EB%A6%AC%EC%97%90%EC%84%9C-%EA%B3%84%EC%A0%95-%EB%91%90-%EA%B0%9C-%EC%82%AC%EC%9A%A9
+-   소스트리 사용 없이 명령어로 푸쉬했을 때 확인
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### 20231209
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+1. 개인 PC에 해당 프로젝트 clone 및 환경세팅 완료
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### 20231211
 
-### `npm run eject`
+1. Routing
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+-   라우팅은 기본적으로 네트워크에서 경로를 선택하는 프로세스
+-   그냥 a 태그 사용하면 안 되나? -> a 태그 사용하면 페이지 전체가 새로 로딩된다. 화면 깜빡임이 필수적으로 발생하고, 이는 사용자 경험을 떨어뜨리는 큰 요인임.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+2. Redux
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+-   리액트에서 값이 변경되는 데이터를 state로 지정하고 특정 로직에 따라 변경하여 화면에 보여 줌.
+-   상태 값이 적을 때는 로컬에서 상태를 관리해도 충분하나, 컴포넌트가 많아질수록 상태값을 변경해야 한다면 너무 비효율적임.
+-   그리고 Props를 통해 상태값을 전달하게 된다면 코드의 가독성이 떨어지고 유지보수가 힘들어지게 됨.
+-   또한, state 변경 시 Props 전달 과정에서 불필요하게 관여된 컴포넌트들 또한 리렌더링이 발생함.
+-   따라서, Redux는 데이터를 하나의 공간에 모아 두고 데이터를 전역 상태로 관리할 수 있는 상태 관리 라이브러리임.
