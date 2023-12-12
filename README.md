@@ -6,9 +6,9 @@
    | | | 상태 관리 구조 | | |
    |:-:|:-:|:-:|:-:|:-:|
    | | | App <br/> (todos, onRemove, onToggle) | | |
-   | | ↙️ | ↓ | ↘️ | |
+   | | ↙️ | ⬇️ | ↘️ | |
    | TodoHead <br/> (undoneTasks) | | TodoList <br/> (todo, onRemove, onToggle) | | TodoCreate <br/>(onCreate) |
-   | | | ↓ | | |
+   | | | ⬇️ | | |
    | | | TodoItem | | |
 
 -   App 에서 todos 상태와, onToggle, onRemove, onCreate 함수를 지니고 있게 하고,
