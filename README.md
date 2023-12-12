@@ -3,10 +3,9 @@
 ## 프로젝트 구조
 
 1. 상태 관리 구조(v.0.0 / 20231211)
-   | | | | | |
    |:--------:|:---:|:--------:|:---:|:----------:|
    | | | App (todos, onRemove, onToggle) | | |
-   | | ↙️ | ↓ | ↘️ | |
+   | | ↙ | ↓ | ↘︎ | |
    | TodoHead (undoneTasks) | | TodoList (todo, onRemove, onToggle) | | TodoCreate (onCreate) |
    | | | ↓ | | |
    | | | TodoItem | | |
