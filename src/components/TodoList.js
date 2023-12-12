@@ -19,37 +19,33 @@ const TodoListBlock = styled.div`
 
 function TodoList() {
     const [todoData, setTodoData] = useState(null);
-    const [procData, setProcData] = useState(null);
 
     useEffect(() => {
-        console.log('>>>마운트<<<');
+        console.log('>>> 마운트 <<<');
 
-        const controller = new AbortController();
         const fetchTodoData = async () => {
             try {
-                setTodoData(null);
-                const resultData = axios.get(
-                    'https://jsonplaceholder.typicode.com/todos',
-                    { signal: controller.signal }
+                const response = await axios.get(
+                    'https://jsonplaceholder.typicode.com/todos'
                 );
                 console.log('>>> axios 요청 완료 <<<');
-                console.log(resultData.data);
-                setProcData(
-                    resultData.data.filter((todo) => todo.userId === 1)
+                // console.log(response.data);
+                const procData = response.data.filter(
+                    (todo) => todo.userId === 1
                 );
+                console.log(procData);
                 setTodoData(procData);
-
-                return () => {
-                    console.log('>>>언 마운트 및 axios 요청 취소');
-                    controller.abort();
-                };
             } catch (e) {
                 console.log(e);
             }
         };
 
         fetchTodoData();
-    }, [procData]);
+
+        return () => {
+            console.log('>>> 언마운트 <<<');
+        };
+    }, []);
     return (
         <TodoListBlock>
             {todoData &&
@@ -58,7 +54,7 @@ function TodoList() {
                         key={todo.id}
                         id={todo.id}
                         text={todo.title}
-                        done={todo.completed}
+                        done={todo.completed} // boolean 타입
                     />
                 ))}
         </TodoListBlock>
