@@ -59,11 +59,37 @@ const Text = styled.div`
 `;
 
 function TodoItem({ id, done, text }) {
+    const onRemove = () => {
+        console.log('삭제 버튼 클릭했음!');
+
+        const deleteTodoData = async (url = '', data = {}) => {
+            try {
+                const request = await fetch(url, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data),
+                });
+                console.log('>>> POST 요청 완료 <<<');
+                console.log(request);
+            } catch (e) {
+                console.log(e);
+            }
+        };
+
+        const url = `https://jsonplaceholder.typicode.com/todos/${id}`;
+        console.log('>>> url : ' + url + ' <<<');
+
+        deleteTodoData(url, { id: id }).then((response) => {
+            console.log(response);
+        });
+    };
     return (
         <TodoItemBlock>
             <CheckCircle $done={done}>{done && <MdDone />}</CheckCircle>
             <Text $done={done}>{text}</Text>
-            <Remove>
+            <Remove onClick={onRemove}>
                 <MdDelete />
             </Remove>
         </TodoItemBlock>
