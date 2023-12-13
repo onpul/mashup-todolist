@@ -68,3 +68,9 @@
 
 1. 기능 구현 중...
 2. 구글 스프레드 시트로 DB 연동해 보려 했으나, 망 차단돼서 그냥 mockend로 구축해 두고 추후 갈음해야겠다...
+
+## 참고 링크
+
+-   구글 클라우드: https://soojae.tistory.com/67
+-   구글 스프레드시트: https://www.npmjs.com/package/google-spreadsheet
+-   mockend: https://docs.mockend.com/rest#query
