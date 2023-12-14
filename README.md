@@ -62,7 +62,7 @@
 ## 이슈
 
 1. useEffect 두 번 호출되는 현상: 콘솔로 마운트, 언마운트 찍었을 때 두 번씩 호출 됨...
-2. 컴포넌트로 전달하는 props 가 html 에 해당하는 태그명이 아닐 때 prefix `&`를 붙여서 해결
+2. 컴포넌트로 전달하는 props 가 html 에 해당하는 태그명이 아닐 때 prefix `$`를 붙여서 해결
 
 ### 20231213
 
@@ -74,3 +74,11 @@
 -   구글 클라우드: https://soojae.tistory.com/67
 -   구글 스프레드시트: https://www.npmjs.com/package/google-spreadsheet
 -   mockend: https://docs.mockend.com/rest#query
+
+### 20231214
+
+## 참고 링크
+
+-   더미 데이터 JSON: https://jsonplaceholder.typicode.com/todos
+
+1. api 연동, 서버 연동 등 백 단은 스킵하고 클라이언드 단 위주로 먼저 완성해 보기

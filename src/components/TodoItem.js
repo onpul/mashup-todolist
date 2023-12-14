@@ -1,6 +1,7 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 import { MdDone, MdDelete } from 'react-icons/md';
+import { useTodoDispatch } from '../TodoContext';
 
 const Remove = styled.div`
     display: flex;
@@ -59,37 +60,17 @@ const Text = styled.div`
 `;
 
 function TodoItem({ id, done, text }) {
-    const onRemove = () => {
-        console.log('삭제 버튼 클릭했음!');
+    const dispatch = useTodoDispatch();
+    const onToggle = () => dispatch({ type: 'TOGGLE', id });
+    const onDelete = () => dispatch({ type: 'DELETE', id });
 
-        const deleteTodoData = async (url = '', data = {}) => {
-            try {
-                const request = await fetch(url, {
-                    method: 'DELETE',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(data),
-                });
-                console.log('>>> POST 요청 완료 <<<');
-                console.log(request);
-            } catch (e) {
-                console.log(e);
-            }
-        };
-
-        const url = `https://jsonplaceholder.typicode.com/todos/${id}`;
-        console.log('>>> url : ' + url + ' <<<');
-
-        deleteTodoData(url, { id: id }).then((response) => {
-            console.log(response);
-        });
-    };
     return (
         <TodoItemBlock>
-            <CheckCircle $done={done}>{done && <MdDone />}</CheckCircle>
+            <CheckCircle $done={done} onClick={onToggle}>
+                {done && <MdDone />}
+            </CheckCircle>
             <Text $done={done}>{text}</Text>
-            <Remove onClick={onRemove}>
+            <Remove onClick={onDelete}>
                 <MdDelete />
             </Remove>
         </TodoItemBlock>

@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import TodoItem from './TodoItem';
-import axios from 'axios';
+import { useTodoState } from '../TodoContext';
 
 const TodoListBlock = styled.div`
     flex: 1;
@@ -11,45 +11,17 @@ const TodoListBlock = styled.div`
 `;
 
 function TodoList() {
-    const [todoData, setTodoData] = useState(null);
+    const todoList = useTodoState();
+    console.log(todoList);
 
-    useEffect(() => {
-        console.log('>>> 마운트 <<<');
-
-        const fetchTodoData = async () => {
-            try {
-                const response = await axios.get(
-                    'https://jsonplaceholder.typicode.com/todos'
-                );
-                console.log('>>> axios 요청 완료 <<<');
-                // console.log(response.data);
-                // const procData = response.data.filter(
-                //     (todo) => todo.userId === 1
-                // );
-                const procData = response.data;
-                console.log(response);
-
-                // 바인딩 될 TODO 데이터 set
-                setTodoData(procData);
-            } catch (e) {
-                console.log(e);
-            }
-        };
-
-        fetchTodoData();
-
-        return () => {
-            console.log('>>> 언마운트 <<<');
-        };
-    }, []);
     return (
         <TodoListBlock>
-            {todoData &&
-                todoData.map((todo) => (
+            {todoList &&
+                todoList.map((todo) => (
                     <TodoItem
                         key={todo.id}
                         id={todo.id}
-                        text={todo.title}
+                        text={todo.content}
                         done={todo.completed} // boolean 타입
                     />
                 ))}
