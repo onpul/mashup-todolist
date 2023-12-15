@@ -74,7 +74,7 @@ function todoReducer(state, action) {
                     )
             );
             // return state;
-            return state.filter((todo) => todo.date === today);
+            return state.filter((todo) => todo.date === action.selectedDate);
 
         default:
             throw new Error(`Unhandled action type: ${action.type}`);
