@@ -5,6 +5,7 @@ import TodoHead from './components/TodoHead';
 import TodoList from './components/TodoList';
 import TodoCreate from './components/TodoCreate';
 import { TodoProvider } from './TodoContext';
+import CalendarTemplate from './components/CalendarTemplate';
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -14,14 +15,18 @@ const GlobalStyle = createGlobalStyle`
 
 function App() {
     return (
-        <TodoProvider>
-            <GlobalStyle />
-            <TodoTemplate>
-                <TodoHead />
-                <TodoList />
-                <TodoCreate />
-            </TodoTemplate>
-        </TodoProvider>
+        <>
+            {/* 캘린더 테스트용으로 일단 여기에 둠 */}
+            <TodoProvider>
+                <GlobalStyle />
+                <CalendarTemplate />
+                <TodoTemplate>
+                    <TodoHead />
+                    <TodoList />
+                    <TodoCreate />
+                </TodoTemplate>
+            </TodoProvider>
+        </>
     );
 }
 

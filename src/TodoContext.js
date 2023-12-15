@@ -1,37 +1,50 @@
 import React, { useRef, createContext, useContext, useReducer } from 'react';
+import moment from 'moment';
 
 const defaultTodoList = [
     {
         userId: 'onpul',
+        date: '2023-12-14',
         id: 1,
-        content: '고양이 츄르 주기',
-        completed: false,
+        content: '가습기 세척하기',
+        completed: true,
+        selectedDate: null,
     },
     {
         userId: 'onpul',
+        date: '2023-12-11',
         id: 2,
-        content: '떡볶이 사 먹기',
+        content: '쓰레기통 비우기',
         completed: false,
+        selectedDate: null,
     },
     {
         userId: 'onpul',
+        date: '2023-12-15',
         id: 3,
-        content: '헬스장 가서 하체 운동 하기',
+        content: '마우스, 키보드 전원 끄기',
         completed: false,
+        selectedDate: null,
     },
     {
         userId: 'onpul',
+        date: '2023-12-12',
         id: 4,
-        content: '선인장에 물 주기',
-        completed: true,
+        content: '리액트 운영 배포 확인하기',
+        completed: false,
+        selectedDate: null,
     },
     {
         userId: 'onpul',
+        date: '2023-12-15',
         id: 5,
-        content: '연말 계획 세우기',
+        content: '연차 일정 확인하기',
         completed: true,
+        selectedDate: null,
     },
 ];
+
+const today = moment().format('YYYY-MM-DD');
 
 function todoReducer(state, action) {
     switch (action.type) {
@@ -48,8 +61,23 @@ function todoReducer(state, action) {
                     ? { ...todo, completed: !todo.completed }
                     : todo
             );
+        case 'SELECT':
+            console.log('value : ' + JSON.stringify(state));
+            console.log('today : ' + today);
+            console.log('selectedDate : ' + action.selectedDate);
+            console.log(
+                'filter : ' +
+                    JSON.stringify(
+                        state.filter(
+                            (todo) => todo.date === action.selectedDate
+                        )
+                    )
+            );
+            // return state;
+            return state.filter((todo) => todo.date === today);
+
         default:
-            console.log('>>> error <<<');
+            throw new Error(`Unhandled action type: ${action.type}`);
     }
 }
 
@@ -72,13 +100,25 @@ export function TodoProvider({ children }) {
 }
 
 export function useTodoState() {
-    return useContext(TodoStateContext);
+    const context = useContext(TodoStateContext);
+    if (!context) {
+        throw new Error('Cannot find TodoProvider');
+    }
+    return context;
 }
 
 export function useTodoDispatch() {
-    return useContext(TodoDispatchContext);
+    const context = useContext(TodoDispatchContext);
+    if (!context) {
+        throw new Error('Cannot find TodoProvider');
+    }
+    return context;
 }
 
 export function useTodoNextId() {
-    return useContext(TodoNextIdContext);
+    const context = useContext(TodoNextIdContext);
+    if (!context) {
+        throw new Error('Cannot find TodoProvider');
+    }
+    return context;
 }
