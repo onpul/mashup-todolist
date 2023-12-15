@@ -50,10 +50,14 @@ function CalendarTemplate({ children }) {
         <div>
             <CalendarTemplateBlock>
                 <Calendar onChange={onChange} value={value} />
-                <hr />
                 <div>
                     <h3>테스트 필드</h3>
-                    <p></p>
+                    <ul>
+                        <li>
+                            선택한 날짜:{' '}
+                            {moment(value).format('YYYY-MM-DD').toString()}
+                        </li>
+                    </ul>
                 </div>
             </CalendarTemplateBlock>
         </div>

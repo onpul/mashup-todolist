@@ -12,7 +12,7 @@ const TodoListBlock = styled.div`
 
 function TodoList() {
     const todoList = useTodoState();
-    console.log(todoList);
+    // console.log(todoList);
 
     return (
         <TodoListBlock>

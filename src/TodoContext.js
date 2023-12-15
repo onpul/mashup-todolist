@@ -62,16 +62,17 @@ function todoReducer(state, action) {
                     : todo
             );
         case 'SELECT':
-            console.log('value : ' + JSON.stringify(state));
-            console.log('today : ' + today);
-            console.log('selectedDate : ' + action.selectedDate);
+            console.log('>>> 원본배열 : ' + JSON.stringify(state) + ' <<<');
+            console.log('>>> 오늘날짜 : ' + today + ' <<<');
+            console.log('>>> 선택한날짜 : ' + action.selectedDate + ' <<<');
             console.log(
-                'filter : ' +
+                '>>> 필터링된배열 : ' +
                     JSON.stringify(
                         state.filter(
                             (todo) => todo.date === action.selectedDate
                         )
-                    )
+                    ) +
+                    ' <<<'
             );
             // return state;
             return state.filter((todo) => todo.date === action.selectedDate);
