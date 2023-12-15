@@ -36,6 +36,7 @@ function CalendarTemplate({ children }) {
     const dispatch = useTodoDispatch();
 
     function onChange(nextValue) {
+        console.log('>>> CalendarTemplate.js 에서 onChange 호출 확인 <<<');
         setValue(nextValue);
         const sDate = moment(value).format('YYYY-MM-DD');
         console.log('sDate : ' + sDate);
