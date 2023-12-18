@@ -1,7 +1,12 @@
 import React, { useState } from 'react';
 import styled, { css } from 'styled-components';
 import { MdAdd } from 'react-icons/md';
-import { useTodoDispatch, useTodoNextId } from '../TodoContext';
+import {
+    useTodoState,
+    useTodoDispatch,
+    useTodoNextId,
+    useTodoDate,
+} from '../TodoContext';
 
 const CircleButton = styled.button`
     background: #38d9a9;
@@ -82,18 +87,25 @@ function TodoCreate() {
 
     const dispatch = useTodoDispatch();
     const nextId = useTodoNextId();
+    const todoDate = useTodoDate();
+
+    const { todo } = useTodoState();
 
     const onToggle = () => setOpen(!open);
     const onChange = (e) => setValue(e.target.value);
     const onSubmit = () => {
-        dispatch({
-            type: 'CREATE',
-            todo: {
-                id: nextId.current,
-                content: value,
-                completed: false,
+        dispatch(
+            {
+                type: 'CREATE',
+                todo: {
+                    id: nextId.current,
+                    content: value,
+                    completed: false,
+                    date: todoDate.current, // TODO: 일단 디폴트는 당일
+                },
             },
-        });
+            [todo]
+        );
         console.log('nextId : ' + nextId.current);
         console.log('text : ' + value);
         setValue('');

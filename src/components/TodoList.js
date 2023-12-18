@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import TodoItem from './TodoItem';
-import { useTodoState } from '../TodoContext';
+import { useTodoState, useTodoDate } from '../TodoContext';
 
 const TodoListBlock = styled.div`
     flex: 1;
@@ -11,13 +11,21 @@ const TodoListBlock = styled.div`
 `;
 
 function TodoList() {
-    const todoList = useTodoState();
-    // console.log(todoList);
+    const state = useTodoState();
+    const todoList = state.todos;
+    console.log('>>> todoList : ' + JSON.stringify(todoList) + ' <<<');
 
+    const todoDate = useTodoDate();
+    console.log('>>> todoDate : ' + todoDate.current + ' <<<');
+
+    const filteredList = todoList.filter(
+        (todo) => todo.date === todoDate.current
+    );
+    // console.log('>>> filteredList : ' + JSON.stringify(filteredList) + ' <<<');
     return (
         <TodoListBlock>
-            {todoList &&
-                todoList.map((todo) => (
+            {filteredList &&
+                filteredList.map((todo) => (
                     <TodoItem
                         key={todo.id}
                         id={todo.id}

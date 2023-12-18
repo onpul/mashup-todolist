@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Calendar from 'react-calendar';
 import styled from 'styled-components';
 import 'react-calendar/dist/Calendar.css';
-import { useTodoDispatch } from '../TodoContext';
+import { useTodoDate, useTodoDispatch, useTodoState } from '../TodoContext';
 import moment from 'moment';
 
 const CalendarTemplateBlock = styled.div`
@@ -32,18 +32,25 @@ function CalendarTemplate({ children }) {
             </div>
         );
      */
-    const [value, setValue] = useState(new Date());
     const dispatch = useTodoDispatch();
-
-    function onChange(nextValue) {
-        console.log('>>> CalendarTemplate.js 에서 onChange 호출 확인 <<<');
-        setValue(nextValue);
+    const todoDate = useTodoDate();
+    const todoList = useTodoState();
+    const [value, setValue] = useState(new Date());
+    function onChange(value) {
+        // console.log('>>> CalendarTemplate.js 에서 onChange 호출 확인 <<<');
+        setValue(value);
+        // console.log('value : ' + value);
         const sDate = moment(value).format('YYYY-MM-DD');
-        console.log('sDate : ' + sDate);
-        dispatch({
-            type: 'SELECT',
-            selectedDate: sDate,
-        });
+        // console.log('sDate : ' + sDate);
+        todoDate.current = sDate;
+        dispatch(
+            {
+                type: 'SELECT',
+                selectedDate: sDate,
+            },
+            []
+        );
+        console.log('todoDate : ' + todoDate.current);
     }
 
     return (
@@ -57,6 +64,7 @@ function CalendarTemplate({ children }) {
                             선택한 날짜:{' '}
                             {moment(value).format('YYYY-MM-DD').toString()}
                         </li>
+                        <li>원본 리스트: {JSON.stringify(todoList.todos)}</li>
                     </ul>
                 </div>
             </CalendarTemplateBlock>
