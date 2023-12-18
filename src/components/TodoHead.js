@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useTodoState } from '../TodoContext';
+import { useTodoDate, useTodoState } from '../TodoContext';
+import moment from 'moment';
+import 'moment/locale/ko';
 
 const TodoHeadBlock = styled.div`
     padding-top: 48px;
@@ -27,20 +29,23 @@ const TodoHeadBlock = styled.div`
 `;
 
 function TodoHead() {
-    const todoItems = useTodoState();
-    const undoneTasks = todoItems.filter((todo) => !todo.completed);
+    const todoDate = useTodoDate();
+    const state = useTodoState();
+    const todoItems = state.todos;
+    console.log('>>> state : ' + JSON.stringify(state) + ' <<<');
+    const filteredItems = todoItems.filter(
+        (todo) => todo.date === todoDate.current
+    );
+    console.log(
+        '>>> filteredItems : ' + JSON.stringify(filteredItems) + ' <<<'
+    );
+    const undoneTasks = filteredItems.filter((todo) => !todo.completed);
 
-    const today = new Date();
-    const dateString = today.toLocaleDateString('to-KR', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-    });
-    const dayName = today.toLocaleDateString('ko-KR', { weekday: 'long' });
+    // const dayName = today.toLocaleDateString('ko-KR', { weekday: 'long' });
     return (
         <TodoHeadBlock>
-            <h1>{dateString}</h1>
-            <div className="day">{dayName}</div>
+            <h1>{moment(todoDate.current).format('LL')}</h1>
+            <div className="day">{moment(todoDate.current).format('dddd')}</div>
             <div className="tasks-left">할 일 {undoneTasks.length}개 남음</div>
         </TodoHeadBlock>
     );
