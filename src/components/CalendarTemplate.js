@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Calendar from 'react-calendar';
 import styled from 'styled-components';
 import 'react-calendar/dist/Calendar.css';
-import { useTodoDate, useTodoDispatch, useTodoState } from '../TodoContext';
+import { useTodoDate, useTodoDispatch } from '../TodoContext';
 import moment from 'moment';
 
 const CalendarTemplateBlock = styled.div`
@@ -23,12 +23,8 @@ const CalendarTemplateBlock = styled.div`
 `;
 
 function CalendarTemplate({ children }) {
-    // 캘린더용 context 재구성 테스트중... 넘 어렵다
     const dispatch = useTodoDispatch();
-
-    // const dispatch = useTodoDispatch();
     const todoDate = useTodoDate();
-    const todoList = useTodoState();
     const [value, setValue] = useState(new Date());
     function onChange(value) {
         setValue(value);
@@ -47,18 +43,6 @@ function CalendarTemplate({ children }) {
         <div>
             <CalendarTemplateBlock>
                 <Calendar onChange={onChange} value={value} />
-                {/* <div>
-                    <h3>테스트 필드</h3>
-                    <ul>
-                        <li>
-                            선택한 날짜:{' '}
-                            {moment(value).format('YYYY-MM-DD').toString()}
-                        </li>
-                        <li>
-                            원본 리스트: {JSON.stringify(todoList.todoItem)}
-                        </li>
-                    </ul>
-                </div> */}
             </CalendarTemplateBlock>
         </div>
     );
