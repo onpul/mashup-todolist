@@ -16,7 +16,6 @@ const GlobalStyle = createGlobalStyle`
 function App() {
     return (
         <>
-            {/* 캘린더 테스트용으로 일단 여기에 둠 */}
             <TodoProvider>
                 <GlobalStyle />
                 <CalendarTemplate />
