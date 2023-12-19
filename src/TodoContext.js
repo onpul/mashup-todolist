@@ -7,8 +7,80 @@ const todoListData = {
     todoItem: [
         {
             userId: 'onpul',
-            date: '2023-12-14',
+            date: '2023-12-19',
             id: 1,
+            content: '투두 리스트 어쩌구',
+            completed: false,
+            selectedDate: null,
+        },
+        {
+            userId: 'onpul',
+            date: '2023-12-20',
+            id: 2,
+            content: '투두 더미데이터 어쩌구',
+            completed: true,
+            selectedDate: null,
+        },
+        {
+            userId: 'onpul',
+            date: '2023-12-19',
+            id: 3,
+            content: '맛있는 거 먹기 어쩌구',
+            completed: false,
+            selectedDate: null,
+        },
+        {
+            userId: 'onpul',
+            date: '2023-12-19',
+            id: 4,
+            content: '집에 가고싶다 어쩌구',
+            completed: true,
+            selectedDate: null,
+        },
+        {
+            userId: 'onpul',
+            date: '2023-12-21',
+            id: 5,
+            content: '어쩌구 저쩌구',
+            completed: true,
+            selectedDate: null,
+        },
+        {
+            userId: 'onpul',
+            date: '2023-12-19',
+            id: 6,
+            content: '어쩌구 저쩌구 어쩌구 저쩌구',
+            completed: true,
+            selectedDate: null,
+        },
+        {
+            userId: 'onpul',
+            date: '2023-12-13',
+            id: 7,
+            content: '어쩌구 저쩌구 어쩌구 저쩌구',
+            completed: true,
+            selectedDate: null,
+        },
+        {
+            userId: 'onpul',
+            date: '2023-12-24',
+            id: 8,
+            content: '어쩌구 저쩌구 어쩌구 저쩌구',
+            completed: true,
+            selectedDate: null,
+        },
+        {
+            userId: 'onpul',
+            date: '2023-12-24',
+            id: 9,
+            content: '어쩌구 저쩌구 어쩌구 저쩌구',
+            completed: true,
+            selectedDate: null,
+        },
+        {
+            userId: 'onpul',
+            date: '2023-12-20',
+            id: 10,
             content: '가습기 세척하기',
             completed: true,
             selectedDate: null,
@@ -16,7 +88,7 @@ const todoListData = {
         {
             userId: 'onpul',
             date: '2023-12-11',
-            id: 2,
+            id: 11,
             content: '쓰레기통 비우기',
             completed: false,
             selectedDate: null,
@@ -24,7 +96,7 @@ const todoListData = {
         {
             userId: 'onpul',
             date: '2023-12-15',
-            id: 3,
+            id: 12,
             content: '마우스, 키보드 전원 끄기',
             completed: false,
             selectedDate: null,
@@ -32,7 +104,7 @@ const todoListData = {
         {
             userId: 'onpul',
             date: '2023-12-18',
-            id: 4,
+            id: 13,
             content: '리액트 운영 배포 확인하기',
             completed: false,
             selectedDate: null,
@@ -40,7 +112,15 @@ const todoListData = {
         {
             userId: 'onpul',
             date: '2023-12-15',
-            id: 5,
+            id: 14,
+            content: '연차 일정 확인하기',
+            completed: true,
+            selectedDate: null,
+        },
+        {
+            userId: 'onpul',
+            date: '2023-12-15',
+            id: 15,
             content: '연차 일정 확인하기',
             completed: true,
             selectedDate: null,
@@ -94,7 +174,7 @@ export function TodoProvider({ children }) {
 
     // alert(typeof dispatch);
     // 디스패치는 함수다
-    const nextId = useRef(6);
+    const nextId = useRef(todoListData.todoItem.length);
     const todoDate = useRef(todayDate);
     return (
         <TodoStateContext.Provider value={state}>

@@ -47,7 +47,7 @@ function CalendarTemplate({ children }) {
         <div>
             <CalendarTemplateBlock>
                 <Calendar onChange={onChange} value={value} />
-                <div>
+                {/* <div>
                     <h3>테스트 필드</h3>
                     <ul>
                         <li>
@@ -58,7 +58,7 @@ function CalendarTemplate({ children }) {
                             원본 리스트: {JSON.stringify(todoList.todoItem)}
                         </li>
                     </ul>
-                </div>
+                </div> */}
             </CalendarTemplateBlock>
         </div>
     );
