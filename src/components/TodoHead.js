@@ -31,7 +31,7 @@ const TodoHeadBlock = styled.div`
 function TodoHead() {
     const todoDate = useTodoDate();
     const state = useTodoState();
-    const todoItems = state.todos;
+    const todoItems = state.todoItem;
     console.log('>>> state : ' + JSON.stringify(state) + ' <<<');
     const filteredItems = todoItems.filter(
         (todo) => todo.date === todoDate.current
@@ -40,8 +40,6 @@ function TodoHead() {
         '>>> filteredItems : ' + JSON.stringify(filteredItems) + ' <<<'
     );
     const undoneTasks = filteredItems.filter((todo) => !todo.completed);
-
-    // const dayName = today.toLocaleDateString('ko-KR', { weekday: 'long' });
     return (
         <TodoHeadBlock>
             <h1>{moment(todoDate.current).format('LL')}</h1>

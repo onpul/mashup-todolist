@@ -23,25 +23,16 @@ const CalendarTemplateBlock = styled.div`
 `;
 
 function CalendarTemplate({ children }) {
-    /**
-        const [value, onChange] = useState(new Date());
-
-        return (
-            <div>
-            <Calendar onChange={onChange} value={value} />
-            </div>
-        );
-     */
+    // 캘린더용 context 재구성 테스트중... 넘 어렵다
     const dispatch = useTodoDispatch();
+
+    // const dispatch = useTodoDispatch();
     const todoDate = useTodoDate();
     const todoList = useTodoState();
     const [value, setValue] = useState(new Date());
     function onChange(value) {
-        // console.log('>>> CalendarTemplate.js 에서 onChange 호출 확인 <<<');
         setValue(value);
-        // console.log('value : ' + value);
         const sDate = moment(value).format('YYYY-MM-DD');
-        // console.log('sDate : ' + sDate);
         todoDate.current = sDate;
         dispatch(
             {
@@ -50,7 +41,6 @@ function CalendarTemplate({ children }) {
             },
             []
         );
-        console.log('todoDate : ' + todoDate.current);
     }
 
     return (
@@ -64,7 +54,9 @@ function CalendarTemplate({ children }) {
                             선택한 날짜:{' '}
                             {moment(value).format('YYYY-MM-DD').toString()}
                         </li>
-                        <li>원본 리스트: {JSON.stringify(todoList.todos)}</li>
+                        <li>
+                            원본 리스트: {JSON.stringify(todoList.todoItem)}
+                        </li>
                     </ul>
                 </div>
             </CalendarTemplateBlock>

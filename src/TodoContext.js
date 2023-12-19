@@ -1,8 +1,10 @@
 import React, { useRef, createContext, useContext, useReducer } from 'react';
 import moment from 'moment';
 
-const defaultTodoList = {
-    todos: [
+const todayDate = moment().format('YYYY-MM-DD');
+const todoListData = {
+    selectedDate: todayDate,
+    todoItem: [
         {
             userId: 'onpul',
             date: '2023-12-14',
@@ -46,60 +48,28 @@ const defaultTodoList = {
     ],
 };
 
-const todayDate = moment().format('YYYY-MM-DD');
-
 function todoReducer(state, action) {
-    console.log(
-        '>>> 리듀서 진입, 원본 배열 : ' + JSON.stringify(state.todos) + ' <<<'
-    );
     switch (action.type) {
         case 'CREATE':
-            console.log(
-                'CREATE 결과 : ' +
-                    JSON.stringify(state.todos.concat(action.todo))
-            );
-            return { ...state, todos: state.todos.concat(action.todo) };
-        // case 'READ':
-        //     return state;
+            return { ...state, todoItem: state.todoItem.concat(action.todo) };
         case 'DELETE':
             return {
                 ...state,
-                todos: state.todos.filter((todo) => todo.id !== action.id),
+                todoItem: state.todoItem.filter(
+                    (todo) => todo.id !== action.id
+                ),
             };
         case 'TOGGLE':
             return {
                 ...state,
-                todos: state.todos.map((todo) =>
+                todoItem: state.todoItem.map((todo) =>
                     todo.id === action.id
                         ? { ...todo, completed: !todo.completed }
                         : todo
                 ),
             };
         case 'SELECT':
-            // console.log(
-            //     '>>> 원본배열 : ' + JSON.stringify(state.todos) + ' <<<'
-            // );
-            // console.log('>>> 오늘날짜 : ' + todayDate + ' <<<');
-            // console.log('>>> 선택한날짜 : ' + action.selectedDate + ' <<<');
-            // console.log(
-            //     '>>> 필터링된배열 : ' +
-            //         JSON.stringify(
-            //             state.todos.filter(
-            //                 (todo) => todo.date === action.selectedDate
-            //             )
-            //         ) +
-            //         ' <<<'
-            // );
-            console.log(
-                '>>> 원본배열 : ' + JSON.stringify(state.todos) + ' <<<'
-            );
-
-            return {
-                ...state,
-                todos: state.todos.filter(
-                    (todo) => todo.date === action.selectedDate
-                ),
-            };
+            return { ...state };
         default:
             return state;
     }
@@ -110,8 +80,20 @@ const TodoDispatchContext = createContext();
 const TodoNextIdContext = createContext();
 const TodoDateContext = createContext();
 
+/**
+ * 투두 전역 관리용
+ * @param {*} param0
+ * @returns
+ */
 export function TodoProvider({ children }) {
-    const [state, dispatch] = useReducer(todoReducer, defaultTodoList);
+    const [state, dispatch] = useReducer(todoReducer, todoListData);
+    // 리듀서를 통해 리턴하는 값이 state 를 바꾸고 있음
+    // 그래서 날짜 선택해서 필터링 하면 state 원본 배열도 바뀜 ㅠㅠ
+    console.log('>>> TodoProvider <<<');
+    console.log(JSON.stringify(todoListData));
+
+    // alert(typeof dispatch);
+    // 디스패치는 함수다
     const nextId = useRef(6);
     const todoDate = useRef(todayDate);
     return (
