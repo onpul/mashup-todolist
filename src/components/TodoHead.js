@@ -32,13 +32,10 @@ function TodoHead() {
     const todoDate = useTodoDate();
     const state = useTodoState();
     const todoItems = state.todoItem;
-    console.log('>>> state : ' + JSON.stringify(state) + ' <<<');
     const filteredItems = todoItems.filter(
         (todo) => todo.date === todoDate.current
     );
-    console.log(
-        '>>> filteredItems : ' + JSON.stringify(filteredItems) + ' <<<'
-    );
+
     const undoneTasks = filteredItems.filter((todo) => !todo.completed);
     return (
         <TodoHeadBlock>

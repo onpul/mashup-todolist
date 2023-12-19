@@ -13,15 +13,12 @@ const TodoListBlock = styled.div`
 function TodoList() {
     const state = useTodoState();
     const todoList = state.todoItem;
-    console.log('>>> todoList : ' + JSON.stringify(todoList) + ' <<<');
 
     const todoDate = useTodoDate();
-    console.log('>>> todoDate : ' + todoDate.current + ' <<<');
 
     const filteredList = todoList.filter(
         (todo) => todo.date === todoDate.current
     );
-    console.log('>>> filteredList : ' + JSON.stringify(filteredList) + ' <<<');
     return (
         <TodoListBlock>
             {filteredList &&

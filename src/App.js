@@ -10,6 +10,7 @@ import CalendarTemplate from './components/CalendarTemplate';
 const GlobalStyle = createGlobalStyle`
   body {
     background: #e9ecef;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   }
 `;
 

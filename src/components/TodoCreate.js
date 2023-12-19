@@ -101,13 +101,13 @@ function TodoCreate() {
                     id: nextId.current,
                     content: value,
                     completed: false,
-                    date: todoDate.current, // TODO: 일단 디폴트는 당일
+                    date: todoDate.current, // 선택한 날짜, 전역값으로 관리됨
                 },
             },
             [todo]
         );
-        console.log('nextId : ' + nextId.current);
-        console.log('text : ' + value);
+        // console.log('nextId : ' + nextId.current);
+        // console.log('text : ' + value);
         setValue('');
         setOpen(false);
         nextId.current += 1;
