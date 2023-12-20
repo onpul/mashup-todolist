@@ -5212,7 +5212,7 @@ get-user-locale@^2.2.1:
 
 gh-pages@^6.1.0:
   version "6.1.0"
-  resolved "https://registry.npmjs.org/gh-pages/-/gh-pages-6.1.0.tgz"
+  resolved "https://registry.yarnpkg.com/gh-pages/-/gh-pages-6.1.0.tgz#e842426edf8bc19f1209ac6ba7af10cda35383ea"
   integrity sha512-MdXigvqN3I66Y+tAZsQJMzpBWQOI1snD6BYuECmP+GEdryYMMOQvzn4AConk/+qNg/XIuQhB1xNGrl3Rmj1iow==
   dependencies:
     async "^3.2.4"
