@@ -6,7 +6,7 @@ import { useTodoState, useTodoDate, useTodoDispatch } from '../TodoContext';
 import moment from 'moment';
 
 const CalendarTemplateBlock = styled.div`
-    width: 512px;
+    width: auto;
     height: auto;
 
     position: relative;
@@ -14,12 +14,9 @@ const CalendarTemplateBlock = styled.div`
     border-radius: 16px;
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.04);
 
-    margin: 0 auto; // 페이지 중앙 정렬
+    margin: 10px;
 
     align-items: center; // 컨텐츠 중앙 정렬
-
-    margin-top: 96px;
-    margin-bottom: 32px;
     display: flex;
     flex-direction: column;
 `;
