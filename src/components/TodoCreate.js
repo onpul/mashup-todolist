@@ -9,12 +9,12 @@ import {
 } from '../TodoContext';
 
 const CircleButton = styled.button`
-    background: #38d9a9;
+    background: #2e8b57;
     &:hover {
-        background: #63e6be;
+        background: #ffffa9;
     }
     &:active {
-        background: #20c997;
+        background: #2e8b57;
     }
 
     z-index: 5;

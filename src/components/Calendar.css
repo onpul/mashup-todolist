@@ -3,19 +3,19 @@
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
         'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
         'Helvetica Neue', sans-serif !important;
-    abbr {
-        text-decoration: none !important;
-    }
+}
+/* 달력 요일부분 밑줄 표시 없애기 */
+abbr {
+    text-decoration: none !important;
 }
 .react-calendar {
-    max-width: 100%;
+    width: 100%;
     background: white;
     border-radius: 16px;
     position: relative;
     line-height: 1.125em;
     height: auto;
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.04);
-    margin: 0 auto;
     align-items: center;
     padding-top: 48px;
     padding-bottom: 24px;
@@ -27,7 +27,7 @@
 
 .highlight {
     .todo {
-        color: #20c997;
+        color: #2e8b57;
     }
 }
 
@@ -66,12 +66,16 @@
 
 .react-calendar__navigation {
     display: flex;
+    /* flex-direction: row;
+    flex-wrap: nowrap;
     height: 44px;
     margin-bottom: 1em;
+    align-items: flex-start;
+    justify-content: center; */
 }
 
 .react-calendar__navigation button {
-    font-size: 36px;
+    font-size: 24px;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
         'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
         'Helvetica Neue', sans-serif;
@@ -140,10 +144,12 @@
 }
 
 .react-calendar__tile--now {
-    background: #20c997 !important;
+    background: #2e8b57 !important;
+    color: white !important;
 }
 .today {
-    color: black !important;
+    font-weight: bold;
+    color: white !important;
 }
 
 .react-calendar__tile:enabled:hover,

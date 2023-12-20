@@ -6,9 +6,11 @@ import TodoList from './components/TodoList';
 import TodoCreate from './components/TodoCreate';
 import { TodoProvider } from './TodoContext';
 import CalendarTemplate from './components/CalendarTemplate';
+import HeaderTemplate from './components/HeaderTemplate';
 
 const GlobalStyle = createGlobalStyle`
   body {
+    width: 100%;
     background: #e9ecef;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   }
@@ -19,6 +21,7 @@ function App() {
         <>
             <TodoProvider>
                 <GlobalStyle />
+                <HeaderTemplate />
                 <CalendarTemplate />
                 <TodoTemplate>
                     <TodoHead />
