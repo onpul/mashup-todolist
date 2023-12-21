@@ -7,6 +7,9 @@
 /* 달력 요일부분 밑줄 표시 없애기 */
 abbr {
     text-decoration: none !important;
+    .weekday {
+        color: black !important;
+    }
 }
 .react-calendar {
     width: 100%;
@@ -55,6 +58,9 @@ abbr {
 }
 
 .react-calendar button {
+    .weekday {
+        color: black;
+    }
     margin: 0;
     border: 0;
     outline: none;
@@ -78,8 +84,7 @@ abbr {
         'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
         'Helvetica Neue', sans-serif;
     font-weight: bold;
-    color: #343a40;
-
+    /* color: #343a40; */
     background: none;
 }
 
@@ -113,7 +118,19 @@ abbr {
 }
 
 .react-calendar__month-view__days__day--weekend {
-    color: #d10000;
+    color: red;
+}
+
+.saturday {
+    color: blue;
+}
+
+.sunday {
+    color: red;
+}
+
+.weekday {
+    color: black !important;
 }
 
 .react-calendar__month-view__days__day--neighboringMonth {
@@ -166,13 +183,13 @@ abbr {
 
 .react-calendar__tile--hasActive {
     border-radius: 12px;
-    background: #76baff;
+    /* background: #76baff; */
 }
 
 .react-calendar__tile--hasActive:enabled:hover,
 .react-calendar__tile--hasActive:enabled:focus {
     border-radius: 12px;
-    background: #a9d4ff;
+    /* background: #a9d4ff; */
 }
 
 .react-calendar__tile--active {

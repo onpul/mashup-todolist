@@ -65,6 +65,16 @@ function CalendarTemplate({ children }) {
                                     )
                                 ) {
                                     className.push('highlight');
+                                } else if (
+                                    moment(date).format('dddd') === '토요일'
+                                ) {
+                                    className.push('saturday');
+                                } else if (
+                                    moment(date).format('dddd') === '일요일'
+                                ) {
+                                    className.push('sunday');
+                                } else {
+                                    className.push('weekday');
                                 }
                                 return className;
                             }}
@@ -74,7 +84,7 @@ function CalendarTemplate({ children }) {
                                 ) {
                                     return (
                                         <>
-                                            <abbr className="today">today</abbr>
+                                            <abbr className="today">오늘</abbr>
                                         </>
                                     );
                                 } else if (
@@ -86,19 +96,15 @@ function CalendarTemplate({ children }) {
                                 ) {
                                     return (
                                         <>
-                                            <abbr className="todo">●</abbr>
-                                        </>
-                                    );
-                                } else {
-                                    return (
-                                        <>
-                                            <abbr className=""> </abbr>
+                                            <p className="todo">●</p>
                                         </>
                                     );
                                 }
                             }}
                             next2Label={null}
                             prev2Label={null}
+                            shouldCloseOnSelect
+                            minDate={new Date('2020-01-01')}
                             onChange={onChange}
                             value={value}
                         />
