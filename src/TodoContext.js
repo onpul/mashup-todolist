@@ -4,6 +4,7 @@ import moment from 'moment';
 const todayDate = moment().format('YYYY-MM-DD');
 const todoListData = {
     selectedDate: todayDate,
+    showCalendar: false,
     todoItem: [
         {
             userId: 'onpul',
@@ -11,7 +12,6 @@ const todoListData = {
             id: 1,
             content: '투두 리스트 어쩌구',
             completed: false,
-            selectedDate: null,
         },
         {
             userId: 'onpul',
@@ -19,7 +19,6 @@ const todoListData = {
             id: 2,
             content: '투두 더미데이터 어쩌구',
             completed: true,
-            selectedDate: null,
         },
         {
             userId: 'onpul',
@@ -27,7 +26,6 @@ const todoListData = {
             id: 3,
             content: '맛있는 거 먹기 어쩌구',
             completed: false,
-            selectedDate: null,
         },
         {
             userId: 'onpul',
@@ -35,7 +33,6 @@ const todoListData = {
             id: 4,
             content: '집에 가고싶다 어쩌구',
             completed: true,
-            selectedDate: null,
         },
         {
             userId: 'onpul',
@@ -43,7 +40,6 @@ const todoListData = {
             id: 5,
             content: '어쩌구 저쩌구',
             completed: true,
-            selectedDate: null,
         },
         {
             userId: 'onpul',
@@ -51,7 +47,6 @@ const todoListData = {
             id: 6,
             content: '어쩌구 저쩌구 어쩌구 저쩌구',
             completed: true,
-            selectedDate: null,
         },
         {
             userId: 'onpul',
@@ -59,7 +54,6 @@ const todoListData = {
             id: 7,
             content: '어쩌구 저쩌구 어쩌구 저쩌구',
             completed: true,
-            selectedDate: null,
         },
         {
             userId: 'onpul',
@@ -67,7 +61,6 @@ const todoListData = {
             id: 8,
             content: '어쩌구 저쩌구 어쩌구 저쩌구',
             completed: true,
-            selectedDate: null,
         },
         {
             userId: 'onpul',
@@ -75,7 +68,6 @@ const todoListData = {
             id: 9,
             content: '어쩌구 저쩌구 어쩌구 저쩌구',
             completed: true,
-            selectedDate: null,
         },
         {
             userId: 'onpul',
@@ -83,7 +75,6 @@ const todoListData = {
             id: 10,
             content: '가습기 세척하기',
             completed: true,
-            selectedDate: null,
         },
         {
             userId: 'onpul',
@@ -91,7 +82,6 @@ const todoListData = {
             id: 11,
             content: '쓰레기통 비우기',
             completed: false,
-            selectedDate: null,
         },
         {
             userId: 'onpul',
@@ -99,7 +89,6 @@ const todoListData = {
             id: 12,
             content: '마우스, 키보드 전원 끄기',
             completed: false,
-            selectedDate: null,
         },
         {
             userId: 'onpul',
@@ -107,7 +96,6 @@ const todoListData = {
             id: 13,
             content: '리액트 운영 배포 확인하기',
             completed: false,
-            selectedDate: null,
         },
         {
             userId: 'onpul',
@@ -115,7 +103,6 @@ const todoListData = {
             id: 14,
             content: '연차 일정 확인하기',
             completed: true,
-            selectedDate: null,
         },
         {
             userId: 'onpul',
@@ -123,7 +110,6 @@ const todoListData = {
             id: 15,
             content: '연차 일정 확인하기',
             completed: true,
-            selectedDate: null,
         },
     ],
 };
@@ -148,8 +134,18 @@ function todoReducer(state, action) {
                         : todo
                 ),
             };
-        case 'SELECT':
-            return { ...state };
+        case 'SELECTDATE':
+            return { ...state, selectedDate: action.selectedDate };
+        case 'SHOWCALENDAR':
+            console.log(
+                '여기는리듀서임 selectedDate는 >>> ' +
+                    JSON.stringify(action.selectedDate)
+            );
+            return {
+                ...state,
+                showCalendar: action.showCalendar,
+                selectedDate: action.selectedDate,
+            };
         default:
             return state;
     }
@@ -159,6 +155,7 @@ const TodoStateContext = createContext();
 const TodoDispatchContext = createContext();
 const TodoNextIdContext = createContext();
 const TodoDateContext = createContext();
+const CalendarShowContext = createContext();
 
 /**
  * 투두 전역 관리용
@@ -215,6 +212,14 @@ export function useTodoNextId() {
 
 export function useTodoDate(params) {
     const context = useContext(TodoDateContext);
+    if (!context) {
+        throw new Error('Cannot find TodoProvider');
+    }
+    return context;
+}
+
+export function useShowCalender() {
+    const context = useContext(CalendarShowContext);
     if (!context) {
         throw new Error('Cannot find TodoProvider');
     }
