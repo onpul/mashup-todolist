@@ -1,5 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
+// import {}, from 'react-icons/md';
+import { useTodoDispatch, useTodoState, useTodoDate } from '../TodoContext';
+import moment from 'moment';
 
 const HeaderTemplateBlock = styled.div`
     width: auto;
@@ -24,8 +27,9 @@ const StyledButton = styled.button`
     border-radius: 5px;
     height: 80%;
     width: auto;
-    background: #2e8b57;
+    background: #2efe9a;
     margin: 2px;
+    cursor: pointer;
 `;
 
 /**
@@ -38,11 +42,49 @@ const StyledButton = styled.button`
  * - 달력버튼 눌렀을 때 달력 노출되도록 구현해보기(디폴트는 해당일의 투두임)
  */
 function HeaderTemplate({ children }) {
+    const state = useTodoState();
+    const dispatch = useTodoDispatch();
+    const todoDate = useTodoDate();
+
+    const showState = state.showCalendar ? '달력숨기기' : '달력보기';
+    function toggleCalendar() {
+        if (state.showCalendar) {
+            dispatch(
+                {
+                    type: 'SHOWCALENDAR',
+                    showCalendar: false,
+                },
+                []
+            );
+        } else {
+            todoDate.current = moment().format('YYYY-MM-DD');
+            dispatch(
+                {
+                    type: 'SHOWCALENDAR',
+                    showCalendar: true,
+                    selectedDate: moment().format('YYYY-MM-DD'),
+                },
+                []
+            );
+        }
+    }
+    function showTotalTodo() {
+        todoDate.current = null;
+        dispatch(
+            {
+                type: 'SELECTDATE',
+                selectedDate: '전체보기',
+            },
+            []
+        );
+    }
     return (
         <div>
             <HeaderTemplateBlock>
-                <StyledButton>달력보기</StyledButton>
-                <StyledButton>전체일정보기</StyledButton>
+                <StyledButton onClick={toggleCalendar}>
+                    {showState}
+                </StyledButton>
+                <StyledButton onClick={showTotalTodo}>전체보기</StyledButton>
             </HeaderTemplateBlock>
         </div>
     );

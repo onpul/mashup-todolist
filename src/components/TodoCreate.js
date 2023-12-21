@@ -9,13 +9,13 @@ import {
 } from '../TodoContext';
 
 const CircleButton = styled.button`
-    background: #2e8b57;
-    &:hover {
+    background: #2efe9a;
+    /* &:hover {
         background: #ffffa9;
     }
     &:active {
-        background: #2e8b57;
-    }
+        background: #2efe9a;
+    } */
 
     z-index: 5;
     cursor: pointer;
@@ -37,18 +37,18 @@ const CircleButton = styled.button`
     align-items: center;
     justify-content: center;
 
-    transition: 0.125s all ease-in;
+    /* transition: 0.125s all ease-in; */
     ${(props) =>
         props.open &&
         css`
             background: #ff6b6b;
-            &:hover {
+            /* &:hover {
                 background: #ff8787;
-            }
-            &:active {
+            } */
+            /* &:active {
                 background: #fa5252;
-            }
-            transform: translate(-50%, 50%) rotate(45deg);
+            } */
+            /* transform: translate(-50%, 50%) rotate(45deg); */
         `}
 `;
 

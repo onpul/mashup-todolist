@@ -15,10 +15,15 @@ function TodoList() {
     const todoList = state.todoItem;
 
     const todoDate = useTodoDate();
+    let filteredList = null;
+    if (todoDate.current !== null) {
+        filteredList = todoList.filter(
+            (todo) => todo.date === todoDate.current
+        );
+    } else if (todoDate.current === null) {
+        filteredList = todoList;
+    }
 
-    const filteredList = todoList.filter(
-        (todo) => todo.date === todoDate.current
-    );
     return (
         <TodoListBlock>
             {filteredList &&
