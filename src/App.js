@@ -10,6 +10,7 @@ import HeaderTemplate from './components/HeaderTemplate';
 
 const GlobalStyle = createGlobalStyle`
   body {
+    height: 100%;
     width: 100%;
     background: #e9ecef;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;

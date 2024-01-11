@@ -27,7 +27,7 @@ const StyledButton = styled.button`
     border-radius: 5px;
     height: 80%;
     width: auto;
-    background: #2efe9a;
+    background: #ff3f01;
     margin: 2px;
     cursor: pointer;
 `;
