@@ -57,7 +57,13 @@ function CalendarTemplate({ children }) {
                             calendarType="gregory"
                             tileClassName={({ date, view }) => {
                                 const className = [];
-                                if (
+                                if (moment(date).format('dddd') === '토요일') {
+                                    className.push('saturday');
+                                } else if (
+                                    moment(date).format('dddd') === '일요일'
+                                ) {
+                                    className.push('sunday');
+                                } else if (
                                     dataMark.find(
                                         (x) =>
                                             x ===
@@ -65,14 +71,6 @@ function CalendarTemplate({ children }) {
                                     )
                                 ) {
                                     className.push('highlight');
-                                } else if (
-                                    moment(date).format('dddd') === '토요일'
-                                ) {
-                                    className.push('saturday');
-                                } else if (
-                                    moment(date).format('dddd') === '일요일'
-                                ) {
-                                    className.push('sunday');
                                 } else {
                                     className.push('weekday');
                                 }
