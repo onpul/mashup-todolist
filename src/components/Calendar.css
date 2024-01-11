@@ -11,6 +11,7 @@ abbr {
         color: black !important;
     }
 }
+
 .react-calendar {
     width: 100%;
     background: white;
@@ -28,10 +29,12 @@ abbr {
     flex-direction: column;
 }
 
-.highlight {
-    .todo {
-        color: #ff3f01;
-    }
+.react-calendar__year-view__months__month > * {
+    color: black !important;
+}
+
+.todo {
+    color: #6699ff !important;
 }
 
 .react-calendar--doubleView {
@@ -124,15 +127,21 @@ button {
 }
 
 .saturday {
-    color: blue;
+    abbr {
+        color: blue;
+    }
 }
 
 .sunday {
-    color: red;
+    abbr {
+        color: red;
+    }
 }
 
 .weekday {
-    color: black !important;
+    abbr {
+        color: black !important;
+    }
 }
 
 .react-calendar__month-view__days__day--neighboringMonth {
@@ -163,7 +172,7 @@ button {
 
 .react-calendar__tile--now {
     border-radius: 12px;
-    background: #ff3f01 !important;
+    background: #6699ff !important;
     color: white !important;
 }
 .today {
