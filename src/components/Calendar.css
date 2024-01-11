@@ -30,7 +30,7 @@ abbr {
 
 .highlight {
     .todo {
-        color: #2efe9a;
+        color: #ff3f01;
     }
 }
 
@@ -56,7 +56,9 @@ abbr {
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
 }
-
+button {
+    color: black;
+}
 .react-calendar button {
     .weekday {
         color: black;
@@ -161,7 +163,7 @@ abbr {
 
 .react-calendar__tile--now {
     border-radius: 12px;
-    background: #2efe9a !important;
+    background: #ff3f01 !important;
     color: white !important;
 }
 .today {
