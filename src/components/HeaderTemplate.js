@@ -68,7 +68,9 @@ function HeaderTemplate({ children }) {
             );
         }
     }
+
     function showTotalTodo() {
+        toggleCalendar(); // 전체보기 누르면 달력은 숨기기
         todoDate.current = null;
         dispatch(
             {
