@@ -36,9 +36,7 @@ function TodoHead() {
     let title = null;
     let day = null;
     if (todoDate.current !== null) {
-        filteredList = todoItems.filter(
-            (todo) => todo.date === todoDate.current
-        );
+        filteredList = todoItems.filter((todo) => todo.date === todoDate.current);
         title = moment(todoDate.current).format('LL');
         day = moment(todoDate.current).format('dddd');
     } else if (todoDate.current === null) {
@@ -52,11 +50,14 @@ function TodoHead() {
     }
 
     const undoneTasks = filteredList.filter((todo) => !todo.completed);
+    const infoText_T = '할 일 ' + undoneTasks.length + '개 남음';
+    const infoText_F = '예정된 일정이 없습니다.';
+
     return (
         <TodoHeadBlock>
             <h1>{title}</h1>
             <div className="day">{day}</div>
-            <div className="tasks-left">할 일 {undoneTasks.length}개 남음</div>
+            <div className="tasks-left">{undoneTasks.length === 0 ? infoText_F : infoText_T}</div>
         </TodoHeadBlock>
     );
 }

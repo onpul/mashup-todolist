@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import Calendar from 'react-calendar';
 import styled from 'styled-components';
-// import 'react-calendar/dist/Calendar.css';
 import './Calendar.css';
 import { useTodoState, useTodoDate, useTodoDispatch } from '../TodoContext';
 import moment from 'moment';
@@ -14,7 +13,7 @@ const CalendarTemplateBlock = styled.div`
     background: white;
     border-radius: 16px;
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.04);
-    margin: 10px;
+    margin: 10px 20px 20px;
     align-items: center; // 컨텐츠 중앙 정렬
     display: flex;
     flex-direction: column;
@@ -51,25 +50,15 @@ function CalendarTemplate({ children }) {
                     <CalendarTemplateBlock>
                         <Calendar
                             locale="ko"
-                            formatDay={(locale, date) =>
-                                date.toLocaleString('en', { day: 'numeric' })
-                            }
+                            formatDay={(locale, date) => date.toLocaleString('en', { day: 'numeric' })}
                             calendarType="gregory"
                             tileClassName={({ date, view }) => {
                                 const className = [];
                                 if (moment(date).format('dddd') === '토요일') {
                                     className.push('saturday');
-                                } else if (
-                                    moment(date).format('dddd') === '일요일'
-                                ) {
+                                } else if (moment(date).format('dddd') === '일요일') {
                                     className.push('sunday');
-                                } else if (
-                                    dataMark.find(
-                                        (x) =>
-                                            x ===
-                                            moment(date).format('YYYY-MM-DD')
-                                    )
-                                ) {
+                                } else if (dataMark.find((x) => x === moment(date).format('YYYY-MM-DD'))) {
                                     className.push('highlight');
                                 } else {
                                     className.push('weekday');
@@ -77,21 +66,13 @@ function CalendarTemplate({ children }) {
                                 return className;
                             }}
                             tileContent={({ date, view }) => {
-                                if (
-                                    today === moment(date).format('YYYY-MM-DD')
-                                ) {
+                                if (today === moment(date).format('YYYY-MM-DD')) {
                                     return (
                                         <>
                                             <abbr className="today">오늘</abbr>
                                         </>
                                     );
-                                } else if (
-                                    dataMark.find(
-                                        (x) =>
-                                            x ===
-                                            moment(date).format('YYYY-MM-DD')
-                                    )
-                                ) {
+                                } else if (dataMark.find((x) => x === moment(date).format('YYYY-MM-DD'))) {
                                     return (
                                         <>
                                             <p className="todo">●</p>

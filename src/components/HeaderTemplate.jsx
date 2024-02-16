@@ -7,27 +7,40 @@ import moment from 'moment';
 const HeaderTemplateBlock = styled.div`
     width: auto;
     height: 40px;
+    margin: 20px 20px 10px;
     position: relative;
-    background: white;
+    background: #6699ff;
     border-radius: 16px;
     box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.04);
-    margin: 10px;
+    padding: 0 12px 0 12px;
     display: flex;
     flex-direction: row;
-    text-align: center;
-    flex-wrap: nowrap;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    padding: 0 2px 0 2px;
+
+    .btnGroup {
+        height: 100%;
+        display: flex;
+        flex-direction: row;
+        text-align: center;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 12px;
+    }
+    .logo {
+        color: #ffffff;
+        font-weight: 900;
+    }
 `;
 
 const StyledButton = styled.button`
-    color: white;
+    color: #ffffff;
     border: none;
-    border-radius: 5px;
-    height: 80%;
+    border-radius: 7px;
+    height: 60%;
     width: auto;
-    background: #6699ff;
+    background: none;
     margin: 2px;
     cursor: pointer;
 `;
@@ -36,17 +49,13 @@ const StyledButton = styled.button`
  *
  * @param {*} param0
  * @returns
- *
- * 필터 템플릿(버튼) 필요한 거
- * 1. 달력버튼 / 전체보기 -> 우선
- * - 달력버튼 눌렀을 때 달력 노출되도록 구현해보기(디폴트는 해당일의 투두임)
  */
 function HeaderTemplate({ children }) {
     const state = useTodoState();
     const dispatch = useTodoDispatch();
     const todoDate = useTodoDate();
 
-    const showState = state.showCalendar ? '달력숨기기' : '달력보기';
+    // const showState = state.showCalendar ? '달력' : '달력';
     function toggleCalendar() {
         if (state.showCalendar) {
             dispatch(
@@ -68,7 +77,9 @@ function HeaderTemplate({ children }) {
             );
         }
     }
+
     function showTotalTodo() {
+        toggleCalendar(); // 전체보기 누르면 달력은 숨기기
         todoDate.current = null;
         dispatch(
             {
@@ -79,14 +90,13 @@ function HeaderTemplate({ children }) {
         );
     }
     return (
-        <div>
-            <HeaderTemplateBlock>
-                <StyledButton onClick={toggleCalendar}>
-                    {showState}
-                </StyledButton>
-                <StyledButton onClick={showTotalTodo}>전체보기</StyledButton>
-            </HeaderTemplateBlock>
-        </div>
+        <HeaderTemplateBlock>
+            <div className="logo">LETSDOIT</div>
+            <div className="btnGroup">
+                {/* <StyledButton onClick={toggleCalendar}>{showState}</StyledButton> */}
+                <StyledButton onClick={showTotalTodo}>설정</StyledButton>
+            </div>
+        </HeaderTemplateBlock>
     );
 }
 

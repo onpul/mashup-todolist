@@ -121,26 +121,16 @@ function todoReducer(state, action) {
         case 'DELETE':
             return {
                 ...state,
-                todoItem: state.todoItem.filter(
-                    (todo) => todo.id !== action.id
-                ),
+                todoItem: state.todoItem.filter((todo) => todo.id !== action.id),
             };
         case 'TOGGLE':
             return {
                 ...state,
-                todoItem: state.todoItem.map((todo) =>
-                    todo.id === action.id
-                        ? { ...todo, completed: !todo.completed }
-                        : todo
-                ),
+                todoItem: state.todoItem.map((todo) => (todo.id === action.id ? { ...todo, completed: !todo.completed } : todo)),
             };
         case 'SELECTDATE':
             return { ...state, selectedDate: action.selectedDate };
         case 'SHOWCALENDAR':
-            console.log(
-                '여기는리듀서임 selectedDate는 >>> ' +
-                    JSON.stringify(action.selectedDate)
-            );
             return {
                 ...state,
                 showCalendar: action.showCalendar,
@@ -177,9 +167,7 @@ export function TodoProvider({ children }) {
         <TodoStateContext.Provider value={state}>
             <TodoDispatchContext.Provider value={dispatch}>
                 <TodoNextIdContext.Provider value={nextId}>
-                    <TodoDateContext.Provider value={todoDate}>
-                        {children}
-                    </TodoDateContext.Provider>
+                    <TodoDateContext.Provider value={todoDate}>{children}</TodoDateContext.Provider>
                 </TodoNextIdContext.Provider>
             </TodoDispatchContext.Provider>
         </TodoStateContext.Provider>

@@ -7,13 +7,13 @@ import TodoCreate from './components/TodoCreate';
 import { TodoProvider } from './TodoContext';
 import CalendarTemplate from './components/CalendarTemplate';
 import HeaderTemplate from './components/HeaderTemplate';
+import FilterTemplate from './components/FilterTemplate';
+import MainTemplate from './components/MainTemplate';
 
 const GlobalStyle = createGlobalStyle`
-  body {
-    height: 100%;
-    width: 100%;
+  html, body {
     background: #e9ecef;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+    font-family: 'campton', 'Apple SD Gothic Neo', 'NanumBarunGothic', '나눔바른고딕', 'Malgun Gothic', '맑은 고딕', 'dotum', 'sans-serif';
   }
 `;
 
@@ -22,13 +22,16 @@ function App() {
         <>
             <TodoProvider>
                 <GlobalStyle />
-                <HeaderTemplate />
-                <CalendarTemplate />
-                <TodoTemplate>
-                    <TodoHead />
-                    <TodoList />
-                    <TodoCreate />
-                </TodoTemplate>
+                <MainTemplate>
+                    <HeaderTemplate />
+                    <FilterTemplate />
+                    <TodoTemplate>
+                        <TodoHead />
+                        <TodoList />
+                        {/* <TodoCreate /> */}
+                    </TodoTemplate>
+                    <CalendarTemplate />
+                </MainTemplate>
             </TodoProvider>
         </>
     );
