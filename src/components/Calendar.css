@@ -1,8 +1,6 @@
 /* 기존 스타일 오버라이딩 */
 * {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
-        'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
-        'Helvetica Neue', sans-serif !important;
+    font-family: 'campton', 'Apple SD Gothic Neo', 'NanumBarunGothic', '나눔바른고딕', 'Malgun Gothic', '맑은 고딕', 'dotum', 'sans-serif';
 }
 /* 달력 요일부분 밑줄 표시 없애기 */
 abbr {
@@ -85,9 +83,7 @@ button {
 
 .react-calendar__navigation button {
     font-size: 1.5em;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
-        'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
-        'Helvetica Neue', sans-serif;
+    font-family: 'campton', 'Apple SD Gothic Neo', 'NanumBarunGothic', '나눔바른고딕', 'Malgun Gothic', '맑은 고딕', 'dotum', 'sans-serif';
     font-weight: bold;
     /* color: #343a40; */
     background: none;
@@ -137,12 +133,12 @@ button {
         color: red;
     }
 }
-
+/* 
 .weekday {
     abbr {
         color: black !important;
     }
-}
+} */
 
 .react-calendar__month-view__days__day--neighboringMonth {
     color: #757575;
@@ -203,7 +199,7 @@ button {
     /* background: #a9d4ff; */
 }
 
-.react-calendar__tile--active {
+.react-calendar__tile--active:not(.today) {
     border-radius: 12px;
     background: #ffffa9;
     color: black;

@@ -8,6 +8,7 @@ const TodoListBlock = styled.div`
     padding: 20px 32px;
     padding-bottom: 48px;
     overflow-y: auto;
+    min-height: 200px;
 `;
 
 function TodoList() {
@@ -17,9 +18,7 @@ function TodoList() {
     const todoDate = useTodoDate();
     let filteredList = null;
     if (todoDate.current !== null) {
-        filteredList = todoList.filter(
-            (todo) => todo.date === todoDate.current
-        );
+        filteredList = todoList.filter((todo) => todo.date === todoDate.current);
     } else if (todoDate.current === null) {
         filteredList = todoList;
     }

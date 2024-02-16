@@ -9,10 +9,9 @@ const TodoTemplateBlock = styled.div`
     background: white;
     border-radius: 16px;
     box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.04);
-    margin: 10px;
+    margin: 10px 20px 10px;
     display: flex;
     flex-direction: column;
-    margin-bottom: 50px;
 `;
 
 function TodoTemplate({ children }) {
