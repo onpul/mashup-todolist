@@ -123,37 +123,50 @@ function FilterTemplate({ children }) {
         });
         const minDate = sortList[0].date;
         const maxDate = sortList[sortList.length - 1].date;
-        if (type === 'day') {
-            // 일별보기
-            console.log('>>> 일별보기 테스트 <<<');
-            console.log('>>> todoDate.current <<<' + todoDate.current + '이거임 !! <<<');
-            dispatch(
-                {
-                    type: 'SELECTDATE',
-                    minDate: todoDate.current,
-                    maxDate: todoDate.current,
-                },
-                []
-            );
-        } else if (type === 'all') {
+        if (type === 'all') {
             // 전체보기
             dispatch(
                 {
                     type: 'SELECTDATE',
                     minDate: minDate,
                     maxDate: maxDate,
+                    option: type,
                 },
                 []
             );
-        } else {
-            // todoDate.current = null;
-            // dispatch(
-            //     {
-            //         type: 'SELECTDATE',
-            //         selectedDate: '전체보기',
-            //     },
-            //     []
-            // );
+        } else if (type === 'day') {
+            // 일별보기
+            dispatch(
+                {
+                    type: 'SELECTDATE',
+                    minDate: todoDate.current,
+                    maxDate: todoDate.current,
+                    option: type,
+                },
+                []
+            );
+        } else if (type === 'month') {
+            // 월별보기
+            dispatch(
+                {
+                    type: 'SELECTDATE',
+                    minDate: moment(todoDate.current).startOf('month').format('YYYY-MM-DD'),
+                    maxDate: moment(todoDate.current).endOf('month').format('YYYY-MM-DD'),
+                    option: type,
+                },
+                []
+            );
+        } else if (type === 'week') {
+            // 주간보기
+            dispatch(
+                {
+                    type: 'SELECTDATE',
+                    minDate: todoDate.current,
+                    maxDate: todoDate.current,
+                    option: type,
+                },
+                []
+            );
         }
     }
 

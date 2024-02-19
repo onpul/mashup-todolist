@@ -34,6 +34,10 @@ function TodoHead() {
     const todoItems = state.todoItem;
     let title = null;
     let day = null;
+    const selDate = moment(todoDate.current);
+    const sYear = moment(state.minDate).year(); // 년
+    const sMonth = moment(state.minDate).month() + 1; // 월
+    const weekOfMonth = (m) => m.week() - moment(m).startOf('month').week() + 1; // 주차
 
     const filteredList = todoItems.filter((todo) => moment(todo.date).isBetween(state.minDate, state.maxDate, undefined, '[]'));
     let sortedList = null;
@@ -44,17 +48,27 @@ function TodoHead() {
         });
     }
 
-    if (state.minDate === state.maxDate) {
-        // 일별조회
-        title = moment(todoDate.current).format('LL');
-        day = moment(todoDate.current).format('dddd');
-    } else {
-        title = '전체보기';
-        if (sortedList[0]) {
+    switch (state.option) {
+        case 'all':
+            title = '전체보기';
             day = sortedList[0].date + ' ~ ' + sortedList[sortedList.length - 1].date;
-        } else {
-            day = '';
-        }
+            break;
+        case 'day':
+            title = '일별보기';
+            day = selDate.format('LL');
+            break;
+        case 'month':
+            title = '월별보기';
+            day = sYear + '년 ' + sMonth + '월';
+            break;
+        case 'week':
+            title = '주간보기';
+            day = sMonth + '월 ' + weekOfMonth(moment(state.minDate)) + '주차';
+            break;
+        default:
+            title = '일별보기';
+            day = selDate.format('LL');
+            break;
     }
 
     const undoneTasks = sortedList ? sortedList.filter((todo) => !todo.completed) : '';

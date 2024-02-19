@@ -5,6 +5,7 @@ const todayDate = moment().format('YYYY-MM-DD');
 const todoListData = {
     minDate: todayDate,
     maxDate: todayDate,
+    option: 'day',
     showCalendar: true,
     todoItem: [
         {
@@ -133,7 +134,7 @@ function todoReducer(state, action) {
                 todoItem: state.todoItem.map((todo) => (todo.id === action.id ? { ...todo, completed: !todo.completed } : todo)),
             };
         case 'SELECTDATE':
-            return { ...state, minDate: action.minDate, maxDate: action.maxDate };
+            return { ...state, minDate: action.minDate, maxDate: action.maxDate, option: action.option };
         case 'SHOWCALENDAR':
             return {
                 ...state,
