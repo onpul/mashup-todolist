@@ -34,7 +34,8 @@ function CalendarTemplate({ children }) {
         dispatch(
             {
                 type: 'SELECTDATE',
-                selectedDate: sDate,
+                minDate: sDate,
+                maxDate: sDate,
             },
             []
         );

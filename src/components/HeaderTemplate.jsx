@@ -71,7 +71,8 @@ function HeaderTemplate({ children }) {
                 {
                     type: 'SHOWCALENDAR',
                     showCalendar: true,
-                    selectedDate: moment().format('YYYY-MM-DD'),
+                    minDate: moment().format('YYYY-MM-DD'),
+                    maxDate: moment().format('YYYY-MM-DD'),
                 },
                 []
             );
@@ -81,13 +82,13 @@ function HeaderTemplate({ children }) {
     function showTotalTodo() {
         toggleCalendar(); // 전체보기 누르면 달력은 숨기기
         todoDate.current = null;
-        dispatch(
-            {
-                type: 'SELECTDATE',
-                selectedDate: '전체보기',
-            },
-            []
-        );
+        // dispatch(
+        //     {
+        //         type: 'SELECTDATE',
+        //         selectedDate: '전체보기',
+        //     },
+        //     []
+        // );
     }
     return (
         <HeaderTemplateBlock>

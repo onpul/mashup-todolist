@@ -32,24 +32,32 @@ function TodoHead() {
     const todoDate = useTodoDate();
     const state = useTodoState();
     const todoItems = state.todoItem;
-    let filteredList = null;
     let title = null;
     let day = null;
-    if (todoDate.current !== null) {
-        filteredList = todoItems.filter((todo) => todo.date === todoDate.current);
-        title = moment(todoDate.current).format('LL');
-        day = moment(todoDate.current).format('dddd');
-    } else if (todoDate.current === null) {
-        filteredList = todoItems;
-        console.log(JSON.stringify(filteredList));
-        title = '전체보기';
-        var sort = filteredList.sort(function (a, b) {
-            return b.date - a.date;
+
+    const filteredList = todoItems.filter((todo) => moment(todo.date).isBetween(state.minDate, state.maxDate, undefined, '[]'));
+    let sortedList = null;
+
+    if (filteredList.length > 0) {
+        sortedList = filteredList.sort(function (a, b) {
+            return moment(b.date) - moment(a.date);
         });
-        day = sort[0].date + ' ~ ' + sort[sort.length - 1].date;
     }
 
-    const undoneTasks = filteredList.filter((todo) => !todo.completed);
+    if (state.minDate === state.maxDate) {
+        // 일별조회
+        title = moment(todoDate.current).format('LL');
+        day = moment(todoDate.current).format('dddd');
+    } else {
+        title = '전체보기';
+        if (sortedList[0]) {
+            day = sortedList[0].date + ' ~ ' + sortedList[sortedList.length - 1].date;
+        } else {
+            day = '';
+        }
+    }
+
+    const undoneTasks = sortedList ? sortedList.filter((todo) => !todo.completed) : '';
     const infoText_T = '할 일 ' + undoneTasks.length + '개 남음';
     const infoText_F = '예정된 일정이 없습니다.';
 

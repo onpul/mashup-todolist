@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import TodoItem from './TodoItem';
-import { useTodoState, useTodoDate } from '../TodoContext';
+import { useTodoState } from '../TodoContext';
+import moment from 'moment';
 
 const TodoListBlock = styled.div`
     flex: 1;
@@ -14,14 +15,7 @@ const TodoListBlock = styled.div`
 function TodoList() {
     const state = useTodoState();
     const todoList = state.todoItem;
-
-    const todoDate = useTodoDate();
-    let filteredList = null;
-    if (todoDate.current !== null) {
-        filteredList = todoList.filter((todo) => todo.date === todoDate.current);
-    } else if (todoDate.current === null) {
-        filteredList = todoList;
-    }
+    const filteredList = todoList.filter((todo) => moment(todo.date).isBetween(state.minDate, state.maxDate, undefined, '[]'));
 
     return (
         <TodoListBlock>

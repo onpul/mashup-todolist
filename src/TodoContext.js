@@ -3,7 +3,8 @@ import moment from 'moment';
 
 const todayDate = moment().format('YYYY-MM-DD');
 const todoListData = {
-    selectedDate: todayDate,
+    minDate: todayDate,
+    maxDate: todayDate,
     showCalendar: true,
     todoItem: [
         {
@@ -115,6 +116,9 @@ const todoListData = {
 };
 
 function todoReducer(state, action) {
+    console.log('>>여기는 todoReducer<<');
+    console.log('state = ' + JSON.stringify(state));
+    console.log('action = ' + JSON.stringify(action));
     switch (action.type) {
         case 'CREATE':
             return { ...state, todoItem: state.todoItem.concat(action.todo) };
@@ -129,12 +133,13 @@ function todoReducer(state, action) {
                 todoItem: state.todoItem.map((todo) => (todo.id === action.id ? { ...todo, completed: !todo.completed } : todo)),
             };
         case 'SELECTDATE':
-            return { ...state, selectedDate: action.selectedDate };
+            return { ...state, minDate: action.minDate, maxDate: action.maxDate };
         case 'SHOWCALENDAR':
             return {
                 ...state,
                 showCalendar: action.showCalendar,
-                selectedDate: action.selectedDate,
+                minDate: action.minDate,
+                maxDate: action.maxDate,
             };
         default:
             return state;
@@ -154,10 +159,6 @@ const CalendarShowContext = createContext();
  */
 export function TodoProvider({ children }) {
     const [state, dispatch] = useReducer(todoReducer, todoListData);
-    // 리듀서를 통해 리턴하는 값이 state 를 바꾸고 있음
-    // 그래서 날짜 선택해서 필터링 하면 state 원본 배열도 바뀜 ㅠㅠ
-    console.log('>>> TodoProvider <<<');
-    console.log(JSON.stringify(todoListData));
 
     // alert(typeof dispatch);
     // 디스패치는 함수다

@@ -91,70 +91,74 @@ function FilterTemplate({ children }) {
     const dispatch = useTodoDispatch();
     const todoDate = useTodoDate();
 
-    function toggleCalendar() {
-        if (state.showCalendar) {
-            dispatch(
-                {
-                    type: 'SHOWCALENDAR',
-                    showCalendar: false,
-                },
-                []
-            );
-        } else {
-            todoDate.current = moment().format('YYYY-MM-DD');
-            dispatch(
-                {
-                    type: 'SHOWCALENDAR',
-                    showCalendar: true,
-                    selectedDate: moment().format('YYYY-MM-DD'),
-                },
-                []
-            );
-        }
-    }
+    // function toggleCalendar() {
+    //     if (state.showCalendar) {
+    //         dispatch(
+    //             {
+    //                 type: 'SHOWCALENDAR',
+    //                 showCalendar: false,
+    //             },
+    //             []
+    //         );
+    //     } else {
+    //         todoDate.current = moment().format('YYYY-MM-DD');
+    //         dispatch(
+    //             {
+    //                 type: 'SHOWCALENDAR',
+    //                 showCalendar: true,
+    //                 selectedDate: moment().format('YYYY-MM-DD'),
+    //             },
+    //             []
+    //         );
+    //     }
+    // }
 
     /**
      * 기간별 일정 보기
      */
     function showTotalTodo(type) {
+        const todoList = state.todoItem;
+        const sortList = todoList.sort((a, b) => {
+            return moment(a.date) - moment(b.date);
+        });
+        const minDate = sortList[0].date;
+        const maxDate = sortList[sortList.length - 1].date;
         if (type === 'day') {
             // 일별보기
-
             console.log('>>> 일별보기 테스트 <<<');
-            todoDate.current = '2024-01-11';
+            console.log('>>> todoDate.current <<<' + todoDate.current + '이거임 !! <<<');
             dispatch(
                 {
                     type: 'SELECTDATE',
-                    selectedDate: '2024-01-11',
+                    minDate: todoDate.current,
+                    maxDate: todoDate.current,
                 },
                 []
             );
         } else if (type === 'all') {
             // 전체보기
-            toggleCalendar(); // 전체보기 누르면 달력은 숨기기
-            todoDate.current = null;
             dispatch(
                 {
                     type: 'SELECTDATE',
-                    selectedDate: '전체보기',
+                    minDate: minDate,
+                    maxDate: maxDate,
                 },
                 []
             );
         } else {
-            toggleCalendar(); // 전체보기 누르면 달력은 숨기기
-            todoDate.current = null;
-            dispatch(
-                {
-                    type: 'SELECTDATE',
-                    selectedDate: '전체보기',
-                },
-                []
-            );
+            // todoDate.current = null;
+            // dispatch(
+            //     {
+            //         type: 'SELECTDATE',
+            //         selectedDate: '전체보기',
+            //     },
+            //     []
+            // );
         }
     }
 
     function fncRadioState(e) {
-        console.log(e.target.id);
+        // console.log(e.target.id);
         // console.log(e.target.checked);
         const clickedID = e.target.id;
         showTotalTodo(clickedID);
