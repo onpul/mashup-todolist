@@ -41,11 +41,14 @@ const SetTodoBlock = styled.div`
     background: #6699ff;
     color: #ffffff;
     font-size: 1em;
+    line-height: 1em;
     font-weight: 900;
     cursor: pointer;
     text-align: center;
 
     span {
+        font-size: 1em;
+        line-height: 1em;
         margin-top: auto;
         margin-bottom: auto;
     }
@@ -54,7 +57,6 @@ const SetTodoBlock = styled.div`
 const SettingMenuBlock = styled.div`
     width: 100%;
     position: absolute;
-    z-index: 999;
 
     div {
         width: 150px;
@@ -87,7 +89,7 @@ const SettingMenuBlock = styled.div`
 
     hr {
         border: 0;
-        border-top: 1px solid #ffffff;
+        /* border-top: 1px solid #ffffff; */
         padding: 0;
         margin: 0;
     }
@@ -149,10 +151,30 @@ function TodoHead() {
         );
     }
 
+    function fncGoEditTodo() {
+        dispatch(
+            {
+                type: 'SHOWEDITMODE',
+                showEditMode: true,
+            },
+            []
+        );
+    }
+
+    function fncShowSetting() {
+        console.log('click!');
+        dispatch(
+            {
+                type: 'SHOWSETTING',
+                showSetting: true,
+            },
+            []
+        );
+    }
+
     const undoneTasks = sortedList ? sortedList.filter((todo) => !todo.completed) : '';
     const infoText_T = '할 일 ' + undoneTasks.length + '개 남음';
     const infoText_F = '예정된 일정이 없습니다.';
-
     return (
         <>
             <TodoHeadBlock>
@@ -161,32 +183,36 @@ function TodoHead() {
                     <div className="day">{day}</div>
                     <div className="tasks-left">{undoneTasks.length === 0 ? infoText_F : infoText_T}</div>
                 </div>
-                <div>
+                <div onClick={fncShowSetting}>
                     <SetTodoBlock>
                         <span>…</span>
                     </SetTodoBlock>
                 </div>
             </TodoHeadBlock>
-            <SettingMenuBlock>
-                <div>
-                    <ul>
-                        <li onClick={fncGoAddTodo}>
-                            <span>할 일 추가</span>
-                            <span>+</span>
-                        </li>
-                        <hr />
-                        <li>
-                            <span>할 일 편집</span>
-                            <span>e</span>
-                        </li>
-                        <hr />
-                        <li>
-                            <span>설정</span>
-                            <span>s</span>
-                        </li>
-                    </ul>
-                </div>
-            </SettingMenuBlock>
+            {state.showSetting ? (
+                <SettingMenuBlock>
+                    <div>
+                        <ul>
+                            <li onClick={fncGoAddTodo}>
+                                <span>할 일 추가</span>
+                                <span>+</span>
+                            </li>
+                            <hr />
+                            <li onClick={fncGoEditTodo}>
+                                <span>할 일 편집</span>
+                                <span>e</span>
+                            </li>
+                            <hr />
+                            <li>
+                                <span>설정</span>
+                                <span>s</span>
+                            </li>
+                        </ul>
+                    </div>
+                </SettingMenuBlock>
+            ) : (
+                <></>
+            )}
         </>
     );
 }

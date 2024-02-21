@@ -34,11 +34,12 @@ const Input = styled.input`
     /* padding-right: 20px; */
     border-radius: 4px;
     /* border: 1px solid #dee2e6; */
+    padding: 0;
     border: 0;
     width: 100%;
     height: 100%;
     outline: none;
-    font-size: 18px;
+    font-size: 0.8em;
     box-sizing: border-box;
 `;
 

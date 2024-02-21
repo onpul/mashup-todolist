@@ -191,12 +191,10 @@ button {
 
 .react-calendar__tile--now {
     border-radius: 12px;
-    background: #6699ff !important;
-    color: white !important;
 }
 .today {
-    font-weight: bold;
-    color: white !important;
+    font-weight: 900;
+    color: #000000 !important;
 }
 
 .react-calendar__tile:enabled:hover,

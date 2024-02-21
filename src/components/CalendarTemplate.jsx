@@ -88,12 +88,11 @@ function CalendarTemplate({ children }) {
                     </>
                 );
             } else if (dataMark.find((x) => x === moment(date).format('YYYY-MM-DD'))) {
-                console.log(dataMark);
                 let count = 0;
                 dataMark.forEach((val) => {
                     val === moment(date).format('YYYY-MM-DD') ? (count += 1) : (count += 0);
                 });
-                console.log(count);
+                // console.log(count);
                 return (
                     <>
                         <div className="todoDiv">

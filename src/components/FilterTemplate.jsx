@@ -106,7 +106,6 @@ function FilterTemplate({ children }) {
             dispatch(
                 {
                     type: 'SELECTDATE',
-                    showCalendar: false,
                     minDate: minDate,
                     maxDate: maxDate,
                     option: type,
@@ -118,7 +117,6 @@ function FilterTemplate({ children }) {
             dispatch(
                 {
                     type: 'SELECTDATE',
-                    showCalendar: false,
                     minDate: todoDate.current,
                     maxDate: todoDate.current,
                     option: type,
@@ -130,7 +128,6 @@ function FilterTemplate({ children }) {
             dispatch(
                 {
                     type: 'SELECTDATE',
-                    showCalendar: false,
                     minDate: moment(todoDate.current).startOf('month').format('YYYY-MM-DD'),
                     maxDate: moment(todoDate.current).endOf('month').format('YYYY-MM-DD'),
                     option: type,
@@ -142,7 +139,6 @@ function FilterTemplate({ children }) {
             dispatch(
                 {
                     type: 'SELECTDATE',
-                    showCalendar: false,
                     minDate: todoDate.current,
                     maxDate: todoDate.current,
                     option: type,
@@ -175,8 +171,6 @@ function FilterTemplate({ children }) {
                 {
                     type: 'SHOWCALENDAR',
                     showCalendar: true,
-                    minDate: moment().format('YYYY-MM-DD'),
-                    maxDate: moment().format('YYYY-MM-DD'),
                 },
                 []
             );

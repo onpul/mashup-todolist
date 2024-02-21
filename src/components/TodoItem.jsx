@@ -1,8 +1,10 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
-import { useTodoDispatch } from '../TodoContext';
-import CheckCircleTemplate from './CheckCircleTemplate';
+import CheckSquare from './CheckSquareTemplate';
 import RemoveTemplate from './RemoveTemplate';
+import { useTodoState } from '../TodoContext';
+import CheckCircleTemplate from './CheckCircleTemplate';
+import CheckSquareTemplate from './CheckSquareTemplate';
 
 const Remove = styled.div`
     display: flex;
@@ -62,16 +64,32 @@ const Text = styled.div`
 `;
 
 function TodoItem({ id, done, text, date }) {
+    const state = useTodoState();
+    console.log(state);
     return (
         <TodoItemBlock>
-            <CheckCircleTemplate props={{ done: done, id: id }} />
-            <Text $done={done}>
-                <ul className="textList">
-                    <li>{text}</li>
-                    <li>{date}</li>
-                </ul>
-            </Text>
-            <RemoveTemplate props={{ id: id }}></RemoveTemplate>
+            {state.showEditMode ? (
+                <>
+                    <CheckSquareTemplate props={{}}></CheckSquareTemplate>
+                    <Text $done={done}>
+                        <ul className="textList">
+                            <li>{text}</li>
+                            <li>{date}</li>
+                        </ul>
+                    </Text>
+                </>
+            ) : (
+                <>
+                    <CheckCircleTemplate props={{ done: done, id: id }} />
+                    <Text $done={done}>
+                        <ul className="textList">
+                            <li>{text}</li>
+                            <li>{date}</li>
+                        </ul>
+                    </Text>
+                </>
+            )}
+            {/* <RemoveTemplate props={{ id: id }}></RemoveTemplate> */}
         </TodoItemBlock>
     );
 }

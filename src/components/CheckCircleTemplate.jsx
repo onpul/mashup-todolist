@@ -3,15 +3,16 @@ import { useTodoDispatch } from '../TodoContext';
 import { MdDone } from 'react-icons/md';
 
 const CheckCircle = styled.div`
-    width: 24px;
-    height: 24px;
-    border-radius: 16px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
     border: 1px solid #ced4da;
     font-size: 24px;
     display: flex;
     align-items: center;
     justify-content: center;
     margin-right: 20px;
+    text-align: center;
     cursor: pointer;
 
     ${(props) =>
@@ -33,7 +34,7 @@ const CheckCircle = styled.div`
 function CheckCircleTemplate({ props }) {
     console.log(props.disabled);
     const dispatch = useTodoDispatch();
-    const onToggle = () => dispatch({ type: 'TOGGLE', id: props.id });
+    const onToggle = () => dispatch({ type: 'CHECKTOGGLE', id: props.id });
 
     return (
         <>

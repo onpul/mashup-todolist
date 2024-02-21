@@ -8,6 +8,8 @@ const todoListData = {
     option: 'day',
     showCalendar: true,
     showForm: false,
+    showSetting: false,
+    showEditMode: false,
     todoItem: [
         {
             userId: 'onpul',
@@ -134,7 +136,7 @@ const todoListData = {
 function todoReducer(state, action) {
     console.log('>>여기는 todoReducer<<');
     // console.log('state = ' + JSON.stringify(state));
-    // console.log('action = ' + JSON.stringify(action));
+    console.log('action = ' + JSON.stringify(action));
     switch (action.type) {
         case 'CREATE':
             return { ...state, todoItem: state.todoItem.concat(action.todo) };
@@ -143,7 +145,7 @@ function todoReducer(state, action) {
                 ...state,
                 todoItem: state.todoItem.filter((todo) => todo.id !== action.id),
             };
-        case 'TOGGLE':
+        case 'CHECKTOGGLE':
             return {
                 ...state,
                 todoItem: state.todoItem.map((todo) => (todo.id === action.id ? { ...todo, completed: !todo.completed } : todo)),
@@ -154,13 +156,22 @@ function todoReducer(state, action) {
             return {
                 ...state,
                 showCalendar: action.showCalendar,
-                minDate: action.minDate,
-                maxDate: action.maxDate,
             };
         case 'SHOWFORM':
             return {
                 ...state,
                 showForm: action.showForm,
+                showSetting: action.showSetting,
+            };
+        case 'SHOWSETTING':
+            return {
+                ...state,
+                showSetting: action.showSetting,
+            };
+        case 'SHOWEDITMODE':
+            return {
+                ...state,
+                showEditMode: action.showEditMode,
             };
         default:
             return state;
@@ -172,6 +183,8 @@ const TodoDispatchContext = createContext();
 const TodoNextIdContext = createContext();
 const TodoDateContext = createContext();
 const FormShowContext = createContext();
+const SettingShowContext = createContext();
+const EditShowContext = createContext();
 
 /**
  * 투두 전역 관리용
@@ -189,9 +202,10 @@ export function TodoProvider({ children }) {
         <TodoStateContext.Provider value={state}>
             <TodoDispatchContext.Provider value={dispatch}>
                 <TodoNextIdContext.Provider value={nextId}>
-                    <FormShowContext.Provider value={state}>
-                        <TodoDateContext.Provider value={todoDate}>{children}</TodoDateContext.Provider>
-                    </FormShowContext.Provider>
+                    <FormShowContext.Provider value={state} />
+                    <SettingShowContext.Provider value={state} />
+                    <EditShowContext.Provider value={state} />
+                    <TodoDateContext.Provider value={todoDate}>{children}</TodoDateContext.Provider>
                 </TodoNextIdContext.Provider>
             </TodoDispatchContext.Provider>
         </TodoStateContext.Provider>
@@ -232,6 +246,22 @@ export function useTodoDate(params) {
 
 export function useShowForm() {
     const context = useContext(FormShowContext);
+    if (!context) {
+        throw new Error('Cannot find TodoProvider');
+    }
+    return context;
+}
+
+export function useShowSetting() {
+    const context = useContext(SettingShowContext);
+    if (!context) {
+        throw new Error('Cannot find TodoProvider');
+    }
+    return context;
+}
+
+export function useShowEditMode() {
+    const context = useContext(EditShowContext);
     if (!context) {
         throw new Error('Cannot find TodoProvider');
     }
