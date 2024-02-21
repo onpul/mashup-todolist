@@ -26,17 +26,18 @@ import { useTodoState, useTodoDispatch, useTodoNextId, useTodoDate } from '../To
 
 const InsertFormPositioner = styled.div`
     width: 100%;
-    bottom: 0;
+    top: 187px;
     left: 0;
     position: absolute;
 `;
 
 const InsertForm = styled.form`
+    height: 75px;
     background: #f8f9fa;
-    padding-left: 32px;
+    /* padding-left: 32px;
     padding-top: 32px;
     padding-right: 32px;
-    padding-bottom: 72px;
+    padding-bottom: 72px; */
 
     border-bottom-left-radius: 16px;
     border-bottom-right-radius: 16px;
@@ -48,6 +49,7 @@ const Input = styled.input`
     border-radius: 4px;
     border: 1px solid #dee2e6;
     width: 100%;
+    height: 100%;
     outline: none;
     font-size: 18px;
     box-sizing: border-box;

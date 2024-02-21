@@ -100,9 +100,9 @@ button {
     margin-right: auto;
 }
 
-.react-calendar__navigation span {
+/* .react-calendar__navigation span {
     padding: 0 20px 0;
-}
+} */
 
 .react-calendar__navigation button {
     font-size: 1.5em;

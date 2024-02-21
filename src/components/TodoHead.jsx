@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useTodoDate, useTodoState } from '../TodoContext';
+import { useTodoDate, useTodoDispatch, useTodoState } from '../TodoContext';
 import moment from 'moment';
 import 'moment/locale/ko';
 
@@ -64,7 +64,7 @@ const SettingMenuBlock = styled.div`
         margin-left: auto;
         margin-top: 85px;
         margin-right: 32px;
-        background: gray;
+        background: #747677;
         color: #ffffff;
         font-size: 0.8em;
         font-weight: 600;
@@ -86,9 +86,10 @@ const SettingMenuBlock = styled.div`
     }
 
     hr {
+        border: 0;
+        border-top: 1px solid #ffffff;
         padding: 0;
         margin: 0;
-        color: #fffff0;
     }
 `;
 
@@ -137,6 +138,17 @@ function TodoHead() {
             break;
     }
 
+    const dispatch = useTodoDispatch();
+    function fncGoAddTodo() {
+        dispatch(
+            {
+                type: 'SHOWFORM',
+                showForm: true,
+            },
+            []
+        );
+    }
+
     const undoneTasks = sortedList ? sortedList.filter((todo) => !todo.completed) : '';
     const infoText_T = '할 일 ' + undoneTasks.length + '개 남음';
     const infoText_F = '예정된 일정이 없습니다.';
@@ -158,7 +170,7 @@ function TodoHead() {
             <SettingMenuBlock>
                 <div>
                     <ul>
-                        <li>
+                        <li onClick={fncGoAddTodo}>
                             <span>할 일 추가</span>
                             <span>+</span>
                         </li>
