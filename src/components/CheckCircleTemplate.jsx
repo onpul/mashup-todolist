@@ -15,20 +15,29 @@ const CheckCircle = styled.div`
     cursor: pointer;
 
     ${(props) =>
-        props.$done &&
-        css`
-            border: 1px solid #6699ff;
-            color: #6699ff;
-        `}
+        props.$done
+            ? css`
+                  border: 1px solid #6699ff;
+                  color: #6699ff;
+              `
+            : ''}
+
+    ${(props) =>
+        props.$disabled
+            ? css`
+                  border: 1px solid #ced4da;
+              `
+            : ''}
 `;
 
 function CheckCircleTemplate({ props }) {
+    console.log(props.disabled);
     const dispatch = useTodoDispatch();
     const onToggle = () => dispatch({ type: 'TOGGLE', id: props.id });
 
     return (
         <>
-            <CheckCircle $done={props.done} onClick={onToggle}>
+            <CheckCircle $done={props.done} onClick={!props.disabled ? onToggle : null} $disabled={props.disabled}>
                 {props.done && <MdDone />}
             </CheckCircle>
         </>

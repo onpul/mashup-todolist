@@ -28,8 +28,8 @@ function App() {
                     <CalendarTemplate />
                     <TodoTemplate>
                         <TodoHead />
-                        <TodoList />
                         <TodoCreate />
+                        <TodoList />
                     </TodoTemplate>
                 </MainTemplate>
             </TodoProvider>

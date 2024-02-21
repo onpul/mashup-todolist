@@ -1,53 +1,40 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
+import { styled } from 'styled-components';
 import { useTodoState, useTodoDispatch, useTodoNextId, useTodoDate } from '../TodoContext';
+import CheckCircleTemplate from './CheckCircleTemplate';
 
-// const CircleButton = styled.button`
-//     text-align: center;
-//     color: white;
-//     border: none;
-//     border-radius: 50%;
-//     height: 35px;
-//     width: 35px;
-//     background: #6699ff;
-//     cursor: pointer;
-//     z-index: 999;
-//     position: absolute;
-//     left: 50%;
-//     bottom: 0px;
-//     transform: translate(-50%, 50%);
-//     /* transition: 0.125s all ease-in; */
-//     ${(props) =>
-//         props.open &&
-//         css`
-//             background: #ff6b6b;
-//         `}
-// `;
-
-const InsertFormPositioner = styled.div`
+const TodoCreateBlock = styled.div`
+    box-sizing: border-box;
+    margin-bottom: -20px;
     width: 100%;
-    top: 187px;
-    left: 0;
-    position: absolute;
+    top: 192px;
+    position: static;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-left: 32px;
+    padding-right: 32px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    height: 75px;
 `;
 
 const InsertForm = styled.form`
+    flex: 1;
+    width: 100%;
     height: 75px;
+    margin-right: 20px;
     background: #f8f9fa;
-    /* padding-left: 32px;
-    padding-top: 32px;
-    padding-right: 32px;
-    padding-bottom: 72px; */
-
     border-bottom-left-radius: 16px;
     border-bottom-right-radius: 16px;
-    border-top: 1px solid #e9ecef;
 `;
 
 const Input = styled.input`
-    padding: 12px;
+    /* padding: 12px; */
+    /* padding-right: 20px; */
     border-radius: 4px;
-    border: 1px solid #dee2e6;
+    /* border: 1px solid #dee2e6; */
+    border: 0;
     width: 100%;
     height: 100%;
     outline: none;
@@ -55,13 +42,30 @@ const Input = styled.input`
     box-sizing: border-box;
 `;
 
+const AddButton = styled.div`
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    color: #ff6b6b;
+    border: none;
+    border-radius: 50%;
+    height: 35px;
+    width: 35px;
+    cursor: pointer;
+    /* background: #ff6b6b; */
+
+    span {
+        margin-top: auto;
+        margin-bottom: auto;
+        font-weight: 900;
+    }
+`;
+
 function TodoCreate() {
     const [value, setValue] = useState('');
-
     const dispatch = useTodoDispatch();
     const nextId = useTodoNextId();
     const todoDate = useTodoDate();
-
     const todo = useTodoState();
 
     const onChange = (e) => setValue(e.target.value);
@@ -87,11 +91,15 @@ function TodoCreate() {
     return (
         <>
             {todo.showForm ? (
-                <InsertFormPositioner>
+                <TodoCreateBlock>
+                    <CheckCircleTemplate props={{ done: false, id: '', disabled: true }} />
                     <InsertForm onSubmit={onSubmit}>
-                        <Input autoFocus placeholder="할 일을 입력 후, Enter 를 누르세요" onChange={onChange} value={value} />
+                        <Input autoFocus placeholder="할 일을 입력해 주세요." onChange={onChange} value={value} />
                     </InsertForm>
-                </InsertFormPositioner>
+                    <AddButton onClick={onSubmit}>
+                        <span>추가</span>
+                    </AddButton>
+                </TodoCreateBlock>
             ) : (
                 ''
             )}

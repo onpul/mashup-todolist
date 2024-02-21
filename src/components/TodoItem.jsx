@@ -1,8 +1,8 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
-import { MdDelete } from 'react-icons/md';
 import { useTodoDispatch } from '../TodoContext';
 import CheckCircleTemplate from './CheckCircleTemplate';
+import RemoveTemplate from './RemoveTemplate';
 
 const Remove = styled.div`
     display: flex;
@@ -62,21 +62,16 @@ const Text = styled.div`
 `;
 
 function TodoItem({ id, done, text, date }) {
-    const dispatch = useTodoDispatch();
-
-    const onDelete = () => dispatch({ type: 'DELETE', id });
     return (
         <TodoItemBlock>
-            <CheckCircleTemplate $done={done} id={id} props={{ done: done, id: id }} />
+            <CheckCircleTemplate props={{ done: done, id: id }} />
             <Text $done={done}>
                 <ul className="textList">
                     <li>{text}</li>
                     <li>{date}</li>
                 </ul>
             </Text>
-            <Remove onClick={onDelete}>
-                <MdDelete />
-            </Remove>
+            <RemoveTemplate props={{ id: id }}></RemoveTemplate>
         </TodoItemBlock>
     );
 }
