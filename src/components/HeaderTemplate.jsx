@@ -1,8 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-// import {}, from 'react-icons/md';
-import { useTodoDispatch, useTodoState, useTodoDate } from '../TodoContext';
-import moment from 'moment';
+import { useTodoDispatch, useTodoState } from '../TodoContext';
 
 const HeaderTemplateBlock = styled.div`
     width: auto;
@@ -50,52 +48,28 @@ const StyledButton = styled.button`
  * @param {*} param0
  * @returns
  */
-function HeaderTemplate({ children }) {
+function HeaderTemplate() {
     const state = useTodoState();
     const dispatch = useTodoDispatch();
-    const todoDate = useTodoDate();
 
-    // const showState = state.showCalendar ? '달력' : '달력';
-    function toggleCalendar() {
-        if (state.showCalendar) {
-            dispatch(
-                {
-                    type: 'SHOWCALENDAR',
-                    showCalendar: false,
-                },
-                []
-            );
-        } else {
-            todoDate.current = moment().format('YYYY-MM-DD');
-            dispatch(
-                {
-                    type: 'SHOWCALENDAR',
-                    showCalendar: true,
-                    minDate: moment().format('YYYY-MM-DD'),
-                    maxDate: moment().format('YYYY-MM-DD'),
-                },
-                []
-            );
-        }
+    function onclick() {
+        const showForm = state.showForm;
+
+        dispatch(
+            {
+                type: 'SHOWFORM',
+                showForm: !showForm,
+            },
+            []
+        );
     }
 
-    function showTotalTodo() {
-        toggleCalendar(); // 전체보기 누르면 달력은 숨기기
-        todoDate.current = null;
-        // dispatch(
-        //     {
-        //         type: 'SELECTDATE',
-        //         selectedDate: '전체보기',
-        //     },
-        //     []
-        // );
-    }
     return (
         <HeaderTemplateBlock>
             <div className="logo">LETSDOIT</div>
             <div className="btnGroup">
-                {/* <StyledButton onClick={toggleCalendar}>{showState}</StyledButton> */}
-                <StyledButton onClick={showTotalTodo}>설정</StyledButton>
+                <StyledButton onClick={onclick}>추가하기</StyledButton>
+                <StyledButton>설정</StyledButton>
             </div>
         </HeaderTemplateBlock>
     );

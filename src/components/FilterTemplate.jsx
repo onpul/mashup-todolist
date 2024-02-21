@@ -91,28 +91,6 @@ function FilterTemplate({ children }) {
     const dispatch = useTodoDispatch();
     const todoDate = useTodoDate();
 
-    // function toggleCalendar() {
-    //     if (state.showCalendar) {
-    //         dispatch(
-    //             {
-    //                 type: 'SHOWCALENDAR',
-    //                 showCalendar: false,
-    //             },
-    //             []
-    //         );
-    //     } else {
-    //         todoDate.current = moment().format('YYYY-MM-DD');
-    //         dispatch(
-    //             {
-    //                 type: 'SHOWCALENDAR',
-    //                 showCalendar: true,
-    //                 selectedDate: moment().format('YYYY-MM-DD'),
-    //             },
-    //             []
-    //         );
-    //     }
-    // }
-
     /**
      * 기간별 일정 보기
      */
@@ -128,6 +106,7 @@ function FilterTemplate({ children }) {
             dispatch(
                 {
                     type: 'SELECTDATE',
+                    showCalendar: false,
                     minDate: minDate,
                     maxDate: maxDate,
                     option: type,
@@ -139,6 +118,7 @@ function FilterTemplate({ children }) {
             dispatch(
                 {
                     type: 'SELECTDATE',
+                    showCalendar: false,
                     minDate: todoDate.current,
                     maxDate: todoDate.current,
                     option: type,
@@ -150,6 +130,7 @@ function FilterTemplate({ children }) {
             dispatch(
                 {
                     type: 'SELECTDATE',
+                    showCalendar: false,
                     minDate: moment(todoDate.current).startOf('month').format('YYYY-MM-DD'),
                     maxDate: moment(todoDate.current).endOf('month').format('YYYY-MM-DD'),
                     option: type,
@@ -161,6 +142,7 @@ function FilterTemplate({ children }) {
             dispatch(
                 {
                     type: 'SELECTDATE',
+                    showCalendar: false,
                     minDate: todoDate.current,
                     maxDate: todoDate.current,
                     option: type,
@@ -177,28 +159,54 @@ function FilterTemplate({ children }) {
         showTotalTodo(clickedID);
     }
 
+    const showState = state.showCalendar ? '달력숨기기' : '달력보기';
+    function toggleCalendar() {
+        if (state.showCalendar) {
+            dispatch(
+                {
+                    type: 'SHOWCALENDAR',
+                    showCalendar: false,
+                },
+                []
+            );
+        } else {
+            todoDate.current = moment().format('YYYY-MM-DD');
+            dispatch(
+                {
+                    type: 'SHOWCALENDAR',
+                    showCalendar: true,
+                    minDate: moment().format('YYYY-MM-DD'),
+                    maxDate: moment().format('YYYY-MM-DD'),
+                },
+                []
+            );
+        }
+    }
+
     return (
-        <FilterTemplateBlock>
-            <StyledRadioBox>
-                <div>
-                    <input type="radio" id="all" name="filter" onChange={fncRadioState} />
-                    <label htmlFor="all">전체</label>
-                </div>
-                <div>
-                    <input type="radio" id="day" name="filter" onChange={fncRadioState} defaultChecked />
-                    <label htmlFor="day">일별</label>
-                </div>
-                <div>
-                    <input type="radio" id="month" name="filter" onChange={fncRadioState} />
-                    <label htmlFor="month">월별</label>
-                </div>
-                <div>
-                    <input type="radio" id="week" name="filter" onChange={fncRadioState} />
-                    <label htmlFor="week">주간</label>
-                </div>
-            </StyledRadioBox>
-            <StyledButton onClick={showTotalTodo}>추가하기</StyledButton>
-        </FilterTemplateBlock>
+        <>
+            <FilterTemplateBlock>
+                <StyledRadioBox>
+                    <div>
+                        <input type="radio" id="all" name="filter" onChange={fncRadioState} />
+                        <label htmlFor="all">전체</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="day" name="filter" onChange={fncRadioState} defaultChecked />
+                        <label htmlFor="day">일별</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="month" name="filter" onChange={fncRadioState} />
+                        <label htmlFor="month">월별</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="week" name="filter" onChange={fncRadioState} />
+                        <label htmlFor="week">주간</label>
+                    </div>
+                </StyledRadioBox>
+                <StyledButton onClick={toggleCalendar}>{showState}</StyledButton>
+            </FilterTemplateBlock>
+        </>
     );
 }
 

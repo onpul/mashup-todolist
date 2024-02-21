@@ -13,17 +13,33 @@ const Remove = styled.div`
     &:hover {
         color: #ff6b6b;
     }
-    display: none;
+    /* display: none; */
 `;
 
 const TodoItemBlock = styled.div`
     display: flex;
     align-items: center;
-    padding-top: 12px;
-    padding-bottom: 12px;
+    justify-content: center;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    /* cursor: default; */
     &:hover {
         ${Remove} {
             display: initial;
+        }
+    }
+
+    .textList {
+        display: flex;
+        flex-direction: column;
+        text-decoration: none;
+        list-style: none;
+        text-align: left;
+        padding: 0;
+
+        li:last-child {
+            font-size: 0.8em;
+            margin-top: 0.5em;
         }
     }
 `;
@@ -56,10 +72,14 @@ const Text = styled.div`
         props.$done &&
         css`
             color: #ced4da;
+
+            li:nth-child(1) {
+                text-decoration: line-through;
+            }
         `}
 `;
 
-function TodoItem({ id, done, text }) {
+function TodoItem({ id, done, text, date }) {
     const dispatch = useTodoDispatch();
     const onToggle = () => dispatch({ type: 'TOGGLE', id });
     const onDelete = () => dispatch({ type: 'DELETE', id });
@@ -69,7 +89,12 @@ function TodoItem({ id, done, text }) {
             <CheckCircle $done={done} onClick={onToggle}>
                 {done && <MdDone />}
             </CheckCircle>
-            <Text $done={done}>{text}</Text>
+            <Text $done={done}>
+                <ul className="textList">
+                    <li>{text}</li>
+                    <li>{date}</li>
+                </ul>
+            </Text>
             <Remove onClick={onDelete}>
                 <MdDelete />
             </Remove>

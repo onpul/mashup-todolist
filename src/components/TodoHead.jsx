@@ -5,6 +5,9 @@ import moment from 'moment';
 import 'moment/locale/ko';
 
 const TodoHeadBlock = styled.div`
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
     padding-top: 48px;
     padding-left: 32px;
     padding-right: 32px;
@@ -23,8 +26,69 @@ const TodoHeadBlock = styled.div`
     .tasks-left {
         color: #6699ff;
         font-size: 1em;
-        margin-top: 40px;
+        margin-top: 20px;
         font-weight: bold;
+    }
+`;
+
+const SetTodoBlock = styled.div`
+    display: flex;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border: none;
+    border-radius: 50%;
+    background: #6699ff;
+    color: #ffffff;
+    font-size: 1em;
+    font-weight: 900;
+    cursor: pointer;
+    text-align: center;
+
+    span {
+        margin-top: auto;
+        margin-bottom: auto;
+    }
+`;
+
+const SettingMenuBlock = styled.div`
+    width: 100%;
+    position: absolute;
+    z-index: 999;
+
+    div {
+        width: 150px;
+        text-align: left;
+        border-radius: 16px;
+        padding: 5px 2px 5px 2px;
+        margin-left: auto;
+        margin-top: 85px;
+        margin-right: 32px;
+        background: gray;
+        color: #ffffff;
+        font-size: 0.8em;
+        font-weight: 600;
+    }
+
+    ul {
+        padding: 0;
+        margin: 0;
+        list-style: none;
+        list-style-type: none;
+    }
+
+    li {
+        padding: 0 8px;
+        margin: 5px 0;
+        display: flex;
+        justify-content: space-between;
+        cursor: pointer;
+    }
+
+    hr {
+        padding: 0;
+        margin: 0;
+        color: #fffff0;
     }
 `;
 
@@ -51,7 +115,9 @@ function TodoHead() {
     switch (state.option) {
         case 'all':
             title = '전체보기';
-            day = sortedList[0].date + ' ~ ' + sortedList[sortedList.length - 1].date;
+            if (sortedList) {
+                day = sortedList[0].date + ' ~ ' + sortedList[sortedList.length - 1].date;
+            }
             break;
         case 'day':
             title = '일별보기';
@@ -76,11 +142,40 @@ function TodoHead() {
     const infoText_F = '예정된 일정이 없습니다.';
 
     return (
-        <TodoHeadBlock>
-            <h1>{title}</h1>
-            <div className="day">{day}</div>
-            <div className="tasks-left">{undoneTasks.length === 0 ? infoText_F : infoText_T}</div>
-        </TodoHeadBlock>
+        <>
+            <TodoHeadBlock>
+                <div>
+                    <h1>{title}</h1>
+                    <div className="day">{day}</div>
+                    <div className="tasks-left">{undoneTasks.length === 0 ? infoText_F : infoText_T}</div>
+                </div>
+                <div>
+                    <SetTodoBlock>
+                        <span>…</span>
+                    </SetTodoBlock>
+                </div>
+            </TodoHeadBlock>
+            <SettingMenuBlock>
+                <div>
+                    <ul>
+                        <li>
+                            <span>할 일 추가</span>
+                            <span>+</span>
+                        </li>
+                        <hr />
+                        <li>
+                            <span>할 일 편집</span>
+                            <span>e</span>
+                        </li>
+                        <hr />
+                        <li>
+                            <span>설정</span>
+                            <span>s</span>
+                        </li>
+                    </ul>
+                </div>
+            </SettingMenuBlock>
+        </>
     );
 }
 

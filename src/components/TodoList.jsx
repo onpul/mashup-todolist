@@ -5,11 +5,13 @@ import { useTodoState } from '../TodoContext';
 import moment from 'moment';
 
 const TodoListBlock = styled.div`
-    flex: 1;
+    display: flex;
+    flex-direction: column;
     padding: 20px 32px;
     padding-bottom: 48px;
-    overflow-y: auto;
-    min-height: 200px;
+    min-height: 400px;
+    max-height: 600px;
+    overflow: auto;
 `;
 
 function TodoList() {
@@ -25,6 +27,7 @@ function TodoList() {
                         key={todo.id}
                         id={todo.id}
                         text={todo.content}
+                        date={todo.date}
                         done={todo.completed} // boolean 타입
                     />
                 ))}

@@ -25,12 +25,12 @@ function App() {
                 <MainTemplate>
                     <HeaderTemplate />
                     <FilterTemplate />
+                    <CalendarTemplate />
                     <TodoTemplate>
                         <TodoHead />
                         <TodoList />
-                        {/* <TodoCreate /> */}
+                        <TodoCreate />
                     </TodoTemplate>
-                    <CalendarTemplate />
                 </MainTemplate>
             </TodoProvider>
         </>
