@@ -1,34 +1,28 @@
 import React, { useState } from 'react';
-import styled, { css } from 'styled-components';
-// import { MdAdd } from 'react-icons/md';
-import {
-    useTodoState,
-    useTodoDispatch,
-    useTodoNextId,
-    useTodoDate,
-} from '../TodoContext';
+import styled from 'styled-components';
+import { useTodoState, useTodoDispatch, useTodoNextId, useTodoDate } from '../TodoContext';
 
-const CircleButton = styled.button`
-    text-align: center;
-    color: white;
-    border: none;
-    border-radius: 50%;
-    height: 35px;
-    width: 35px;
-    background: #6699ff;
-    cursor: pointer;
-    z-index: 999;
-    position: absolute;
-    left: 50%;
-    bottom: 0px;
-    transform: translate(-50%, 50%);
-    /* transition: 0.125s all ease-in; */
-    ${(props) =>
-        props.open &&
-        css`
-            background: #ff6b6b;
-        `}
-`;
+// const CircleButton = styled.button`
+//     text-align: center;
+//     color: white;
+//     border: none;
+//     border-radius: 50%;
+//     height: 35px;
+//     width: 35px;
+//     background: #6699ff;
+//     cursor: pointer;
+//     z-index: 999;
+//     position: absolute;
+//     left: 50%;
+//     bottom: 0px;
+//     transform: translate(-50%, 50%);
+//     /* transition: 0.125s all ease-in; */
+//     ${(props) =>
+//         props.open &&
+//         css`
+//             background: #ff6b6b;
+//         `}
+// `;
 
 const InsertFormPositioner = styled.div`
     width: 100%;
@@ -60,16 +54,14 @@ const Input = styled.input`
 `;
 
 function TodoCreate() {
-    const [open, setOpen] = useState(false);
     const [value, setValue] = useState('');
 
     const dispatch = useTodoDispatch();
     const nextId = useTodoNextId();
     const todoDate = useTodoDate();
 
-    const { todo } = useTodoState();
+    const todo = useTodoState();
 
-    const onToggle = () => setOpen(!open);
     const onChange = (e) => setValue(e.target.value);
     const onSubmit = () => {
         dispatch(
@@ -82,33 +74,25 @@ function TodoCreate() {
                     date: todoDate.current, // 선택한 날짜, 전역값으로 관리됨
                 },
             },
-            [todo]
+            [{ todo }]
         );
         // console.log('nextId : ' + nextId.current);
         // console.log('text : ' + value);
         setValue('');
-        setOpen(false);
         nextId.current += 1;
     };
 
     return (
         <>
-            {open && (
+            {todo.showForm ? (
                 <InsertFormPositioner>
                     <InsertForm onSubmit={onSubmit}>
-                        <Input
-                            autoFocus
-                            placeholder="할 일을 입력 후, Enter 를 누르세요"
-                            onChange={onChange}
-                            value={value}
-                        />
+                        <Input autoFocus placeholder="할 일을 입력 후, Enter 를 누르세요" onChange={onChange} value={value} />
                     </InsertForm>
                 </InsertFormPositioner>
+            ) : (
+                ''
             )}
-            <CircleButton onClick={onToggle} open={open}>
-                +
-            </CircleButton>
-            <div></div>
         </>
     );
 }

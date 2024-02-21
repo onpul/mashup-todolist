@@ -91,6 +91,75 @@ function FilterTemplate({ children }) {
     const dispatch = useTodoDispatch();
     const todoDate = useTodoDate();
 
+    /**
+     * 기간별 일정 보기
+     */
+    function showTotalTodo(type) {
+        const todoList = state.todoItem;
+        const sortList = todoList.sort((a, b) => {
+            return moment(a.date) - moment(b.date);
+        });
+        const minDate = sortList[0].date;
+        const maxDate = sortList[sortList.length - 1].date;
+        if (type === 'all') {
+            // 전체보기
+            dispatch(
+                {
+                    type: 'SELECTDATE',
+                    showCalendar: false,
+                    minDate: minDate,
+                    maxDate: maxDate,
+                    option: type,
+                },
+                []
+            );
+        } else if (type === 'day') {
+            // 일별보기
+            dispatch(
+                {
+                    type: 'SELECTDATE',
+                    showCalendar: false,
+                    minDate: todoDate.current,
+                    maxDate: todoDate.current,
+                    option: type,
+                },
+                []
+            );
+        } else if (type === 'month') {
+            // 월별보기
+            dispatch(
+                {
+                    type: 'SELECTDATE',
+                    showCalendar: false,
+                    minDate: moment(todoDate.current).startOf('month').format('YYYY-MM-DD'),
+                    maxDate: moment(todoDate.current).endOf('month').format('YYYY-MM-DD'),
+                    option: type,
+                },
+                []
+            );
+        } else if (type === 'week') {
+            // 주간보기
+            dispatch(
+                {
+                    type: 'SELECTDATE',
+                    showCalendar: false,
+                    minDate: todoDate.current,
+                    maxDate: todoDate.current,
+                    option: type,
+                },
+                []
+            );
+        }
+    }
+
+    function fncRadioState(e) {
+        // console.log(e.target.id);
+        // console.log(e.target.checked);
+        const clickedID = e.target.id;
+        showTotalTodo(clickedID);
+    }
+
+    const showState = state.showCalendar ? '달력숨기기' : '달력보기';
     function toggleCalendar() {
         if (state.showCalendar) {
             dispatch(
@@ -106,82 +175,38 @@ function FilterTemplate({ children }) {
                 {
                     type: 'SHOWCALENDAR',
                     showCalendar: true,
-                    selectedDate: moment().format('YYYY-MM-DD'),
+                    minDate: moment().format('YYYY-MM-DD'),
+                    maxDate: moment().format('YYYY-MM-DD'),
                 },
                 []
             );
         }
-    }
-
-    /**
-     * 기간별 일정 보기
-     */
-    function showTotalTodo(type) {
-        if (type === 'day') {
-            // 일별보기
-
-            console.log('>>> 일별보기 테스트 <<<');
-            todoDate.current = '2024-01-11';
-            dispatch(
-                {
-                    type: 'SELECTDATE',
-                    selectedDate: '2024-01-11',
-                },
-                []
-            );
-        } else if (type === 'all') {
-            // 전체보기
-            toggleCalendar(); // 전체보기 누르면 달력은 숨기기
-            todoDate.current = null;
-            dispatch(
-                {
-                    type: 'SELECTDATE',
-                    selectedDate: '전체보기',
-                },
-                []
-            );
-        } else {
-            toggleCalendar(); // 전체보기 누르면 달력은 숨기기
-            todoDate.current = null;
-            dispatch(
-                {
-                    type: 'SELECTDATE',
-                    selectedDate: '전체보기',
-                },
-                []
-            );
-        }
-    }
-
-    function fncRadioState(e) {
-        console.log(e.target.id);
-        // console.log(e.target.checked);
-        const clickedID = e.target.id;
-        showTotalTodo(clickedID);
     }
 
     return (
-        <FilterTemplateBlock>
-            <StyledRadioBox>
-                <div>
-                    <input type="radio" id="all" name="filter" onChange={fncRadioState} />
-                    <label htmlFor="all">전체</label>
-                </div>
-                <div>
-                    <input type="radio" id="day" name="filter" onChange={fncRadioState} defaultChecked />
-                    <label htmlFor="day">일별</label>
-                </div>
-                <div>
-                    <input type="radio" id="month" name="filter" onChange={fncRadioState} />
-                    <label htmlFor="month">월별</label>
-                </div>
-                <div>
-                    <input type="radio" id="week" name="filter" onChange={fncRadioState} />
-                    <label htmlFor="week">주간</label>
-                </div>
-            </StyledRadioBox>
-            <StyledButton onClick={showTotalTodo}>추가하기</StyledButton>
-        </FilterTemplateBlock>
+        <>
+            <FilterTemplateBlock>
+                <StyledRadioBox>
+                    <div>
+                        <input type="radio" id="all" name="filter" onChange={fncRadioState} />
+                        <label htmlFor="all">전체</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="day" name="filter" onChange={fncRadioState} defaultChecked />
+                        <label htmlFor="day">일별</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="month" name="filter" onChange={fncRadioState} />
+                        <label htmlFor="month">월별</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="week" name="filter" onChange={fncRadioState} />
+                        <label htmlFor="week">주간</label>
+                    </div>
+                </StyledRadioBox>
+                <StyledButton onClick={toggleCalendar}>{showState}</StyledButton>
+            </FilterTemplateBlock>
+        </>
     );
 }
 

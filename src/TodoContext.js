@@ -3,8 +3,11 @@ import moment from 'moment';
 
 const todayDate = moment().format('YYYY-MM-DD');
 const todoListData = {
-    selectedDate: todayDate,
+    minDate: todayDate,
+    maxDate: todayDate,
+    option: 'day',
     showCalendar: true,
+    showForm: false,
     todoItem: [
         {
             userId: 'onpul',
@@ -111,10 +114,27 @@ const todoListData = {
             content: '연차 일정 확인하기',
             completed: true,
         },
+        {
+            userId: 'onpul',
+            date: '2024-02-15',
+            id: 16,
+            content: 'TODOTEST 어쩌구1',
+            completed: true,
+        },
+        {
+            userId: 'onpul',
+            date: '2024-02-20',
+            id: 17,
+            content: 'TODOTEST 어쩌구2',
+            completed: true,
+        },
     ],
 };
 
 function todoReducer(state, action) {
+    console.log('>>여기는 todoReducer<<');
+    // console.log('state = ' + JSON.stringify(state));
+    // console.log('action = ' + JSON.stringify(action));
     switch (action.type) {
         case 'CREATE':
             return { ...state, todoItem: state.todoItem.concat(action.todo) };
@@ -129,12 +149,18 @@ function todoReducer(state, action) {
                 todoItem: state.todoItem.map((todo) => (todo.id === action.id ? { ...todo, completed: !todo.completed } : todo)),
             };
         case 'SELECTDATE':
-            return { ...state, selectedDate: action.selectedDate };
+            return { ...state, minDate: action.minDate, maxDate: action.maxDate, option: action.option };
         case 'SHOWCALENDAR':
             return {
                 ...state,
                 showCalendar: action.showCalendar,
-                selectedDate: action.selectedDate,
+                minDate: action.minDate,
+                maxDate: action.maxDate,
+            };
+        case 'SHOWFORM':
+            return {
+                ...state,
+                showForm: action.showForm,
             };
         default:
             return state;
@@ -145,19 +171,15 @@ const TodoStateContext = createContext();
 const TodoDispatchContext = createContext();
 const TodoNextIdContext = createContext();
 const TodoDateContext = createContext();
-const CalendarShowContext = createContext();
+const FormShowContext = createContext();
 
 /**
  * 투두 전역 관리용
- * @param {*} param0
+ * @param {*} param
  * @returns
  */
 export function TodoProvider({ children }) {
     const [state, dispatch] = useReducer(todoReducer, todoListData);
-    // 리듀서를 통해 리턴하는 값이 state 를 바꾸고 있음
-    // 그래서 날짜 선택해서 필터링 하면 state 원본 배열도 바뀜 ㅠㅠ
-    console.log('>>> TodoProvider <<<');
-    console.log(JSON.stringify(todoListData));
 
     // alert(typeof dispatch);
     // 디스패치는 함수다
@@ -167,7 +189,9 @@ export function TodoProvider({ children }) {
         <TodoStateContext.Provider value={state}>
             <TodoDispatchContext.Provider value={dispatch}>
                 <TodoNextIdContext.Provider value={nextId}>
-                    <TodoDateContext.Provider value={todoDate}>{children}</TodoDateContext.Provider>
+                    <FormShowContext.Provider value={state}>
+                        <TodoDateContext.Provider value={todoDate}>{children}</TodoDateContext.Provider>
+                    </FormShowContext.Provider>
                 </TodoNextIdContext.Provider>
             </TodoDispatchContext.Provider>
         </TodoStateContext.Provider>
@@ -206,10 +230,18 @@ export function useTodoDate(params) {
     return context;
 }
 
-export function useShowCalender() {
-    const context = useContext(CalendarShowContext);
+export function useShowForm() {
+    const context = useContext(FormShowContext);
     if (!context) {
         throw new Error('Cannot find TodoProvider');
     }
     return context;
 }
+
+// export function useShowCalender() {
+//     const context = useContext(CalendarShowContext);
+//     if (!context) {
+//         throw new Error('Cannot find TodoProvider');
+//     }
+//     return context;
+// }

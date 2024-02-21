@@ -1,27 +1,23 @@
 import React from 'react';
 import styled from 'styled-components';
 import TodoItem from './TodoItem';
-import { useTodoState, useTodoDate } from '../TodoContext';
+import { useTodoState } from '../TodoContext';
+import moment from 'moment';
 
 const TodoListBlock = styled.div`
-    flex: 1;
+    display: flex;
+    flex-direction: column;
     padding: 20px 32px;
     padding-bottom: 48px;
-    overflow-y: auto;
-    min-height: 200px;
+    min-height: 400px;
+    max-height: 600px;
+    overflow: auto;
 `;
 
 function TodoList() {
     const state = useTodoState();
     const todoList = state.todoItem;
-
-    const todoDate = useTodoDate();
-    let filteredList = null;
-    if (todoDate.current !== null) {
-        filteredList = todoList.filter((todo) => todo.date === todoDate.current);
-    } else if (todoDate.current === null) {
-        filteredList = todoList;
-    }
+    const filteredList = todoList.filter((todo) => moment(todo.date).isBetween(state.minDate, state.maxDate, undefined, '[]'));
 
     return (
         <TodoListBlock>
@@ -31,6 +27,7 @@ function TodoList() {
                         key={todo.id}
                         id={todo.id}
                         text={todo.content}
+                        date={todo.date}
                         done={todo.completed} // boolean 타입
                     />
                 ))}
