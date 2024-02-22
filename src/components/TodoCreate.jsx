@@ -71,22 +71,26 @@ function TodoCreate() {
 
     const onChange = (e) => setValue(e.target.value);
     const onSubmit = () => {
-        dispatch(
-            {
-                type: 'CREATE',
-                todo: {
-                    id: nextId.current,
-                    content: value,
-                    completed: false,
-                    date: todoDate.current, // 선택한 날짜, 전역값으로 관리됨
+        if (value.length < 1) {
+            alert('내용을 입력해 주세요.');
+        } else {
+            dispatch(
+                {
+                    type: 'CREATE',
+                    todo: {
+                        id: nextId.current,
+                        content: value,
+                        completed: false,
+                        date: todoDate.current, // 선택한 날짜, 전역값으로 관리됨
+                    },
                 },
-            },
-            [{ todo }]
-        );
-        // console.log('nextId : ' + nextId.current);
-        // console.log('text : ' + value);
-        setValue('');
-        nextId.current += 1;
+                [{ todo }]
+            );
+            // console.log('nextId : ' + nextId.current);
+            // console.log('text : ' + value);
+            setValue('');
+            nextId.current += 1;
+        }
     };
 
     return (

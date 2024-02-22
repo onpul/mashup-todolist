@@ -40,22 +40,32 @@ function TodoEdit() {
         console.log(todoList);
         if (e.target.id === 'all') {
             // 해당 뷰의 리스트 id 를 가져와야 함
-            dispatch({
-                type: 'EDITCHECK',
-                id: todoList.map((key) => {
-                    return key.id;
-                }),
-                checked: todoList.map((key) => {
-                    return key.checked ? false : true;
-                }),
-            });
+            if (checkedList.length < 1) {
+                alert('해당 기간의 TODO가 없습니다.');
+            } else {
+                dispatch({
+                    type: 'EDITCHECK',
+                    id: todoList.map((key) => {
+                        return key.id;
+                    }),
+                    checked: todoList.map((key) => {
+                        return key.checked ? false : true;
+                    }),
+                });
+            }
         } else {
-            dispatch({
-                type: 'DELETE',
-                id: checkedList.map((key) => {
-                    return key.id;
-                }),
-            });
+            if (checkedList.length < 1) {
+                alert('선택된 TODO가 없습니다.');
+            } else if (window.confirm('총 ' + checkedList.length + '건의 TODO를 정말 삭제하시겠어요?'))
+                dispatch({
+                    type: 'DELETE',
+                    id: checkedList.map((key) => {
+                        return key.id;
+                    }),
+                });
+            else {
+                return;
+            }
         }
     };
     return (
