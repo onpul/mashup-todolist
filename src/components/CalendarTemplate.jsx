@@ -12,7 +12,7 @@ const CalendarTemplateBlock = styled.div`
     position: relative;
     background: white;
     border-radius: 16px;
-    box-shadow: 0 0 8px rgba(0, 0, 0, 0.04);
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
     margin: 10px 20px 20px;
     align-items: center; // 컨텐츠 중앙 정렬
     display: flex;
@@ -88,18 +88,15 @@ function CalendarTemplate({ children }) {
                     </>
                 );
             } else if (dataMark.find((x) => x === moment(date).format('YYYY-MM-DD'))) {
-                console.log(dataMark);
                 let count = 0;
                 dataMark.forEach((val) => {
                     val === moment(date).format('YYYY-MM-DD') ? (count += 1) : (count += 0);
                 });
-                console.log(count);
+                // console.log(count);
                 return (
                     <>
                         <div className="todoDiv">
-                            <p className="todo">
-                                <span>{count}</span>
-                            </p>
+                            <p className="todo">{/* <span>{count}</span> */}</p>
                         </div>
                     </>
                 );
@@ -117,6 +114,8 @@ function CalendarTemplate({ children }) {
                             formatDay={(locale, date) => date.toLocaleString('en', { day: 'numeric' })}
                             calendarType="gregory"
                             view={'month'}
+                            nextLabel={'>'}
+                            prevLabel={'<'}
                             next2Label={null}
                             prev2Label={null}
                             minDate={new Date('2020-01-01')}

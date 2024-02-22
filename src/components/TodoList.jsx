@@ -10,7 +10,7 @@ const TodoListBlock = styled.div`
     padding: 20px 32px;
     padding-bottom: 48px;
     min-height: 400px;
-    max-height: 600px;
+    /* max-height: 600px; */
     overflow: auto;
 `;
 
@@ -19,6 +19,7 @@ function TodoList() {
     const todoList = state.todoItem;
     const filteredList = todoList.filter((todo) => moment(todo.date).isBetween(state.minDate, state.maxDate, undefined, '[]'));
 
+    console.log('>>> todoList :' + JSON.stringify(todoList));
     return (
         <TodoListBlock>
             {filteredList &&
@@ -29,6 +30,7 @@ function TodoList() {
                         text={todo.content}
                         date={todo.date}
                         done={todo.completed} // boolean 타입
+                        checked={todo.checked}
                     />
                 ))}
         </TodoListBlock>

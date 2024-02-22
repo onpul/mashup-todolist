@@ -1,7 +1,8 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
-import { MdDone, MdDelete } from 'react-icons/md';
-import { useTodoDispatch } from '../TodoContext';
+import { useTodoState } from '../TodoContext';
+import CheckCircleTemplate from './CheckCircleTemplate';
+import CheckSquareTemplate from './CheckSquareTemplate';
 
 const Remove = styled.div`
     display: flex;
@@ -22,6 +23,7 @@ const TodoItemBlock = styled.div`
     justify-content: center;
     padding-top: 5px;
     padding-bottom: 5px;
+    height: 75px;
     /* cursor: default; */
     &:hover {
         ${Remove} {
@@ -44,26 +46,6 @@ const TodoItemBlock = styled.div`
     }
 `;
 
-const CheckCircle = styled.div`
-    width: 24px;
-    height: 24px;
-    border-radius: 16px;
-    border: 1px solid #ced4da;
-    font-size: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-right: 20px;
-    cursor: pointer;
-
-    ${(props) =>
-        props.$done &&
-        css`
-            border: 1px solid #6699ff;
-            color: #6699ff;
-        `}
-`;
-
 const Text = styled.div`
     flex: 1;
     font-size: 1em;
@@ -79,25 +61,32 @@ const Text = styled.div`
         `}
 `;
 
-function TodoItem({ id, done, text, date }) {
-    const dispatch = useTodoDispatch();
-    const onToggle = () => dispatch({ type: 'TOGGLE', id });
-    const onDelete = () => dispatch({ type: 'DELETE', id });
-
+function TodoItem({ id, done, text, date, checked }) {
+    const state = useTodoState();
     return (
         <TodoItemBlock>
-            <CheckCircle $done={done} onClick={onToggle}>
-                {done && <MdDone />}
-            </CheckCircle>
-            <Text $done={done}>
-                <ul className="textList">
-                    <li>{text}</li>
-                    <li>{date}</li>
-                </ul>
-            </Text>
-            <Remove onClick={onDelete}>
-                <MdDelete />
-            </Remove>
+            {state.showEditMode ? (
+                <>
+                    <CheckSquareTemplate props={{ id: id, checked: checked }}></CheckSquareTemplate>
+                    <Text $done={done}>
+                        <ul className="textList">
+                            <li>{text}</li>
+                            <li>{date}</li>
+                        </ul>
+                    </Text>
+                </>
+            ) : (
+                <>
+                    <CheckCircleTemplate props={{ id: id, done: done }} />
+                    <Text $done={done}>
+                        <ul className="textList">
+                            <li>{text}</li>
+                            <li>{date}</li>
+                        </ul>
+                    </Text>
+                </>
+            )}
+            {/* <RemoveTemplate props={{ id: id }}></RemoveTemplate> */}
         </TodoItemBlock>
     );
 }

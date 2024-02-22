@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useTodoDate, useTodoState } from '../TodoContext';
+import { useTodoDate, useTodoDispatch, useTodoState } from '../TodoContext';
 import moment from 'moment';
 import 'moment/locale/ko';
 
@@ -41,11 +41,15 @@ const SetTodoBlock = styled.div`
     background: #6699ff;
     color: #ffffff;
     font-size: 1em;
+    line-height: 1em;
     font-weight: 900;
     cursor: pointer;
     text-align: center;
+    box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.3);
 
     span {
+        font-size: 1em;
+        line-height: 1em;
         margin-top: auto;
         margin-bottom: auto;
     }
@@ -54,7 +58,6 @@ const SetTodoBlock = styled.div`
 const SettingMenuBlock = styled.div`
     width: 100%;
     position: absolute;
-    z-index: 999;
 
     div {
         width: 150px;
@@ -64,7 +67,7 @@ const SettingMenuBlock = styled.div`
         margin-left: auto;
         margin-top: 85px;
         margin-right: 32px;
-        background: gray;
+        background: #747677;
         color: #ffffff;
         font-size: 0.8em;
         font-weight: 600;
@@ -86,9 +89,10 @@ const SettingMenuBlock = styled.div`
     }
 
     hr {
+        border: 0;
+        /* border-top: 1px solid #ffffff; */
         padding: 0;
         margin: 0;
-        color: #fffff0;
     }
 `;
 
@@ -137,10 +141,22 @@ function TodoHead() {
             break;
     }
 
+    const dispatch = useTodoDispatch();
+    function fncSetComponent(param) {
+        dispatch(
+            {
+                type: 'SHOWORHIDE',
+                showForm: param === 'add' ? true : false,
+                showSetting: param === 'setting' ? true : false,
+                showEditMode: param === 'edit' ? true : false,
+            },
+            []
+        );
+    }
+
     const undoneTasks = sortedList ? sortedList.filter((todo) => !todo.completed) : '';
     const infoText_T = '할 일 ' + undoneTasks.length + '개 남음';
     const infoText_F = '예정된 일정이 없습니다.';
-
     return (
         <>
             <TodoHeadBlock>
@@ -149,32 +165,36 @@ function TodoHead() {
                     <div className="day">{day}</div>
                     <div className="tasks-left">{undoneTasks.length === 0 ? infoText_F : infoText_T}</div>
                 </div>
-                <div>
+                <div onMouseOver={() => fncSetComponent('setting')} onMouseOut={() => fncSetComponent('')} style={{ zIndex: 999 }}>
                     <SetTodoBlock>
                         <span>…</span>
                     </SetTodoBlock>
                 </div>
             </TodoHeadBlock>
-            <SettingMenuBlock>
-                <div>
-                    <ul>
-                        <li>
-                            <span>할 일 추가</span>
-                            <span>+</span>
-                        </li>
-                        <hr />
-                        <li>
-                            <span>할 일 편집</span>
-                            <span>e</span>
-                        </li>
-                        <hr />
-                        <li>
-                            <span>설정</span>
-                            <span>s</span>
-                        </li>
-                    </ul>
-                </div>
-            </SettingMenuBlock>
+            {state.showSetting ? (
+                <SettingMenuBlock>
+                    <div>
+                        <ul>
+                            <li id="add" onMouseOver={() => fncSetComponent('add')} onClick={() => fncSetComponent('add')}>
+                                <span>할 일 추가</span>
+                                <span>+</span>
+                            </li>
+                            <hr />
+                            <li id="edit" onMouseOver={() => fncSetComponent('edit')} onClick={() => fncSetComponent('edit')}>
+                                <span>할 일 편집</span>
+                                <span>e</span>
+                            </li>
+                            <hr />
+                            <li>
+                                <span>설정</span>
+                                <span>s</span>
+                            </li>
+                        </ul>
+                    </div>
+                </SettingMenuBlock>
+            ) : (
+                <></>
+            )}
         </>
     );
 }

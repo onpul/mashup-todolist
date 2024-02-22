@@ -9,13 +9,14 @@ const FilterTemplateBlock = styled.div`
     position: relative;
     background: white;
     border-radius: 16px;
-    box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.04);
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
     margin: 10px 20px 10px;
     padding: 0 12px 0 12px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    font-weight: 600;
 
     .btnGroup {
         height: 100%;
@@ -25,11 +26,6 @@ const FilterTemplateBlock = styled.div`
         flex-wrap: nowrap;
         justify-content: space-between;
         align-items: center;
-    }
-
-    .logo {
-        color: #6699ff;
-        font-weight: 900;
     }
 `;
 
@@ -42,6 +38,7 @@ const StyledButton = styled.button`
     background: none;
     margin: 2px;
     cursor: pointer;
+    font-weight: 600;
 `;
 
 const StyledRadioBox = styled.fieldset`
@@ -106,7 +103,6 @@ function FilterTemplate({ children }) {
             dispatch(
                 {
                     type: 'SELECTDATE',
-                    showCalendar: false,
                     minDate: minDate,
                     maxDate: maxDate,
                     option: type,
@@ -118,7 +114,6 @@ function FilterTemplate({ children }) {
             dispatch(
                 {
                     type: 'SELECTDATE',
-                    showCalendar: false,
                     minDate: todoDate.current,
                     maxDate: todoDate.current,
                     option: type,
@@ -130,7 +125,6 @@ function FilterTemplate({ children }) {
             dispatch(
                 {
                     type: 'SELECTDATE',
-                    showCalendar: false,
                     minDate: moment(todoDate.current).startOf('month').format('YYYY-MM-DD'),
                     maxDate: moment(todoDate.current).endOf('month').format('YYYY-MM-DD'),
                     option: type,
@@ -142,7 +136,6 @@ function FilterTemplate({ children }) {
             dispatch(
                 {
                     type: 'SELECTDATE',
-                    showCalendar: false,
                     minDate: todoDate.current,
                     maxDate: todoDate.current,
                     option: type,
@@ -175,8 +168,6 @@ function FilterTemplate({ children }) {
                 {
                     type: 'SHOWCALENDAR',
                     showCalendar: true,
-                    minDate: moment().format('YYYY-MM-DD'),
-                    maxDate: moment().format('YYYY-MM-DD'),
                 },
                 []
             );
