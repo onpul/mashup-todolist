@@ -21,13 +21,20 @@ const TodoEditBlock = styled.div`
 `;
 
 const ButtonBlock = styled.div`
-    font-weight: 600;
+    font-weight: 900;
     width: 100%;
     height: 50px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    color: #ff6b6b;
+    color: #6699ff;
+
+    div {
+        padding: 8px;
+        background: #e9ecef;
+        border-radius: 20px;
+        box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.3);
+    }
 `;
 
 function TodoEdit() {
@@ -40,7 +47,7 @@ function TodoEdit() {
         console.log(todoList);
         if (e.target.id === 'all') {
             // 해당 뷰의 리스트 id 를 가져와야 함
-            if (checkedList.length < 1) {
+            if (todoList.length < 1) {
                 alert('해당 기간의 TODO가 없습니다.');
             } else {
                 dispatch({

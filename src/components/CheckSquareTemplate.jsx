@@ -7,7 +7,7 @@ const CheckSquare = styled.div`
     width: 20px;
     height: 20px;
     /* border-radius: 16px; */
-    border: 1px solid #ff6b6b;
+    border: 2px solid #ff6b6b;
     font-size: 24px;
     display: flex;
     align-items: center;

@@ -12,7 +12,7 @@ const FooterTemplateBlock = styled.div`
     position: relative;
     background: #868e96;
     border-radius: 16px;
-    box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.04);
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
     display: flex;
     flex-direction: row;
     justify-content: space-between;

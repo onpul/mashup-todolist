@@ -168,20 +168,11 @@ function todoReducer(state, action) {
                 ...state,
                 showCalendar: action.showCalendar,
             };
-        case 'SHOWFORM':
+        case 'SHOWORHIDE':
             return {
                 ...state,
                 showForm: action.showForm,
                 showSetting: action.showSetting,
-            };
-        case 'SHOWSETTING':
-            return {
-                ...state,
-                showSetting: action.showSetting,
-            };
-        case 'SHOWEDITMODE':
-            return {
-                ...state,
                 showEditMode: action.showEditMode,
             };
         default:
@@ -193,9 +184,7 @@ const TodoStateContext = createContext();
 const TodoDispatchContext = createContext();
 const TodoNextIdContext = createContext();
 const TodoDateContext = createContext();
-const FormShowContext = createContext();
-const SettingShowContext = createContext();
-const EditShowContext = createContext();
+const ShowOrHide = createContext();
 
 /**
  * 투두 전역 관리용
@@ -213,9 +202,7 @@ export function TodoProvider({ children }) {
         <TodoStateContext.Provider value={state}>
             <TodoDispatchContext.Provider value={dispatch}>
                 <TodoNextIdContext.Provider value={nextId}>
-                    <FormShowContext.Provider value={state} />
-                    <SettingShowContext.Provider value={state} />
-                    <EditShowContext.Provider value={state} />
+                    <ShowOrHide.Provider value={state} />
                     <TodoDateContext.Provider value={todoDate}>{children}</TodoDateContext.Provider>
                 </TodoNextIdContext.Provider>
             </TodoDispatchContext.Provider>
@@ -255,34 +242,10 @@ export function useTodoDate(params) {
     return context;
 }
 
-export function useShowForm() {
-    const context = useContext(FormShowContext);
+export function useShowElement() {
+    const context = useContext(ShowOrHide);
     if (!context) {
         throw new Error('Cannot find TodoProvider');
     }
     return context;
 }
-
-export function useShowSetting() {
-    const context = useContext(SettingShowContext);
-    if (!context) {
-        throw new Error('Cannot find TodoProvider');
-    }
-    return context;
-}
-
-export function useShowEditMode() {
-    const context = useContext(EditShowContext);
-    if (!context) {
-        throw new Error('Cannot find TodoProvider');
-    }
-    return context;
-}
-
-// export function useShowCalender() {
-//     const context = useContext(CalendarShowContext);
-//     if (!context) {
-//         throw new Error('Cannot find TodoProvider');
-//     }
-//     return context;
-// }

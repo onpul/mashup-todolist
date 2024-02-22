@@ -45,6 +45,7 @@ const SetTodoBlock = styled.div`
     font-weight: 900;
     cursor: pointer;
     text-align: center;
+    box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.3);
 
     span {
         font-size: 1em;
@@ -141,32 +142,13 @@ function TodoHead() {
     }
 
     const dispatch = useTodoDispatch();
-    function fncGoAddTodo() {
+    function fncSetComponent(param) {
         dispatch(
             {
-                type: 'SHOWFORM',
-                showForm: true,
-            },
-            []
-        );
-    }
-
-    function fncGoEditTodo() {
-        dispatch(
-            {
-                type: 'SHOWEDITMODE',
-                showEditMode: true,
-            },
-            []
-        );
-    }
-
-    function fncShowSetting() {
-        console.log('click!');
-        dispatch(
-            {
-                type: 'SHOWSETTING',
-                showSetting: true,
+                type: 'SHOWORHIDE',
+                showForm: param === 'add' ? true : false,
+                showSetting: param === 'setting' ? true : false,
+                showEditMode: param === 'edit' ? true : false,
             },
             []
         );
@@ -183,7 +165,7 @@ function TodoHead() {
                     <div className="day">{day}</div>
                     <div className="tasks-left">{undoneTasks.length === 0 ? infoText_F : infoText_T}</div>
                 </div>
-                <div onClick={fncShowSetting}>
+                <div onMouseOver={() => fncSetComponent('setting')} onMouseOut={() => fncSetComponent('')} style={{ zIndex: 999 }}>
                     <SetTodoBlock>
                         <span>…</span>
                     </SetTodoBlock>
@@ -193,12 +175,12 @@ function TodoHead() {
                 <SettingMenuBlock>
                     <div>
                         <ul>
-                            <li onClick={fncGoAddTodo}>
+                            <li id="add" onMouseOver={() => fncSetComponent('add')} onClick={() => fncSetComponent('add')}>
                                 <span>할 일 추가</span>
                                 <span>+</span>
                             </li>
                             <hr />
-                            <li onClick={fncGoEditTodo}>
+                            <li id="edit" onMouseOver={() => fncSetComponent('edit')} onClick={() => fncSetComponent('edit')}>
                                 <span>할 일 편집</span>
                                 <span>e</span>
                             </li>

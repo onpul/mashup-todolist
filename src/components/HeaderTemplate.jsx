@@ -9,7 +9,7 @@ const HeaderTemplateBlock = styled.div`
     position: relative;
     background: #6699ff;
     border-radius: 16px;
-    box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.04);
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
     padding: 0 12px 0 12px;
     display: flex;
     flex-direction: row;
@@ -33,6 +33,7 @@ const HeaderTemplateBlock = styled.div`
 `;
 
 const StyledButton = styled.button`
+    font-weight: 700;
     color: #ffffff;
     border: none;
     border-radius: 7px;
@@ -41,6 +42,10 @@ const StyledButton = styled.button`
     background: none;
     margin: 2px;
     cursor: pointer;
+
+    /* padding: 8px; */
+    /* border-radius: 20px; */
+    /* box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.3); */
 `;
 
 /**
@@ -64,9 +69,12 @@ function HeaderTemplate() {
         );
     }
 
+    const refresh = () => window.location.replace('/main');
     return (
         <HeaderTemplateBlock>
-            <div className="logo">LETSDOIT</div>
+            <div className="logo" onClick={refresh}>
+                LETSDOIT
+            </div>
             <div className="btnGroup">
                 <StyledButton onClick={onclick}>추가하기</StyledButton>
                 <StyledButton>설정</StyledButton>
