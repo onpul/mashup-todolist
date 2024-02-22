@@ -1,7 +1,5 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
-import CheckSquare from './CheckSquareTemplate';
-import RemoveTemplate from './RemoveTemplate';
 import { useTodoState } from '../TodoContext';
 import CheckCircleTemplate from './CheckCircleTemplate';
 import CheckSquareTemplate from './CheckSquareTemplate';
@@ -63,14 +61,13 @@ const Text = styled.div`
         `}
 `;
 
-function TodoItem({ id, done, text, date }) {
+function TodoItem({ id, done, text, date, checked }) {
     const state = useTodoState();
-    console.log(state);
     return (
         <TodoItemBlock>
             {state.showEditMode ? (
                 <>
-                    <CheckSquareTemplate props={{}}></CheckSquareTemplate>
+                    <CheckSquareTemplate props={{ id: id, checked: checked }}></CheckSquareTemplate>
                     <Text $done={done}>
                         <ul className="textList">
                             <li>{text}</li>
@@ -80,7 +77,7 @@ function TodoItem({ id, done, text, date }) {
                 </>
             ) : (
                 <>
-                    <CheckCircleTemplate props={{ done: done, id: id }} />
+                    <CheckCircleTemplate props={{ id: id, done: done }} />
                     <Text $done={done}>
                         <ul className="textList">
                             <li>{text}</li>

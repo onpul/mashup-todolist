@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import { useTodoState } from '../TodoContext';
+import { useTodoDispatch, useTodoState } from '../TodoContext';
 
 const TodoEditBlock = styled.div`
     font-size: 1em;
@@ -32,13 +32,41 @@ const ButtonBlock = styled.div`
 
 function TodoEdit() {
     const state = useTodoState();
+    const dispatch = useTodoDispatch();
+    const onclick = (e) => {
+        let todoList = state.todoItem;
+        let checkedList = state.todoItem.filter((todo) => todo.checked);
+
+        console.log(todoList);
+        if (e.target.id === 'all') {
+            // 해당 뷰의 리스트 id 를 가져와야 함
+            dispatch({
+                type: 'EDITCHECK',
+                id: todoList.map((key) => {
+                    return key.id;
+                }),
+                checked: todoList.map((key) => {
+                    return key.checked ? false : true;
+                }),
+            });
+        } else {
+            dispatch({
+                type: 'DELETE',
+                id: checkedList.map((key) => {
+                    return key.id;
+                }),
+            });
+        }
+    };
     return (
         <>
             {state.showEditMode ? (
                 <TodoEditBlock>
                     <ButtonBlock>
-                        <div>전체선택</div>
-                        <div>삭제</div>
+                        <div id="all" onClick={onclick}>
+                            전체선택
+                        </div>
+                        <div onClick={onclick}>삭제</div>
                     </ButtonBlock>
                 </TodoEditBlock>
             ) : (
