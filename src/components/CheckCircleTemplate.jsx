@@ -32,7 +32,7 @@ const CheckCircle = styled.div`
 `;
 
 function CheckCircleTemplate({ props }) {
-    console.log(props.disabled);
+    // console.log(props.disabled);
     const dispatch = useTodoDispatch();
     const onToggle = () => dispatch({ type: 'CHECKTOGGLE', id: props.id });
 

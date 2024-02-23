@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { useTodoDispatch, useTodoState } from '../TodoContext';
+import moment from 'moment';
 
 const TodoEditBlock = styled.div`
     font-size: 1em;
@@ -41,13 +42,14 @@ function TodoEdit() {
     const state = useTodoState();
     const dispatch = useTodoDispatch();
     const onclick = (e) => {
-        let todoList = state.todoItem;
-        let checkedList = state.todoItem.filter((todo) => todo.checked);
+        const todoList = state.todoItem;
+        const filteredList = todoList.filter((todo) => moment(todo.date).isBetween(state.minDate, state.maxDate, undefined, '[]'));
+        const checkedList = filteredList.filter((todo) => todo.checked);
 
         console.log(todoList);
         if (e.target.id === 'all') {
             // 해당 뷰의 리스트 id 를 가져와야 함
-            if (todoList.length < 1) {
+            if (filteredList.length < 1) {
                 alert('해당 기간의 TODO가 없습니다.');
             } else {
                 dispatch({
