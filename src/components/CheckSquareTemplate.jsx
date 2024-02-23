@@ -39,7 +39,7 @@ function CheckSquareTemplate({ props }) {
     // const state = useTodoState();
     const dispatch = useTodoDispatch();
     const checked = useState(props.checked);
-    console.log(props);
+    // console.log(props);
     // debugger;
     const onToggle = () => {
         dispatch({ type: 'EDITCHECK', id: props.id, checked: !checked });

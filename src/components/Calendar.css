@@ -97,7 +97,7 @@ button {
     align-items: center;
     margin-left: auto;
     margin-right: auto;
-    width: 100%;
+    width: auto;
     height: 100%;
     padding-bottom: 3px;
 }
@@ -219,7 +219,8 @@ button {
 .react-calendar__tile--now:enabled:hover,
 .react-calendar__tile--now:enabled:focus {
     border-radius: 12px;
-    background: #ff6b6b;
+    background: #ffffff;
+    border: 3px solid #ff6b6b;
 }
 
 .react-calendar__tile--hasActive {
@@ -235,14 +236,16 @@ button {
 
 .react-calendar__tile--active:not(.today) {
     border-radius: 12px;
-    background: #ff6b6b;
+    background: #ffffff;
+    border: 3px solid #ff6b6b;
     color: black;
 }
 
 .react-calendar__tile--active:enabled:hover,
 .react-calendar__tile--active:enabled:focus {
     border-radius: 12px;
-    background: #ff6b6b;
+    background: #ffffff;
+    border: 3px solid #ff6b6b;
 }
 
 .react-calendar--selectRange .react-calendar__tile--hover {

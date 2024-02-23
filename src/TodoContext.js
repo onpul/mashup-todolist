@@ -134,9 +134,9 @@ const todoListData = {
 };
 
 function todoReducer(state, action) {
-    console.log('>>여기는 todoReducer<<');
-    console.log('state = ' + JSON.stringify(state));
-    console.log('action = ' + JSON.stringify(action));
+    // console.log('>>여기는 todoReducer<<');
+    // console.log('state = ' + JSON.stringify(state));
+    // console.log('action = ' + JSON.stringify(action));
     switch (action.type) {
         case 'CREATE':
             return { ...state, todoItem: state.todoItem.concat(action.todo) };
@@ -162,6 +162,8 @@ function todoReducer(state, action) {
                 todoItem: todoItemState,
             };
         case 'SELECTDATE':
+            console.log('>>> 여기는 todoReducer / SELECTDATE 분기 <<<');
+            console.log(JSON.stringify({ ...state, minDate: action.minDate, maxDate: action.maxDate, option: action.option }));
             return { ...state, minDate: action.minDate, maxDate: action.maxDate, option: action.option };
         case 'SHOWCALENDAR':
             return {
