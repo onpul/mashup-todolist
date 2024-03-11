@@ -10,6 +10,7 @@ const todoListData = {
     showForm: false,
     showSetting: false,
     showEditMode: false,
+    allChecked: false,
     todoItem: [
         {
             date: '2024-01-11',
@@ -150,13 +151,25 @@ function todoReducer(state, action) {
                 ...state,
                 todoItem: state.todoItem.map((todo) => (todo.id === action.id ? { ...todo, completed: !todo.completed } : todo)),
             };
+        case 'AllCHECKTOGGLE':
+            debugger;
+            return {
+                ...state,
+                todoItem: state.todoItem.map((todo) => (todo.id === action.id ? { ...todo, checked: action.allChecked } : todo)),
+            };
         case 'EDITCHECK':
             let todoItemState = null;
+            debugger;
             if (typeof action.id === 'number') {
+                // 개별 클릭
+                console.log(action.id);
                 todoItemState = state.todoItem.map((todo) => (todo.id === action.id ? { ...todo, checked: !todo.checked } : todo));
-            } else {
-                todoItemState = state.todoItem.map((todo) => (action.id.indexOf(todo.id) > -1 ? { ...todo, checked: !todo.checked } : todo));
             }
+            //else {
+            // 전체 선택
+            // todoItemState = state.todoItem.map((todo) => (action.id.indexOf(todo.id) > -1 ? { ...todo, checked: action.allChecked } : todo));
+            // todoItemState = state.todoItem.map((todo) => (action.id.indexOf(todo.id) > -1 ? { ...todo, checked: !todo.checked } : todo));
+            // }
             return {
                 ...state,
                 todoItem: todoItemState,

@@ -53,14 +53,22 @@ function TodoEdit() {
                 alert('해당 기간의 TODO가 없습니다.');
             } else {
                 dispatch({
-                    type: 'EDITCHECK',
+                    type: 'AllCHECKTOGGLE',
                     id: todoList.map((key) => {
                         return key.id;
                     }),
-                    checked: todoList.map((key) => {
-                        return key.checked ? false : true;
-                    }),
+                    allChecked: !state.allChecked,
                 });
+                // 전체 기간 선택 시에는 .. 별도 리듀서 분기 처리 해야 하나?
+                // dispatch({
+                //     type: 'EDITCHECK',
+                //     id: todoList.map((key) => {
+                //         return key.id;
+                //     }),
+                //     checked: todoList.map((key) => {
+                //         return true;
+                //     }),
+                // });
             }
         } else {
             if (checkedList.length < 1) {

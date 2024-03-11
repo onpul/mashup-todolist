@@ -21,6 +21,24 @@
 
 ## 이슈
 
-1. 컴포넌트로 전달하는 props 가 html 에 해당하는 태그명이 아닐 때 : prefix `$`를 붙여서 해결
+1.  컴포넌트로 전달하는 props 가 html 에 해당하는 태그명이 아닐 때: prefix `$`를 붙여서 해결
 
-2. 최상단 로고 클릭 시 로컬 이외 환경에서 404 에러 : TODO
+2.  최상단 로고 클릭 시 로컬 이외 환경에서 404 에러: TODO
+
+3.  전체선택 눌렀을 때, 전체 항목의 선택 여부 값 변경이 아닌, 각 항목에 해당하는 선택 여부의 반대값이 적용됨
+
+-  이전 문제: dispatch 로 값 변경할 때, 무조건 해당 리스트 아이템 체크 여부의 반대값을 보내도록 적용했었음.
+<pre>
+<code>
+   dispatch({
+      type: 'EDITCHECK',
+      id: todoList.map((key) => {
+         return key.id;
+      }),
+      checked: todoList.map((key) => {
+         return key.checked ? false : true;
+      }),
+   });
+</code>
+</pre>
+- 해결 방법: 
