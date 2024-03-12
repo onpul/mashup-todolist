@@ -155,7 +155,8 @@ function todoReducer(state, action) {
             debugger;
             return {
                 ...state,
-                todoItem: state.todoItem.map((todo) => (todo.id === action.id ? { ...todo, checked: action.allChecked } : todo)),
+                allChecked: !state.allChecked,
+                todoItem: state.todoItem.map((todo) => (action.id.indexOf(todo.id) > -1 ? { ...todo, checked: !state.allChecked } : todo)),
             };
         case 'EDITCHECK':
             let todoItemState = null;

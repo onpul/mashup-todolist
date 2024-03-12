@@ -41,4 +41,24 @@
    });
 </code>
 </pre>
-- 해결 방법: 
+- 해결 방법: reducer 내에서 체크 여부 처리
+<pre>
+<code>
+   // dispatch 로 전달
+   dispatch({
+      type: 'AllCHECKTOGGLE',
+      id: todoList.map((key) => {
+         return key.id;
+      }),
+   });
+
+   // reducer 에서 실행하는 내용
+   case 'AllCHECKTOGGLE':
+   return {
+         ...state,
+         allChecked: !state.allChecked,
+         todoItem: state.todoItem.map((todo) => (action.id.indexOf(todo.id) > -1 ? { ...todo, checked: !state.allChecked } : todo)),
+   };
+</code>
+</pre>
+- 추가 내용: '전체선택' 문구 동작 방식이 토글이니, 선택 및 해제 시 '전체선택/전체해제'로 전환되도록 적용: useState로 구현
