@@ -159,21 +159,19 @@ function todoReducer(state, action) {
                 todoItem: state.todoItem.map((todo) => (action.id.indexOf(todo.id) > -1 ? { ...todo, checked: !state.allChecked } : todo)),
             };
         case 'EDITCHECK':
-            let todoItemState = null;
-            debugger;
-            if (typeof action.id === 'number') {
-                // 개별 클릭
-                console.log(action.id);
-                todoItemState = state.todoItem.map((todo) => (todo.id === action.id ? { ...todo, checked: !todo.checked } : todo));
-            }
-            //else {
-            // 전체 선택
-            // todoItemState = state.todoItem.map((todo) => (action.id.indexOf(todo.id) > -1 ? { ...todo, checked: action.allChecked } : todo));
-            // todoItemState = state.todoItem.map((todo) => (action.id.indexOf(todo.id) > -1 ? { ...todo, checked: !todo.checked } : todo));
-            // }
             return {
                 ...state,
-                todoItem: todoItemState,
+                todoItem: state.todoItem.map((todo) => (todo.id === action.id ? { ...todo, checked: !todo.checked } : todo)),
+            };
+        case 'ALLDONE':
+            return {
+                ...state,
+                todoItem: state.todoItem.map((todo) => (action.id.indexOf(todo.id) > -1 ? { ...todo, completed: true } : todo)),
+            };
+        case 'ALLYET':
+            return {
+                ...state,
+                todoItem: state.todoItem.map((todo) => (action.id.indexOf(todo.id) > -1 ? { ...todo, completed: false } : todo)),
             };
         case 'SELECTDATE':
             console.log('>>> 여기는 todoReducer / SELECTDATE 분기 <<<');

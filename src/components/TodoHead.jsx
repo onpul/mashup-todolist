@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useTodoDate, useTodoDispatch, useTodoState } from '../TodoContext';
 import moment from 'moment';
@@ -68,6 +68,7 @@ const SettingMenuBlock = styled.div`
         margin-top: 85px;
         margin-right: 32px;
         background: #747677;
+        opacity: 80%;
         color: #ffffff;
         font-size: 0.8em;
         font-weight: 600;
@@ -100,7 +101,7 @@ function TodoHead() {
     const todoDate = useTodoDate();
     const state = useTodoState();
     const todoItems = state.todoItem;
-    let title = null;
+    let sTitle = null;
     let day = null;
     const selDate = moment(todoDate.current);
     const sYear = moment(state.minDate).year(); // 년
@@ -118,25 +119,25 @@ function TodoHead() {
 
     switch (state.option) {
         case 'all':
-            title = '전체보기';
+            sTitle = '전체보기';
             if (sortedList) {
-                day = sortedList[0].date + ' ~ ' + sortedList[sortedList.length - 1].date;
+                day = sortedList[sortedList.length - 1].date + ' ~ ' + sortedList[0].date;
             }
             break;
         case 'day':
-            title = '일별보기';
+            sTitle = '일별보기';
             day = selDate.format('LL');
             break;
         case 'month':
-            title = '월별보기';
+            sTitle = '월별보기';
             day = sYear + '년 ' + sMonth + '월';
             break;
         case 'week':
-            title = '주간보기';
+            sTitle = '주간보기';
             day = sMonth + '월 ' + weekOfMonth(moment(state.minDate)) + '주차';
             break;
         default:
-            title = '일별보기';
+            sTitle = '일별보기';
             day = selDate.format('LL');
             break;
     }
@@ -160,16 +161,25 @@ function TodoHead() {
     return (
         <>
             <TodoHeadBlock>
-                <div>
-                    <h1>{title}</h1>
-                    <div className="day">{day}</div>
-                    <div className="tasks-left">{undoneTasks.length === 0 ? infoText_F : infoText_T}</div>
-                </div>
-                <div onMouseOver={() => fncSetComponent('setting')} onMouseOut={() => fncSetComponent('')} style={{ zIndex: 999 }}>
-                    <SetTodoBlock>
-                        <span>…</span>
-                    </SetTodoBlock>
-                </div>
+                {state.showForm ? (
+                    <div>
+                        <h1>추가하기</h1>
+                        <div className="day">{selDate.format('LL')}</div>
+                    </div>
+                ) : (
+                    <>
+                        <div>
+                            <h1>{sTitle}</h1>
+                            <div className="day">{day}</div>
+                            <div className="tasks-left">{undoneTasks.length === 0 ? infoText_F : infoText_T}</div>
+                        </div>
+                        <div onMouseOver={() => fncSetComponent('setting')} onMouseOut={() => fncSetComponent('')} style={{ zIndex: 999 }}>
+                            <SetTodoBlock>
+                                <span>…</span>
+                            </SetTodoBlock>
+                        </div>
+                    </>
+                )}
             </TodoHeadBlock>
             {state.showSetting ? (
                 <SettingMenuBlock>

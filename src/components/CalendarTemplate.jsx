@@ -19,6 +19,26 @@ const CalendarTemplateBlock = styled.div`
     flex-direction: column;
 `;
 
+const ButtonToday = styled.div`
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 30px;
+    margin-top: 20px;
+    margin-right: 90px;
+    margin-left: 100%;
+    text-align: center;
+    border-radius: 15px;
+    font-size: 0.8em;
+    line-height: 0.8em;
+    font-weight: 800;
+    background-color: #6699ff;
+    color: #ffffff;
+    border: 0;
+`;
+
 function CalendarTemplate({ children }) {
     const todoData = useTodoState();
     const dispatch = useTodoDispatch();
@@ -39,6 +59,13 @@ function CalendarTemplate({ children }) {
             },
             []
         );
+    }
+
+    const [activeStartDate, setActiveStartDate] = useState(new Date());
+    function handleTodayClick() {
+        const today = new Date();
+        setActiveStartDate(today);
+        setValue(today);
     }
 
     const showState = todoData.showCalendar;
@@ -130,7 +157,11 @@ function CalendarTemplate({ children }) {
                             tileContent={({ date }) => {
                                 return fncSetCalendarOpt('tileContent', date);
                             }}
+                            // 오늘 날짜로 돌아오는 기능을 위해 필요한 옵션 설정
+                            activeStartDate={activeStartDate}
+                            onActiveStartDateChange={({ activeStartDate }) => setActiveStartDate(activeStartDate)}
                         />
+                        <ButtonToday onClick={handleTodayClick}>오늘</ButtonToday>
                     </CalendarTemplateBlock>
                 </div>
             )}

@@ -36,6 +36,10 @@ const ButtonBlock = styled.div`
         border-radius: 20px;
         box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.3);
     }
+
+    #all {
+        color: #ff6b6b;
+    }
 `;
 
 function TodoEdit() {
@@ -63,7 +67,21 @@ function TodoEdit() {
                 });
                 setCheckedText(state.allChecked ? '전체선택' : '전체해제');
             }
-        } else {
+        } else if (e.target.id === 'done') {
+            dispatch({
+                type: 'ALLDONE',
+                id: todoList.map((key) => {
+                    return key.id;
+                }),
+            });
+        } else if (e.target.id === 'yet') {
+            dispatch({
+                type: 'ALLYET',
+                id: todoList.map((key) => {
+                    return key.id;
+                }),
+            });
+        } else if (e.target.id === 'delete') {
             if (checkedList.length < 1) {
                 alert('선택된 TODO가 없습니다.');
             } else if (window.confirm('총 ' + checkedList.length + '건의 TODO를 정말 삭제하시겠어요?'))
@@ -86,7 +104,16 @@ function TodoEdit() {
                         <div id="all" onClick={onclick}>
                             {checkedText}
                         </div>
-                        <div onClick={onclick}>삭제</div>
+                        <span>|</span>
+                        <div id="done" onClick={onclick}>
+                            완료
+                        </div>
+                        <div id="yet" onClick={onclick}>
+                            미완료
+                        </div>
+                        <div id="delete" onClick={onclick}>
+                            삭제
+                        </div>
                     </ButtonBlock>
                 </TodoEditBlock>
             ) : (

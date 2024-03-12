@@ -68,7 +68,7 @@ function FooterTemplate() {
             <div className="logo">
                 <ul>
                     <li>Developed by @onpul</li>
-                    <li className="version">LETSDOIT / v1.0</li>
+                    <li className="version">SIMPLETODO / v1.0</li>
                 </ul>
             </div>
             <div className="btnGroup">

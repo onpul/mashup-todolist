@@ -54,6 +54,7 @@ const StyledRadioBox = styled.fieldset`
     box-sizing: border-box;
 
     color: #000000;
+
     font-size: 12px;
     line-height: 12px;
     border: none;
@@ -195,7 +196,9 @@ function FilterTemplate({ children }) {
                         <label htmlFor="week">주간</label>
                     </div>
                 </StyledRadioBox>
-                <StyledButton onClick={toggleCalendar}>{showState}</StyledButton>
+                <div>
+                    <StyledButton onClick={toggleCalendar}>{showState}</StyledButton>
+                </div>
             </FilterTemplateBlock>
         </>
     );
