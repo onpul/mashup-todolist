@@ -3,10 +3,10 @@ import { useTodoDispatch } from '../TodoContext';
 import { MdDone } from 'react-icons/md';
 
 const CheckCircle = styled.div`
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
     border-radius: 50%;
-    border: 1px solid #ced4da;
+    border: 2px solid #ced4da;
     font-size: 24px;
     display: flex;
     align-items: center;
@@ -18,7 +18,7 @@ const CheckCircle = styled.div`
     ${(props) =>
         props.$done
             ? css`
-                  border: 1px solid #6699ff;
+                  border: 2px solid #6699ff;
                   color: #6699ff;
               `
             : ''}
@@ -26,7 +26,7 @@ const CheckCircle = styled.div`
     ${(props) =>
         props.$disabled
             ? css`
-                  border: 1px solid #ced4da;
+                  border: 2px solid #ced4da;
               `
             : ''}
 `;

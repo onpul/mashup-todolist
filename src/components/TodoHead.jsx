@@ -15,17 +15,17 @@ const TodoHeadBlock = styled.div`
     border-bottom: 1px solid #e9ecef;
     h1 {
         margin: 0;
-        font-size: 1.5em;
+        font-size: 1.2em;
         color: #343a40;
     }
     .day {
         margin-top: 4px;
         color: #868e96;
-        font-size: 1.2em;
+        font-size: 0.8em;
     }
     .tasks-left {
         color: #6699ff;
-        font-size: 1em;
+        font-size: 0.85em;
         margin-top: 20px;
         font-weight: bold;
     }

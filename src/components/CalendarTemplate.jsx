@@ -25,12 +25,12 @@ const ButtonToday = styled.div`
     justify-content: center;
     align-items: center;
     width: 50px;
-    height: 30px;
-    margin-top: 20px;
-    margin-right: 90px;
+    height: 25px;
+    margin-top: 10px;
+    margin-right: 70px;
     margin-left: 100%;
     text-align: center;
-    border-radius: 15px;
+    border-radius: 12px;
     font-size: 0.8em;
     line-height: 0.8em;
     font-weight: 800;

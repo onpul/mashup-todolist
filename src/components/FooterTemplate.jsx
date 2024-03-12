@@ -6,7 +6,7 @@ const FooterTemplateBlock = styled.div`
     /* font-weight: 300; */
     width: auto;
     height: 60px;
-    margin: 10px 20px 10px;
+    margin: 14px 20px 10px;
     box-sizing: border-box;
     padding: 12px;
     position: relative;
@@ -19,9 +19,6 @@ const FooterTemplateBlock = styled.div`
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-
-    ::before {
-    }
 
     .btnGroup {
         height: 100%;
