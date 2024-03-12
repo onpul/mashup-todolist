@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useTodoDispatch, useTodoState } from '../TodoContext';
 import moment from 'moment';
@@ -41,6 +41,7 @@ const ButtonBlock = styled.div`
 function TodoEdit() {
     const state = useTodoState();
     const dispatch = useTodoDispatch();
+    const [checkedText, setCheckedText] = useState('전체선택');
     const onclick = (e) => {
         const todoList = state.todoItem;
         const filteredList = todoList.filter((todo) => moment(todo.date).isBetween(state.minDate, state.maxDate, undefined, '[]'));
@@ -53,14 +54,14 @@ function TodoEdit() {
                 alert('해당 기간의 TODO가 없습니다.');
             } else {
                 dispatch({
-                    type: 'EDITCHECK',
+                    type: 'AllCHECKTOGGLE',
                     id: todoList.map((key) => {
                         return key.id;
                     }),
-                    checked: todoList.map((key) => {
-                        return key.checked ? false : true;
-                    }),
+                    // 체크 여부는 reducer 내에서 처리
+                    // allChecked: !state.allChecked,
                 });
+                setCheckedText(state.allChecked ? '전체선택' : '전체해제');
             }
         } else {
             if (checkedList.length < 1) {
@@ -83,7 +84,7 @@ function TodoEdit() {
                 <TodoEditBlock>
                     <ButtonBlock>
                         <div id="all" onClick={onclick}>
-                            전체선택
+                            {checkedText}
                         </div>
                         <div onClick={onclick}>삭제</div>
                     </ButtonBlock>

@@ -62,14 +62,14 @@ function HeaderTemplate() {
 
         dispatch(
             {
-                type: 'SHOWFORM',
+                type: 'SHOWORHIDE',
                 showForm: !showForm,
             },
             []
         );
     }
 
-    const refresh = () => window.location.replace('/main');
+    const refresh = () => window.location.replace('/');
     return (
         <HeaderTemplateBlock>
             <div className="logo" onClick={refresh}>

@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { styled, css } from 'styled-components';
 import { MdDone } from 'react-icons/md';
-import { useTodoDispatch, useTodoState } from '../TodoContext';
+import { useTodoDispatch } from '../TodoContext';
 
 const CheckSquare = styled.div`
     width: 20px;
@@ -23,7 +23,7 @@ const CheckSquare = styled.div`
               `
             : ''} */
 
-    animation: motion 0.3s linear 3s infinite alternate;
+    animation: motion 0.3s linear -3s infinite alternate;
 
     @keyframes motion {
         0% {
@@ -36,11 +36,8 @@ const CheckSquare = styled.div`
 `;
 
 function CheckSquareTemplate({ props }) {
-    // const state = useTodoState();
     const dispatch = useTodoDispatch();
     const checked = useState(props.checked);
-    // console.log(props);
-    // debugger;
     const onToggle = () => {
         dispatch({ type: 'EDITCHECK', id: props.id, checked: !checked });
     };
