@@ -40,7 +40,8 @@ const StyledButton = styled.button`
     height: 60%;
     width: auto;
     background: none;
-    margin: 2px;
+    margin-left: 2px;
+    padding: 0;
     cursor: pointer;
 
     /* padding: 8px; */
@@ -73,10 +74,10 @@ function HeaderTemplate() {
     return (
         <HeaderTemplateBlock>
             <div className="logo" onClick={refresh}>
-                LETSDOIT
+                SIMPLETODO
             </div>
             <div className="btnGroup">
-                <StyledButton onClick={onclick}>추가하기</StyledButton>
+                {/* <StyledButton onClick={onclick}>추가하기</StyledButton> */}
                 <StyledButton>설정</StyledButton>
             </div>
         </HeaderTemplateBlock>

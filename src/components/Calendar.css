@@ -92,12 +92,8 @@ button {
 .react-calendar__navigation {
     display: flex;
     flex-direction: row;
-    flex-wrap: nowrap;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
-    margin-left: auto;
-    margin-right: auto;
-    width: auto;
     height: 100%;
     padding-bottom: 3px;
 }
@@ -109,7 +105,7 @@ button {
 .react-calendar__navigation button {
     width: auto;
     height: 100%;
-    font-size: 1.5em;
+    font-size: 1.4em;
     line-height: 1;
     font-family: 'campton', 'Apple SD Gothic Neo', 'NanumBarunGothic', '나눔바른고딕', 'Malgun Gothic', '맑은 고딕', 'dotum', 'sans-serif';
     font-weight: 900;
@@ -219,7 +215,7 @@ button {
 .react-calendar__tile--now:enabled:hover,
 .react-calendar__tile--now:enabled:focus {
     border-radius: 12px;
-    background: #ff6b6b;
+    background: #e9ecef;
     border: 0;
 }
 
@@ -236,15 +232,14 @@ button {
 
 .react-calendar__tile--active:not(.today) {
     border-radius: 12px;
-    background: #ffffff;
-    background: #ff6b6b;
+    background: #e9ecef;
     border: 0;
 }
 
 .react-calendar__tile--active:enabled:hover,
 .react-calendar__tile--active:enabled:focus {
     border-radius: 12px;
-    background: #ff6b6b;
+    background: #e9ecef;
     border: 0;
 }
 

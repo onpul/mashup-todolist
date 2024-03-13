@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { useTodoDispatch, useTodoState, useTodoDate } from '../TodoContext';
 import moment from 'moment';
@@ -36,7 +36,8 @@ const StyledButton = styled.button`
     height: 60%;
     width: auto;
     background: none;
-    margin: 2px;
+    margin-left: 2px;
+    padding: 0;
     cursor: pointer;
     font-weight: 600;
 `;
@@ -54,6 +55,7 @@ const StyledRadioBox = styled.fieldset`
     box-sizing: border-box;
 
     color: #000000;
+
     font-size: 12px;
     line-height: 12px;
     border: none;
@@ -195,7 +197,9 @@ function FilterTemplate({ children }) {
                         <label htmlFor="week">주간</label>
                     </div>
                 </StyledRadioBox>
-                <StyledButton onClick={toggleCalendar}>{showState}</StyledButton>
+                <div>
+                    <StyledButton onClick={toggleCalendar}>{showState}</StyledButton>
+                </div>
             </FilterTemplateBlock>
         </>
     );

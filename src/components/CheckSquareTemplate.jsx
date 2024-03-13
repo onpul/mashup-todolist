@@ -4,8 +4,8 @@ import { MdDone } from 'react-icons/md';
 import { useTodoDispatch } from '../TodoContext';
 
 const CheckSquare = styled.div`
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
     /* border-radius: 16px; */
     border: 2px solid #ff6b6b;
     font-size: 24px;

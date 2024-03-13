@@ -11,127 +11,129 @@ const todoListData = {
     showSetting: false,
     showEditMode: false,
     allChecked: false,
+    filter: null,
     todoItem: [
         {
-            date: '2024-01-11',
+            date: '2024-03-11',
             id: 1,
             content: '투두 리스트 어쩌구',
             completed: false,
             checked: false,
         },
         {
-            date: '2024-01-12',
+            date: '2024-03-12',
             id: 2,
             content: '투두 더미데이터 어쩌구',
             completed: true,
             checked: false,
         },
         {
-            date: '2024-01-13',
+            date: '2024-03-13',
             id: 3,
             content: '맛있는 거 먹기 어쩌구',
             completed: false,
             checked: false,
         },
         {
-            date: '2024-01-13',
+            date: '2024-03-13',
             id: 4,
             content: '집에 가고싶다 어쩌구',
             completed: true,
             checked: false,
         },
         {
-            date: '2024-01-13',
+            date: '2024-03-13',
             id: 5,
             content: '어쩌구 저쩌구',
             completed: true,
             checked: false,
         },
         {
-            date: '2024-01-13',
+            date: '2024-03-13',
             id: 6,
             content: '어쩌구 저쩌구 어쩌구 저쩌구',
             completed: true,
             checked: false,
         },
         {
-            date: '2024-01-13',
+            date: '2024-03-13',
             id: 7,
             content: '어쩌구 저쩌구 어쩌구 저쩌구',
             completed: true,
             checked: false,
         },
         {
-            date: '2024-01-13',
+            date: '2024-03-13',
             id: 8,
             content: '어쩌구 저쩌구 어쩌구 저쩌구',
             completed: true,
             checked: false,
         },
         {
-            date: '2024-01-11',
+            date: '2024-03-11',
             id: 9,
             content: '어쩌구 저쩌구 어쩌구 저쩌구',
             completed: true,
             checked: false,
         },
         {
-            date: '2024-01-11',
+            date: '2024-03-11',
             id: 10,
             content: '가습기 세척하기',
             completed: true,
             checked: false,
         },
         {
-            date: '2024-01-11',
+            date: '2024-03-11',
             id: 11,
             content: '쓰레기통 비우기',
             completed: false,
             checked: false,
         },
         {
-            date: '2024-01-11',
+            date: '2024-03-11',
             id: 12,
             content: '마우스, 키보드 전원 끄기',
             completed: false,
             checked: false,
         },
         {
-            date: '2023-12-18',
+            date: '2024-02-18',
             id: 13,
             content: '리액트 운영 배포 확인하기',
             completed: false,
             checked: false,
         },
         {
-            date: '2023-12-15',
+            date: '2024-02-18',
             id: 14,
             content: '연차 일정 확인하기',
             completed: true,
             checked: false,
         },
         {
-            date: '2023-12-15',
+            date: '2024-03-18',
             id: 15,
             content: '연차 일정 확인하기',
             completed: true,
             checked: false,
         },
         {
-            date: '2024-02-15',
+            date: '2024-03-18',
             id: 16,
             content: 'TODOTEST 어쩌구1',
             completed: true,
             checked: false,
         },
         {
-            date: '2024-02-20',
+            date: '2024-03-20',
             id: 17,
             content: 'TODOTEST 어쩌구2',
             completed: true,
             checked: false,
         },
     ],
+    filterItem: [],
 };
 
 function todoReducer(state, action) {
@@ -159,21 +161,19 @@ function todoReducer(state, action) {
                 todoItem: state.todoItem.map((todo) => (action.id.indexOf(todo.id) > -1 ? { ...todo, checked: !state.allChecked } : todo)),
             };
         case 'EDITCHECK':
-            let todoItemState = null;
-            debugger;
-            if (typeof action.id === 'number') {
-                // 개별 클릭
-                console.log(action.id);
-                todoItemState = state.todoItem.map((todo) => (todo.id === action.id ? { ...todo, checked: !todo.checked } : todo));
-            }
-            //else {
-            // 전체 선택
-            // todoItemState = state.todoItem.map((todo) => (action.id.indexOf(todo.id) > -1 ? { ...todo, checked: action.allChecked } : todo));
-            // todoItemState = state.todoItem.map((todo) => (action.id.indexOf(todo.id) > -1 ? { ...todo, checked: !todo.checked } : todo));
-            // }
             return {
                 ...state,
-                todoItem: todoItemState,
+                todoItem: state.todoItem.map((todo) => (todo.id === action.id ? { ...todo, checked: !todo.checked } : todo)),
+            };
+        case 'ALLDONE':
+            return {
+                ...state,
+                todoItem: state.todoItem.map((todo) => (action.id.indexOf(todo.id) > -1 ? { ...todo, completed: true } : todo)),
+            };
+        case 'ALLYET':
+            return {
+                ...state,
+                todoItem: state.todoItem.map((todo) => (action.id.indexOf(todo.id) > -1 ? { ...todo, completed: false } : todo)),
             };
         case 'SELECTDATE':
             console.log('>>> 여기는 todoReducer / SELECTDATE 분기 <<<');
@@ -190,6 +190,18 @@ function todoReducer(state, action) {
                 showForm: action.showForm,
                 showSetting: action.showSetting,
                 showEditMode: action.showEditMode,
+            };
+        case 'SHOWDONELIST':
+            return {
+                ...state,
+                filter: 'done',
+                todoItem: state.todoItem.filter((todo) => action.id.includes(todo.id) && todo.completed),
+            };
+        case 'SHOWYETLIST':
+            return {
+                ...state,
+                filter: 'yet',
+                todoItem: state.todoItem.filter((todo) => action.id.includes(todo.id) && !todo.completed),
             };
         default:
             return state;

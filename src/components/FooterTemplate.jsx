@@ -3,21 +3,22 @@ import styled from 'styled-components';
 
 const FooterTemplateBlock = styled.div`
     font-size: 0.8em;
-    font-weight: 700;
+    /* font-weight: 300; */
     width: auto;
     height: 60px;
-    margin: 10px 20px 10px;
+    margin: 14px 20px 10px;
     box-sizing: border-box;
     padding: 12px;
     position: relative;
-    background: #868e96;
-    border-radius: 16px;
+    /* background-color: #868e96; */
+    background-color: rgba(134, 142, 150, 0.4);
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+    color: #000000;
+    border-radius: 16px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    color: #ffffff;
 
     .btnGroup {
         height: 100%;
@@ -29,20 +30,16 @@ const FooterTemplateBlock = styled.div`
         align-items: center;
     }
     .logo {
-        color: #ffffff;
-
         li {
             margin-bottom: 3px;
         }
     }
-
     button {
         padding-right: 0;
     }
 `;
 
 const StyledButton = styled.button`
-    color: #ffffff;
     border: none;
     border-radius: 7px;
     height: 60%;
@@ -52,7 +49,8 @@ const StyledButton = styled.button`
     cursor: pointer;
 
     a {
-        color: #ffffff;
+        z-index: 999;
+        color: #000000;
         font-style: none;
     }
 `;
@@ -68,7 +66,7 @@ function FooterTemplate() {
             <div className="logo">
                 <ul>
                     <li>Developed by @onpul</li>
-                    <li className="version">LETSDOIT / v1.0</li>
+                    <li className="version">SIMPLETODO / v1.0</li>
                 </ul>
             </div>
             <div className="btnGroup">

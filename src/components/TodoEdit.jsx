@@ -4,7 +4,7 @@ import { useTodoDispatch, useTodoState } from '../TodoContext';
 import moment from 'moment';
 
 const TodoEditBlock = styled.div`
-    font-size: 1em;
+    font-size: 0.85em;
     line-height: 1em;
     box-sizing: border-box;
     margin-bottom: -20px;
@@ -26,15 +26,20 @@ const ButtonBlock = styled.div`
     width: 100%;
     height: 50px;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
     align-items: center;
     color: #6699ff;
 
     div {
-        padding: 8px;
+        padding: 6px 8px;
+        width: auto;
         background: #e9ecef;
         border-radius: 20px;
         box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.3);
+    }
+
+    #all {
+        color: #ff6b6b;
     }
 `;
 
@@ -63,7 +68,21 @@ function TodoEdit() {
                 });
                 setCheckedText(state.allChecked ? '전체선택' : '전체해제');
             }
-        } else {
+        } else if (e.target.id === 'done') {
+            dispatch({
+                type: 'ALLDONE',
+                id: checkedList.map((key) => {
+                    return key.id;
+                }),
+            });
+        } else if (e.target.id === 'yet') {
+            dispatch({
+                type: 'ALLYET',
+                id: checkedList.map((key) => {
+                    return key.id;
+                }),
+            });
+        } else if (e.target.id === 'delete') {
             if (checkedList.length < 1) {
                 alert('선택된 TODO가 없습니다.');
             } else if (window.confirm('총 ' + checkedList.length + '건의 TODO를 정말 삭제하시겠어요?'))
@@ -86,7 +105,16 @@ function TodoEdit() {
                         <div id="all" onClick={onclick}>
                             {checkedText}
                         </div>
-                        <div onClick={onclick}>삭제</div>
+                        <span>|</span>
+                        <div id="done" onClick={onclick}>
+                            완료
+                        </div>
+                        <div id="yet" onClick={onclick}>
+                            미완료
+                        </div>
+                        <div id="delete" onClick={onclick}>
+                            삭제
+                        </div>
                     </ButtonBlock>
                 </TodoEditBlock>
             ) : (
