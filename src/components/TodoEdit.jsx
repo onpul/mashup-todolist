@@ -71,14 +71,14 @@ function TodoEdit() {
         } else if (e.target.id === 'done') {
             dispatch({
                 type: 'ALLDONE',
-                id: todoList.map((key) => {
+                id: checkedList.map((key) => {
                     return key.id;
                 }),
             });
         } else if (e.target.id === 'yet') {
             dispatch({
                 type: 'ALLYET',
-                id: todoList.map((key) => {
+                id: checkedList.map((key) => {
                     return key.id;
                 }),
             });

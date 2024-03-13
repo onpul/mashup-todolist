@@ -2,6 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { useTodoState } from '../TodoContext';
 import moment from 'moment';
+import TodoList from '../components/TodoList';
+import HeaderTemplate from '../components/HeaderTemplate';
 
 const ReportTemplateBlock = styled.div`
     /* width: auto; */
@@ -14,49 +16,77 @@ const ReportTemplateBlock = styled.div`
     margin: 10px 20px 10px;
     display: flex;
     flex-direction: column;
-
-    padding-top: 24px;
-    padding-left: 32px;
-    padding-right: 32px;
+    /* padding-top: 24px; */
     padding-bottom: 24px;
 
-    h1 {
-        text-align: center;
-        margin: 0;
-        font-size: 1.5em;
-        color: #343a40;
-    }
-    .tasks-left {
-        color: #6699ff;
-        font-size: 1em;
-        font-weight: bold;
+    .todoTitle {
+        padding-left: 32px;
+        padding-right: 32px;
     }
 
-    div {
-        margin-bottom: 10px;
+    .type {
+        background-color: #ffb56b;
+    }
+
+    .detail {
+        font-size: 0.5em;
+    }
+
+    .tasks-left {
+        color: #ff6b6b;
+        text-decoration: underline;
+        font-size: 1.5em;
+        font-weight: 900;
+        margin-top: 0.5em;
+        /* margin-bottom: 0.5em; */
     }
 `;
+
+const ReportHeaderBlock = styled.div`
+    text-align: center;
+    font-size: 1.2em;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    padding-left: 32px;
+    padding-right: 32px;
+    /* border-bottom: 1px solid #e9ecef; */
+`;
+
+const ReportContentBlock = styled.div``;
 
 function ReportTemplate({ children }) {
     const state = useTodoState();
     const todoItems = state.todoItem;
-    const filteredList = todoItems.filter((todo) => moment(todo.date).isBetween(state.minDate, state.maxDate, undefined, '[]'));
-    let sortedList = null;
+    const fncReturnTodo = (type) => {
+        // debugger;
+        const sMinDate = moment(type === 'today' ? moment() : type === 'week' ? moment().startOf('week') : moment().startOf('month')).format('YYYY-MM-DD');
+        const sMaxDate = moment(type === 'today' ? moment() : type === 'week' ? moment().endOf('week') : moment().endOf('month')).format('YYYY-MM-DD');
+        return todoItems.filter((todo) => moment(todo.date).isBetween(sMinDate, sMaxDate, undefined, '[]') && !todo.completed);
+    };
 
-    if (filteredList.length > 0) {
-        sortedList = filteredList.sort(function (a, b) {
-            return moment(b.date) - moment(a.date);
-        });
-    }
-    const undoneTasks = sortedList ? sortedList.filter((todo) => !todo.completed) : '';
     return (
         <ReportTemplateBlock>
-            <h1>SIMPLETODO 리포트</h1>
-            <div className="tasks-left">n월 총 n개 중 n개 완료</div>
-            <h3>오늘 할 일</h3>
-            <div className="tasks-left">오늘 할 일이 총 {undoneTasks === '' ? '0' : undoneTasks}개 남았어요.</div>
-            <h3>이번주 할 일</h3>
-            <div className="tasks-left">이번주 할 일이 총 {undoneTasks === '' ? '0' : undoneTasks}개 남았어요.</div>
+            <ReportHeaderBlock>
+                <h1>{moment().format('YYYY년 MM월 DD일 dddd')}</h1>
+            </ReportHeaderBlock>
+            <ReportContentBlock>
+                <h3 className="todoTitle">
+                    <span className="type">오늘</span> 할 일이 <span className="tasks-left">{fncReturnTodo('today').length}</span>개 남았어요.
+                </h3>
+                <TodoList list={fncReturnTodo('today')}>어쩌구</TodoList>
+            </ReportContentBlock>
+            <ReportContentBlock>
+                <h3 className="todoTitle">
+                    <span className="type">이번주</span> 할 일이 <span className="tasks-left">{fncReturnTodo('week').length}</span>개 남았어요.
+                </h3>
+                <TodoList list={fncReturnTodo('week')}>어쩌구</TodoList>
+            </ReportContentBlock>
+            <ReportContentBlock>
+                <h3 className="todoTitle">
+                    <span className="type">이번달</span> 할 일이 <span className="tasks-left">{fncReturnTodo('month').length}</span>개 남았어요.
+                </h3>
+                <TodoList list={fncReturnTodo('week')}>어쩌구</TodoList>
+            </ReportContentBlock>
         </ReportTemplateBlock>
     );
 }

@@ -6,12 +6,12 @@ import TodoList from './components/TodoList';
 import TodoCreate from './components/TodoCreate';
 import { TodoProvider } from './TodoContext';
 import CalendarTemplate from './components/CalendarTemplate';
-import HeaderTemplate from './components/HeaderTemplate';
 import FilterTemplate from './components/FilterTemplate';
 import MainTemplate from './components/MainTemplate';
-import FooterTemplate from './components/FooterTemplate';
 import TodoEdit from './components/TodoEdit';
 import ReportTemplate from './components/ReportTemplate';
+import HeaderTemplate from './components/HeaderTemplate';
+import FooterTemplate from './components/FooterTemplate';
 
 const GlobalStyle = createGlobalStyle`
     /* 기본 적용 스타일 초기화 */
@@ -87,7 +87,7 @@ function App() {
                     <HeaderTemplate />
                     <FilterTemplate />
                     <CalendarTemplate />
-                    {/* <ReportTemplate /> */}
+                    <ReportTemplate />
                     <TodoTemplate>
                         <TodoHead />
                         <TodoCreate />

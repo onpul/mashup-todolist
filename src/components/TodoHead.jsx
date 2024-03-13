@@ -5,6 +5,7 @@ import moment from 'moment';
 import 'moment/locale/ko';
 
 const TodoHeadBlock = styled.div`
+    width: 100%;
     box-sizing: border-box;
     display: flex;
     justify-content: space-between;
@@ -24,10 +25,19 @@ const TodoHeadBlock = styled.div`
         font-size: 0.8em;
     }
     .tasks-left {
+        display: flex;
         color: #6699ff;
         font-size: 0.85em;
         margin-top: 20px;
         font-weight: bold;
+    }
+    #filter {
+        color: #343a40;
+        font-size: 0.8em;
+        background-color: yellow;
+        width: auto;
+        text-align: center;
+        margin-right: 5px;
     }
 `;
 
@@ -144,38 +154,64 @@ function TodoHead() {
 
     const dispatch = useTodoDispatch();
     function fncSetComponent(param) {
-        dispatch(
-            {
-                type: 'SHOWORHIDE',
-                showForm: param === 'add' ? true : false,
-                showSetting: param === 'setting' ? true : false,
-                showEditMode: param === 'edit' ? true : false,
-            },
-            []
-        );
+        if (param === 'done') {
+            dispatch({
+                type: 'SHOWDONELIST',
+                id: sortedList.map((key) => {
+                    return key.id;
+                }),
+            });
+        } else if (param === 'yet') {
+            dispatch({
+                type: 'SHOWYETLIST',
+                id: sortedList.map((key) => {
+                    return key.id;
+                }),
+            });
+        } else {
+            dispatch(
+                {
+                    type: 'SHOWORHIDE',
+                    showForm: param === 'add' ? true : false,
+                    showSetting: param === 'setting' ? true : false,
+                    showEditMode: param === 'edit' ? true : false,
+                },
+                []
+            );
+        }
     }
 
     const undoneTasks = sortedList ? sortedList.filter((todo) => !todo.completed) : '';
-    const infoText_T = '할 일 ' + undoneTasks.length + '개 남음';
+    // const infoText_T = '할 일 ' + undoneTasks.length + '개 남음';
+    const infoText_T = '총 ' + filteredList.length + '개 항목 중 ' + undoneTasks.length + '개 미완료';
     const infoText_F = '예정된 일정이 없습니다.';
     return (
         <>
             <TodoHeadBlock>
                 {state.showForm ? (
-                    <div>
-                        <h1>추가하기</h1>
-                        <div className="day">{selDate.format('LL')}</div>
-                    </div>
+                    <>
+                        <div>
+                            <h1>추가하기</h1>
+                            <div className="day">{selDate.format('LL')}</div>
+                        </div>
+                        <div onClick={() => fncSetComponent('')} style={{ zIndex: 999 }}>
+                            <SetTodoBlock>
+                                <span>⏎</span>
+                            </SetTodoBlock>
+                        </div>
+                    </>
                 ) : (
                     <>
                         <div>
                             <h1>{sTitle}</h1>
                             <div className="day">{day}</div>
-                            <div className="tasks-left">{undoneTasks.length === 0 ? infoText_F : infoText_T}</div>
+                            <div className="tasks-left">
+                                <div>{undoneTasks.length === 0 ? infoText_F : infoText_T}</div>
+                            </div>
                         </div>
                         <div onMouseOver={() => fncSetComponent('setting')} onMouseOut={() => fncSetComponent('')} style={{ zIndex: 999 }}>
                             <SetTodoBlock>
-                                <span>…</span>
+                                <span>···</span>
                             </SetTodoBlock>
                         </div>
                     </>
@@ -193,6 +229,16 @@ function TodoHead() {
                             <li id="edit" onMouseOver={() => fncSetComponent('edit')} onClick={() => fncSetComponent('edit')}>
                                 <span>할 일 편집</span>
                                 <span>e</span>
+                            </li>
+                            <hr />
+                            <li id="edit" onMouseOver={() => fncSetComponent('yet')} onClick={() => fncSetComponent('yet')}>
+                                <span>미완료 일정만 보기</span>
+                                <span>x</span>
+                            </li>
+                            <hr />
+                            <li id="edit" onMouseOver={() => fncSetComponent('done')} onClick={() => fncSetComponent('done')}>
+                                <span>완료된 일정만 보기</span>
+                                <span>v</span>
                             </li>
                             <hr />
                             <li>

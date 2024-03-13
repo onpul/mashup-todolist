@@ -40,7 +40,8 @@ const StyledButton = styled.button`
     height: 60%;
     width: auto;
     background: none;
-    margin: 2px;
+    margin-left: 2px;
+    padding: 0;
     cursor: pointer;
 
     /* padding: 8px; */

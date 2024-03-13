@@ -60,11 +60,13 @@ const AddButton = styled.div`
     display: flex;
     justify-content: center;
     text-align: center;
+    background: #e9ecef;
     color: #ff6b6b;
     border: none;
-    border-radius: 50%;
+    width: 100%;
     height: 35px;
-    width: 35px;
+    margin: 0 5px;
+    border-radius: 5px;
     cursor: pointer;
     /* background: #ff6b6b; */
 
