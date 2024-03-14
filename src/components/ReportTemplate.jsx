@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { useTodoState } from '../TodoContext';
 import moment from 'moment';
 import TodoList from '../components/TodoList';
-import HeaderTemplate from '../components/HeaderTemplate';
 
 const ReportTemplateBlock = styled.div`
     /* width: auto; */

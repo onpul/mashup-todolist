@@ -153,29 +153,6 @@ function FilterTemplate({ children }) {
         const clickedID = e.target.id;
         showTotalTodo(clickedID);
     }
-
-    const showState = state.showCalendar ? '달력숨기기' : '달력보기';
-    function toggleCalendar() {
-        if (state.showCalendar) {
-            dispatch(
-                {
-                    type: 'SHOWCALENDAR',
-                    showCalendar: false,
-                },
-                []
-            );
-        } else {
-            todoDate.current = moment().format('YYYY-MM-DD');
-            dispatch(
-                {
-                    type: 'SHOWCALENDAR',
-                    showCalendar: true,
-                },
-                []
-            );
-        }
-    }
-
     return (
         <>
             <FilterTemplateBlock>
@@ -197,9 +174,6 @@ function FilterTemplate({ children }) {
                         <label htmlFor="week">주간</label>
                     </div>
                 </StyledRadioBox>
-                <div>
-                    <StyledButton onClick={toggleCalendar}>{showState}</StyledButton>
-                </div>
             </FilterTemplateBlock>
         </>
     );

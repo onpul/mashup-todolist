@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useTodoDispatch, useTodoState } from '../TodoContext';
+import moment from 'moment';
+import 'moment/locale/ko';
 
 const HeaderTemplateBlock = styled.div`
     width: auto;
@@ -60,7 +62,6 @@ function HeaderTemplate() {
 
     function onclick() {
         const showForm = state.showForm;
-
         dispatch(
             {
                 type: 'SHOWORHIDE',
@@ -70,16 +71,12 @@ function HeaderTemplate() {
         );
     }
 
-    const refresh = () => window.location.replace('/');
+    // const refresh = () => window.location.replace('/');
+    const today = moment().format('YYYY년 MM월 DD일 dddd');
     return (
         <HeaderTemplateBlock>
-            <div className="logo" onClick={refresh}>
-                SIMPLETODO
-            </div>
-            <div className="btnGroup">
-                {/* <StyledButton onClick={onclick}>추가하기</StyledButton> */}
-                <StyledButton>설정</StyledButton>
-            </div>
+            <div className="logo">{today}</div>
+            <div className="btnGroup">{/* <StyledButton onClick={onclick}>추가</StyledButton> */}</div>
         </HeaderTemplateBlock>
     );
 }

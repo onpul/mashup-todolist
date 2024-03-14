@@ -2,15 +2,17 @@ import React, { useRef, createContext, useContext, useReducer } from 'react';
 import moment from 'moment';
 
 const todayDate = moment().format('YYYY-MM-DD');
-const todoListData = {
-    minDate: todayDate,
-    maxDate: todayDate,
-    option: 'day',
+const showData = {
     showCalendar: false,
     showForm: false,
     showSetting: false,
     showEditMode: false,
     showTodoList: false,
+};
+const todoListData = {
+    minDate: todayDate,
+    maxDate: todayDate,
+    option: 'day',
     allChecked: false,
     filter: null,
     todoItem: [
@@ -134,9 +136,26 @@ const todoListData = {
             checked: false,
         },
     ],
-    filterItem: [],
 };
 
+function componentReducer(state, action) {
+    switch (action.type) {
+        case 'SHOWCALENDAR':
+            return {
+                ...state,
+                showCalendar: action.showCalendar,
+            };
+        case 'SHOWORHIDE':
+            return {
+                ...state,
+                showForm: action.showForm,
+                showSetting: action.showSetting,
+                showEditMode: action.showEditMode,
+            };
+        default:
+            return state;
+    }
+}
 function todoReducer(state, action) {
     // console.log('>>여기는 todoReducer<<');
     // console.log('state = ' + JSON.stringify(state));
@@ -180,18 +199,7 @@ function todoReducer(state, action) {
             console.log('>>> 여기는 todoReducer / SELECTDATE 분기 <<<');
             console.log(JSON.stringify({ ...state, minDate: action.minDate, maxDate: action.maxDate, option: action.option }));
             return { ...state, minDate: action.minDate, maxDate: action.maxDate, option: action.option };
-        case 'SHOWCALENDAR':
-            return {
-                ...state,
-                showCalendar: action.showCalendar,
-            };
-        case 'SHOWORHIDE':
-            return {
-                ...state,
-                showForm: action.showForm,
-                showSetting: action.showSetting,
-                showEditMode: action.showEditMode,
-            };
+
         case 'SHOWDONELIST':
             return {
                 ...state,
@@ -213,16 +221,14 @@ const TodoStateContext = createContext();
 const TodoDispatchContext = createContext();
 const TodoNextIdContext = createContext();
 const TodoDateContext = createContext();
-const ShowOrHide = createContext();
 
 /**
- * 투두 전역 관리용
+ * todo 데이터 전역 관리용
  * @param {*} param
  * @returns
  */
 export function TodoProvider({ children }) {
     const [state, dispatch] = useReducer(todoReducer, todoListData);
-
     // alert(typeof dispatch);
     // 디스패치는 함수다
     const nextId = useRef(todoListData.todoItem.length);
@@ -231,12 +237,45 @@ export function TodoProvider({ children }) {
         <TodoStateContext.Provider value={state}>
             <TodoDispatchContext.Provider value={dispatch}>
                 <TodoNextIdContext.Provider value={nextId}>
-                    <ShowOrHide.Provider value={state} />
                     <TodoDateContext.Provider value={todoDate}>{children}</TodoDateContext.Provider>
                 </TodoNextIdContext.Provider>
             </TodoDispatchContext.Provider>
         </TodoStateContext.Provider>
     );
+}
+
+const ComponentStateContext = createContext();
+const ComponentDispatchContext = createContext();
+
+/**
+ * 컴포넌트 노출 전역 관리용
+ * @param {*} param
+ * @returns
+ */
+export function ComponentProvider({ children }) {
+    const [showState, showDispatch] = useReducer(componentReducer, showData);
+
+    return (
+        <ComponentStateContext.Provider value={showState}>
+            <ComponentDispatchContext.Provider value={showDispatch}>{children}</ComponentDispatchContext.Provider>
+        </ComponentStateContext.Provider>
+    );
+}
+
+export function useShowState() {
+    const context = useContext(ComponentStateContext);
+    if (!context) {
+        throw new Error('Cannot find ComponentProvider');
+    }
+    return context;
+}
+
+export function useShowDispatch() {
+    const context = useContext(ComponentDispatchContext);
+    if (!context) {
+        throw new Error('Cannot find ComponentDispatchContext');
+    }
+    return context;
 }
 
 export function useTodoState() {
@@ -265,14 +304,6 @@ export function useTodoNextId() {
 
 export function useTodoDate(params) {
     const context = useContext(TodoDateContext);
-    if (!context) {
-        throw new Error('Cannot find TodoProvider');
-    }
-    return context;
-}
-
-export function useShowElement() {
-    const context = useContext(ShowOrHide);
     if (!context) {
         throw new Error('Cannot find TodoProvider');
     }

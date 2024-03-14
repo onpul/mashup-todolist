@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { createGlobalStyle } from 'styled-components';
-import { useTodoState } from '../TodoContext';
+import { useShowState } from '../TodoContext';
 import TodoTemplate from '../components/TodoTemplate';
 import TodoHead from '../components/TodoHead';
 import TodoList from '../components/TodoList';
@@ -85,7 +85,7 @@ const MainBlock = styled.div`
 `;
 
 const Main = () => {
-    const state = useTodoState();
+    const state = useShowState();
 
     return (
         <>
