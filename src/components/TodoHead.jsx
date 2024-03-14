@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { useTodoDate, useTodoDispatch, useTodoState } from '../TodoContext';
+import { useShowDispatch, useTodoDate, useTodoDispatch, useTodoState } from '../TodoContext';
 import moment from 'moment';
 import 'moment/locale/ko';
 
@@ -152,24 +152,25 @@ function TodoHead() {
             break;
     }
 
-    const dispatch = useTodoDispatch();
+    const todoDispatch = useTodoDispatch();
+    const showDispatch = useShowDispatch();
     function fncSetComponent(param) {
         if (param === 'done') {
-            dispatch({
+            todoDispatch({
                 type: 'SHOWDONELIST',
                 id: sortedList.map((key) => {
                     return key.id;
                 }),
             });
         } else if (param === 'yet') {
-            dispatch({
+            todoDispatch({
                 type: 'SHOWYETLIST',
                 id: sortedList.map((key) => {
                     return key.id;
                 }),
             });
         } else {
-            dispatch(
+            showDispatch(
                 {
                     type: 'SHOWORHIDE',
                     showForm: param === 'add' ? true : false,

@@ -1,22 +1,27 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useTodoDispatch, useTodoState } from '../TodoContext';
+import { useShowState, useShowDispatch } from '../TodoContext';
+import moment from 'moment';
+import 'moment/locale/ko';
 
 const HeaderTemplateBlock = styled.div`
-    width: auto;
+    font-size: 1em;
+    box-sizing: border-box;
+    position: relative;
     height: 40px;
-    margin: 20px 20px 10px;
+    width: auto;
     position: relative;
     background: #6699ff;
     border-radius: 16px;
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
-    padding: 0 12px 0 12px;
+    padding: 12px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
 
     .btnGroup {
+        font-size: 1em;
         height: 100%;
         display: flex;
         flex-direction: row;
@@ -24,29 +29,20 @@ const HeaderTemplateBlock = styled.div`
         flex-wrap: nowrap;
         justify-content: space-between;
         align-items: center;
-        font-size: 12px;
     }
     .logo {
         color: #ffffff;
-        font-weight: 900;
     }
 `;
 
 const StyledButton = styled.button`
-    font-weight: 700;
     color: #ffffff;
     border: none;
-    border-radius: 7px;
-    height: 60%;
     width: auto;
     background: none;
-    margin-left: 2px;
     padding: 0;
     cursor: pointer;
-
-    /* padding: 8px; */
-    /* border-radius: 20px; */
-    /* box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.3); */
+    font-size: 1em;
 `;
 
 /**
@@ -55,30 +51,31 @@ const StyledButton = styled.button`
  * @returns
  */
 function HeaderTemplate() {
-    const state = useTodoState();
-    const dispatch = useTodoDispatch();
+    const state = useShowState();
+    const dispatch = useShowDispatch();
 
     function onclick() {
         const showForm = state.showForm;
-
         dispatch(
             {
                 type: 'SHOWORHIDE',
                 showForm: !showForm,
+                showSetting: false,
+                showEditMode: false,
+                showCalendar: false,
+                showTodoList: false,
             },
             []
         );
     }
 
-    const refresh = () => window.location.replace('/');
+    // const refresh = () => window.location.replace('/');
+    const today = moment().format('YYYY년 MM월 DD일 dddd');
     return (
         <HeaderTemplateBlock>
-            <div className="logo" onClick={refresh}>
-                SIMPLETODO
-            </div>
+            <div className="logo">{today}</div>
             <div className="btnGroup">
-                {/* <StyledButton onClick={onclick}>추가하기</StyledButton> */}
-                <StyledButton>설정</StyledButton>
+                <StyledButton onClick={onclick}>추가</StyledButton>
             </div>
         </HeaderTemplateBlock>
     );

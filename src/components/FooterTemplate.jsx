@@ -2,17 +2,15 @@ import React from 'react';
 import styled from 'styled-components';
 
 const FooterTemplateBlock = styled.div`
-    font-size: 0.8em;
-    /* font-weight: 300; */
+    font-size: 0.6em;
     width: auto;
-    height: 60px;
-    margin: 14px 20px 10px;
+    height: 50px;
+    margin-bottom: 0;
     box-sizing: border-box;
     padding: 12px;
     position: relative;
-    /* background-color: #868e96; */
-    background-color: rgba(134, 142, 150, 0.4);
-    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+    /* background-color: rgba(134, 142, 150, 0.4); */
+    /* box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3); */
     color: #000000;
     border-radius: 16px;
     display: flex;

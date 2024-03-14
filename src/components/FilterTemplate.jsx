@@ -4,14 +4,14 @@ import { useTodoDispatch, useTodoState, useTodoDate } from '../TodoContext';
 import moment from 'moment';
 
 const FilterTemplateBlock = styled.div`
-    width: auto;
-    height: 40px;
+    min-height: 40px;
     position: relative;
     background: white;
     border-radius: 16px;
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
-    margin: 10px 20px 10px;
-    padding: 0 12px 0 12px;
+    /* margin: 10px 20px 10px; */
+    margin-top: 10px;
+    padding: 0 12px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -153,29 +153,6 @@ function FilterTemplate({ children }) {
         const clickedID = e.target.id;
         showTotalTodo(clickedID);
     }
-
-    const showState = state.showCalendar ? '달력숨기기' : '달력보기';
-    function toggleCalendar() {
-        if (state.showCalendar) {
-            dispatch(
-                {
-                    type: 'SHOWCALENDAR',
-                    showCalendar: false,
-                },
-                []
-            );
-        } else {
-            todoDate.current = moment().format('YYYY-MM-DD');
-            dispatch(
-                {
-                    type: 'SHOWCALENDAR',
-                    showCalendar: true,
-                },
-                []
-            );
-        }
-    }
-
     return (
         <>
             <FilterTemplateBlock>
@@ -197,9 +174,6 @@ function FilterTemplate({ children }) {
                         <label htmlFor="week">주간</label>
                     </div>
                 </StyledRadioBox>
-                <div>
-                    <StyledButton onClick={toggleCalendar}>{showState}</StyledButton>
-                </div>
             </FilterTemplateBlock>
         </>
     );
