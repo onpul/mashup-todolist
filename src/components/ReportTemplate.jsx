@@ -5,18 +5,15 @@ import moment from 'moment';
 import TodoList from '../components/TodoList';
 
 const ReportTemplateBlock = styled.div`
-    /* width: auto; */
-    height: 100%;
-    min-width: 1em;
+    box-sizing: border-box;
     position: relative;
-    background: white;
+    background: #ffffff;
     border-radius: 16px;
-    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
-    margin: 10px 20px 10px;
     display: flex;
     flex-direction: column;
-    /* padding-top: 24px; */
-    padding-bottom: 24px;
+    /* min-height: calc(100% - 40px - 40px - 60px); */
+    max-height: calc(100vh - 40px - 50px - 50px - 50px);
+    overflow-y: auto;
 
     .todoTitle {
         padding-left: 32px;
@@ -53,7 +50,7 @@ const ReportHeaderBlock = styled.div`
 
 const ReportContentBlock = styled.div``;
 
-function ReportTemplate({ children }) {
+function ReportTemplate() {
     const state = useTodoState();
     const todoItems = state.todoItem;
     const fncReturnTodo = (type) => {
@@ -65,9 +62,9 @@ function ReportTemplate({ children }) {
 
     return (
         <ReportTemplateBlock>
-            <ReportHeaderBlock>
+            {/* <ReportHeaderBlock>
                 <h1>{moment().format('YYYY년 MM월 DD일 dddd')}</h1>
-            </ReportHeaderBlock>
+            </ReportHeaderBlock> */}
             <ReportContentBlock>
                 <h3 className="todoTitle">
                     <span className="type">오늘</span> 할 일이 <span className="tasks-left">{fncReturnTodo('today').length}</span>개 남았어요.

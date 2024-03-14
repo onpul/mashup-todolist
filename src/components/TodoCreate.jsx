@@ -4,24 +4,22 @@ import { useTodoState, useTodoDispatch, useTodoNextId, useTodoDate } from '../To
 import CheckCircleTemplate from './CheckCircleTemplate';
 
 const TodoCreateBlock = styled.div`
-    box-sizing: border-box;
-    width: 100%;
-    top: 192px;
-    position: static;
+    height: auto;
+    border-radius: 16px;
+`;
+
+const FormBlock = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
     padding-left: 32px;
     padding-right: 32px;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    height: 75px;
+    /* padding-top: 5px; */
+    /* padding-bottom: 5px; */
 `;
 
 const ButtonBlock = styled.div`
-    position: static;
     box-sizing: border-box;
-    margin-bottom: -20px;
     width: 100%;
     height: 30px;
     display: flex;
@@ -29,7 +27,6 @@ const ButtonBlock = styled.div`
     justify-content: space-around;
     padding-left: 32px;
     padding-right: 32px;
-    z-index: 999;
 `;
 
 const InsertForm = styled.form`
@@ -120,26 +117,22 @@ function TodoCreate() {
 
     return (
         <>
-            {todo.showForm ? (
-                <>
-                    <TodoCreateBlock>
-                        <CheckCircleTemplate props={{ done: false, id: '', disabled: true }} />
-                        <InsertForm onSubmit={onSubmit}>
-                            <Input autoFocus placeholder="할 일을 입력해 주세요." onChange={onChange} value={value} />
-                        </InsertForm>
-                    </TodoCreateBlock>
-                    <ButtonBlock>
-                        <AddButton onClick={onSubmit}>
-                            <span>추가</span>
-                        </AddButton>
-                        <AddButton onClick={onCancel}>
-                            <span>취소</span>
-                        </AddButton>
-                    </ButtonBlock>
-                </>
-            ) : (
-                ''
-            )}
+            <TodoCreateBlock>
+                <FormBlock>
+                    <CheckCircleTemplate props={{ done: false, id: '', disabled: true }} />
+                    <InsertForm onSubmit={onSubmit}>
+                        <Input autoFocus placeholder="할 일을 입력해 주세요." onChange={onChange} value={value} />
+                    </InsertForm>
+                </FormBlock>
+                <ButtonBlock>
+                    <AddButton onClick={onSubmit}>
+                        <span>추가</span>
+                    </AddButton>
+                    <AddButton onClick={onCancel}>
+                        <span>취소</span>
+                    </AddButton>
+                </ButtonBlock>
+            </TodoCreateBlock>
         </>
     );
 }

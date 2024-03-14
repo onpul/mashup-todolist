@@ -4,14 +4,14 @@ import { useTodoDispatch, useTodoState, useTodoDate } from '../TodoContext';
 import moment from 'moment';
 
 const FilterTemplateBlock = styled.div`
-    width: auto;
-    height: 40px;
+    min-height: 40px;
     position: relative;
     background: white;
     border-radius: 16px;
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
-    margin: 10px 20px 10px;
-    padding: 0 12px 0 12px;
+    /* margin: 10px 20px 10px; */
+    margin-top: 10px;
+    padding: 0 12px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;

@@ -8,6 +8,7 @@ const showData = {
     showSetting: false,
     showEditMode: false,
     showTodoList: false,
+    showReport: true,
 };
 const todoListData = {
     minDate: todayDate,
@@ -17,14 +18,14 @@ const todoListData = {
     filter: null,
     todoItem: [
         {
-            date: '2024-03-11',
+            date: '2024-03-14',
             id: 1,
             content: '투두 리스트 어쩌구',
             completed: false,
             checked: false,
         },
         {
-            date: '2024-03-12',
+            date: '2024-03-14',
             id: 2,
             content: '투두 더미데이터 어쩌구',
             completed: true,
@@ -140,22 +141,21 @@ const todoListData = {
 
 function componentReducer(state, action) {
     switch (action.type) {
-        case 'SHOWCALENDAR':
-            return {
-                ...state,
-                showCalendar: action.showCalendar,
-            };
         case 'SHOWORHIDE':
             return {
                 ...state,
                 showForm: action.showForm,
                 showSetting: action.showSetting,
                 showEditMode: action.showEditMode,
+                showCalendar: action.showCalendar,
+                showTodoList: action.showTodoList,
+                showReport: action.showReport,
             };
         default:
             return state;
     }
 }
+
 function todoReducer(state, action) {
     // console.log('>>여기는 todoReducer<<');
     // console.log('state = ' + JSON.stringify(state));
@@ -254,7 +254,6 @@ const ComponentDispatchContext = createContext();
  */
 export function ComponentProvider({ children }) {
     const [showState, showDispatch] = useReducer(componentReducer, showData);
-
     return (
         <ComponentStateContext.Provider value={showState}>
             <ComponentDispatchContext.Provider value={showDispatch}>{children}</ComponentDispatchContext.Provider>

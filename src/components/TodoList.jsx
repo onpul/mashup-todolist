@@ -24,7 +24,7 @@ function TodoList({ list }) {
     const filteredList = list ? list : todoList.filter((todo) => moment(todo.date).isBetween(state.minDate, state.maxDate, undefined, '[]'));
 
     return (
-        <TodoListBlock $margin={list ? true : false}>
+        <TodoListBlock $margin={list ? false : true}>
             {filteredList &&
                 filteredList.map((todo) => (
                     <TodoItem
