@@ -68,7 +68,6 @@ function CalendarTemplate({ children }) {
         setValue(today);
     }
 
-    const showState = todoData.showCalendar;
     const filterOpt = todoData.option;
     const sMonth = moment(value).month() + 1; // 월
     const weekOfMonth = (m) => m.week() - moment(m).startOf('month').week() + 1; // 주차
@@ -132,40 +131,34 @@ function CalendarTemplate({ children }) {
     }
 
     return (
-        <>
-            {showState && (
-                <div>
-                    <CalendarTemplateBlock>
-                        <Calendar
-                            locale="ko"
-                            formatDay={(locale, date) => date.toLocaleString('en', { day: 'numeric' })}
-                            calendarType="gregory"
-                            view={'month'}
-                            nextLabel={'>'}
-                            prevLabel={'<'}
-                            next2Label={null}
-                            prev2Label={null}
-                            minDate={new Date('2020-01-01')}
-                            onChange={onChange}
-                            value={value}
-                            // navigationLabel={() => {
-                            //     return fncSetCalendarOpt('navigationLabel');
-                            // }}
-                            tileClassName={({ date }) => {
-                                return fncSetCalendarOpt('tileClassName', date);
-                            }}
-                            tileContent={({ date }) => {
-                                return fncSetCalendarOpt('tileContent', date);
-                            }}
-                            // 오늘 날짜로 돌아오는 기능을 위해 필요한 옵션 설정
-                            activeStartDate={activeStartDate}
-                            onActiveStartDateChange={({ activeStartDate }) => setActiveStartDate(activeStartDate)}
-                        />
-                        <ButtonToday onClick={handleTodayClick}>오늘</ButtonToday>
-                    </CalendarTemplateBlock>
-                </div>
-            )}
-        </>
+        <CalendarTemplateBlock>
+            <Calendar
+                locale="ko"
+                formatDay={(locale, date) => date.toLocaleString('en', { day: 'numeric' })}
+                calendarType="gregory"
+                view={'month'}
+                nextLabel={'>'}
+                prevLabel={'<'}
+                next2Label={null}
+                prev2Label={null}
+                minDate={new Date('2020-01-01')}
+                onChange={onChange}
+                value={value}
+                // navigationLabel={() => {
+                //     return fncSetCalendarOpt('navigationLabel');
+                // }}
+                tileClassName={({ date }) => {
+                    return fncSetCalendarOpt('tileClassName', date);
+                }}
+                tileContent={({ date }) => {
+                    return fncSetCalendarOpt('tileContent', date);
+                }}
+                // 오늘 날짜로 돌아오는 기능을 위해 필요한 옵션 설정
+                activeStartDate={activeStartDate}
+                onActiveStartDateChange={({ activeStartDate }) => setActiveStartDate(activeStartDate)}
+            />
+            <ButtonToday onClick={handleTodayClick}>오늘</ButtonToday>
+        </CalendarTemplateBlock>
     );
 }
 

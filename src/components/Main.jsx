@@ -1,7 +1,7 @@
 import React from 'react';
-import { createGlobalStyle } from 'styled-components';
 import styled from 'styled-components';
-import { TodoProvider } from '../TodoContext';
+import { createGlobalStyle } from 'styled-components';
+import { useTodoState } from '../TodoContext';
 import TodoTemplate from '../components/TodoTemplate';
 import TodoHead from '../components/TodoHead';
 import TodoList from '../components/TodoList';
@@ -78,31 +78,33 @@ const GlobalStyle = createGlobalStyle`
     }
 `;
 
-const StyledDiv = styled.div`
+const MainBlock = styled.div`
     box-sizing: border-box;
     width: 100%;
     height: 100%;
 `;
 
 const Main = () => {
+    const state = useTodoState();
+
     return (
         <>
             <GlobalStyle />
-            <StyledDiv>
-                <TodoProvider>
-                    <HeaderTemplate />
-                    <FilterTemplate />
-                    <CalendarTemplate />
-                    <ReportTemplate />
+            <MainBlock>
+                <HeaderTemplate />
+                <FilterTemplate />
+                {state.showCalendar && <CalendarTemplate />}
+                <ReportTemplate />
+                {state.showTodoList && (
                     <TodoTemplate>
                         <TodoHead />
                         <TodoCreate />
                         <TodoEdit />
                         <TodoList />
                     </TodoTemplate>
-                    <FooterTemplate />
-                </TodoProvider>
-            </StyledDiv>
+                )}
+                <FooterTemplate />
+            </MainBlock>
         </>
     );
 };

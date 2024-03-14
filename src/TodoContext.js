@@ -6,10 +6,11 @@ const todoListData = {
     minDate: todayDate,
     maxDate: todayDate,
     option: 'day',
-    showCalendar: true,
+    showCalendar: false,
     showForm: false,
     showSetting: false,
     showEditMode: false,
+    showTodoList: false,
     allChecked: false,
     filter: null,
     todoItem: [
