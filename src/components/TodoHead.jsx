@@ -55,7 +55,7 @@ const SetTodoBlock = styled.div`
     font-weight: 900;
     cursor: pointer;
     text-align: center;
-    box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.3);
+    /* box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.3); */
 
     span {
         font-size: 1em;

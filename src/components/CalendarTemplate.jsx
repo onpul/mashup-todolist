@@ -17,7 +17,7 @@ const CalendarTemplateBlock = styled.div`
     align-items: center; // 컨텐츠 중앙 정렬
     display: flex;
     flex-direction: column;
-    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+    /* box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3); */
     padding: 15px;
 `;
 

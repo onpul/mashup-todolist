@@ -94,6 +94,7 @@ const ContainerBlock = styled.div`
     border-radius: 16px;
     /* box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3); */
     margin: 10px 0;
+    overflow: auto;
     /* padding: 30px 24px; */
 `;
 

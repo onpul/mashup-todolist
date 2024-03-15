@@ -9,7 +9,7 @@ const TodoTemplateBlock = styled.div`
     position: relative;
     background: white;
     border-radius: 16px;
-    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+    /* box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3); */
     padding: 0 30px;
     display: flex;
     flex-direction: column;

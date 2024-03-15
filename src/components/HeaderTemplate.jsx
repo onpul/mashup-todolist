@@ -13,7 +13,7 @@ const HeaderTemplateBlock = styled.div`
     position: relative;
     background: #6699ff;
     border-radius: 16px;
-    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+    /* box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3); */
     padding: 12px;
     display: flex;
     flex-direction: row;
@@ -59,7 +59,7 @@ function HeaderTemplate() {
         dispatch(
             {
                 type: 'SHOWORHIDE',
-                showForm: !showForm,
+                showForm: true,
                 showSetting: false,
                 showEditMode: false,
                 showCalendar: false,
@@ -69,11 +69,13 @@ function HeaderTemplate() {
         );
     }
 
-    // const refresh = () => window.location.replace('/');
+    const refresh = () => window.location.replace('/mashup-todolist');
     const today = moment().format('YYYY년 MM월 DD일 dddd');
     return (
         <HeaderTemplateBlock>
-            <div className="logo">{today}</div>
+            <div className="logo" onClick={refresh}>
+                {today}
+            </div>
             <div className="btnGroup">
                 <StyledButton onClick={onclick}>추가</StyledButton>
             </div>

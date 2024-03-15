@@ -13,7 +13,7 @@ const FooterTemplateBlock = styled.div`
     font-size: 1em;
     font-weight: 900;
     display: flex;
-    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+    /* box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3); */
     border-radius: 16px;
     color: #6699ff;
     .logo {

@@ -8,7 +8,7 @@ const TodoCreateBlock = styled.div`
     height: auto;
     border-radius: 16px;
     background-color: #ffffff;
-    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+    /* box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3); */
     height: 100%;
     padding-left: 32px;
     padding-right: 32px;

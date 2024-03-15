@@ -35,7 +35,7 @@ const ButtonBlock = styled.div`
         width: auto;
         background: #e9ecef;
         border-radius: 20px;
-        box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.3);
+        /* box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.3); */
     }
 
     #all {

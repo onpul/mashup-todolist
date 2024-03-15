@@ -10,7 +10,7 @@ const ButtonBlock = styled.div`
     font-size: 1em;
     height: 40px;
     background: #ffffff;
-    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+    /* box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3); */
     border-radius: 20px;
     font-weight: 900;
     width: 100%;
@@ -33,47 +33,22 @@ const ListBlock = styled.div`
     padding: 5px 10px;
     margin-top: 10px;
     background: #ffffff;
-    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+    /* box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3); */
     border-radius: 20px;
+    min-height: calc(100vh - 40px - 400px - 50px - 50px);
+    overflow: auto;
 `;
 
 const HomeTemplate = () => {
     const todoState = useTodoState();
-    const showDispatch = useShowDispatch();
     const todoItems = todoState.todoItem;
-    const [list, setList] = useState(null);
-    const fncButtonAction = (e) => {
-        const type = e.target.id || '';
-        switch (type) {
-            case 'today':
-                setList(todoItems.filter((todo) => moment(todo.date).isBetween(moment(), moment(), undefined, '[]') && !todo.completed));
-                break;
-            case 'detail':
-                showDispatch(
-                    {
-                        type: 'SHOWORHIDE',
-                        showCalendar: false,
-                        showForm: false,
-                        showSetting: false,
-                        showEditMode: false,
-                        showTodoList: true,
-                        showReport: false,
-                        showHome: false,
-                    },
-                    []
-                );
-                break;
-
-            default:
-                break;
-        }
-    };
+    const showList = todoItems.length > 0 ? true : false;
 
     return (
         <HomeTemplateBlock>
             <CalendarTemplate />
             <ListBlock>
-                <TodoList list={list} />
+                <TodoList />
             </ListBlock>
         </HomeTemplateBlock>
     );
