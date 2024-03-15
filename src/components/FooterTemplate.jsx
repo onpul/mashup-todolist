@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
+import { styled, css } from 'styled-components';
 import { useShowDispatch, useTodoState } from '../TodoContext';
 import moment from 'moment';
 
 const FooterTemplateBlock = styled.div`
+    z-index: 999;
     width: auto;
     height: 50px;
     margin-bottom: 0;
     box-sizing: border-box;
-    position: relative;
+    position: static;
+    bottom: 0;
     background: #ffffff;
     font-size: 1em;
     font-weight: 900;
@@ -24,6 +26,9 @@ const FooterTemplateBlock = styled.div`
     button {
         padding-right: 0;
     }
+    .clicked {
+        color: #ff6b6b;
+    }
 `;
 
 const ButtonBlock = styled.div`
@@ -33,11 +38,23 @@ const ButtonBlock = styled.div`
     align-items: center;
     justify-content: space-evenly;
     cursor: pointer;
+    text-align: center;
 
-    .footerBtn {
+    /* .footerBtn {
         width: 100%;
         text-align: center;
-    }
+    } */
+`;
+
+const ButtonItem = styled.div`
+    ${(color) =>
+        color === '#ff6b6b'
+            ? css`
+                  color: #ff6b6b;
+              `
+            : css`
+                  color: #6699ff;
+              `}
 `;
 
 /**
@@ -46,11 +63,13 @@ const ButtonBlock = styled.div`
  * @returns
  */
 function FooterTemplate() {
-    const todoState = useTodoState();
     const showDispatch = useShowDispatch();
-    const todoItems = todoState.todoItem;
-    const [list, setList] = useState(null);
+    const [clicked, setClicked] = useState(null);
     const fncButtonAction = (e) => {
+        debugger;
+        setClicked(e.target.id);
+        debugger;
+        console.log(clicked);
         const type = e.target.id || '';
         switch (type) {
             case 'home':
@@ -69,7 +88,7 @@ function FooterTemplate() {
                 );
                 break;
             case 'today':
-                setList(todoItems.filter((todo) => moment(todo.date).isBetween(moment(), moment(), undefined, '[]') && !todo.completed));
+                window.location.replace('/mashup-todolist');
                 break;
             case 'detail':
                 showDispatch(
@@ -121,24 +140,25 @@ function FooterTemplate() {
                 break;
         }
     };
+    //color={`${clicked === 'home' ? '#ff6b6b' : '#6699ff'}`}
     return (
         <FooterTemplateBlock>
             <ButtonBlock>
-                <div className="footerBtn" id="home" onClick={fncButtonAction}>
+                <ButtonItem style={{ color: `${clicked === 'home' ? '#ff6b6b' : '#6699ff'}` }} id="home" onClick={fncButtonAction}>
                     홈
-                </div>
-                <div className="footerBtn" id="today" onClick={fncButtonAction}>
+                </ButtonItem>
+                <ButtonItem style={{ color: `${clicked === 'today' ? '#ff6b6b' : '#6699ff'}` }} id="today" onClick={fncButtonAction}>
                     오늘
-                </div>
-                <div className="footerBtn" id="detail" onClick={fncButtonAction}>
+                </ButtonItem>
+                <ButtonItem style={{ color: `${clicked === 'detail' ? '#ff6b6b' : '#6699ff'}` }} id="detail" onClick={fncButtonAction}>
                     상세
-                </div>
-                <div className="footerBtn" id="calendar" onClick={fncButtonAction}>
+                </ButtonItem>
+                <ButtonItem style={{ color: `${clicked === 'calendar' ? '#ff6b6b' : '#6699ff'}` }} id="calendar" onClick={fncButtonAction}>
                     달력
-                </div>
-                <div className="footerBtn" id="add" onClick={fncButtonAction}>
+                </ButtonItem>
+                <ButtonItem style={{ color: `${clicked === 'add' ? '#ff6b6b' : '#6699ff'}` }} id="add" onClick={fncButtonAction}>
                     추가
-                </div>
+                </ButtonItem>
             </ButtonBlock>
             {/* <div className="logo">
                 <ul>

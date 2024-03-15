@@ -10,14 +10,14 @@ const CalendarTemplateBlock = styled.div`
     /* width: auto;
     height: auto; */
     min-width: 1em;
+    max-height: 500px;
     position: relative;
     background: #ffffff;
     border: 0;
     border-radius: 16px;
     align-items: center; // 컨텐츠 중앙 정렬
-    display: flex;
-    flex-direction: column;
-    /* box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3); */
+    /* display: flex; */
+    /* flex-direction: column; */
     padding: 15px;
 `;
 

@@ -86,6 +86,8 @@ const WrapperBlock = styled.div`
 `;
 
 const ContainerBlock = styled.div`
+    max-height: calc(100vh - 40px - 50px- 20px);
+    overflow-y: auto;
     flex: 1;
     flex-shrink: 1;
     flex-grow: 1;

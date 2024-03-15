@@ -36,7 +36,7 @@ const ListBlock = styled.div`
     /* box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3); */
     border-radius: 20px;
     min-height: calc(100vh - 40px - 400px - 50px - 50px);
-    overflow: auto;
+    /* overflow-y: auto; */
 `;
 
 const HomeTemplate = () => {
