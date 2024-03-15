@@ -1,35 +1,15 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
-import { useTodoState } from '../TodoContext';
+import { useShowState } from '../TodoContext';
 import CheckCircleTemplate from './CheckCircleTemplate';
 import CheckSquareTemplate from './CheckSquareTemplate';
-
-const Remove = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #dee2e6;
-    font-size: 1.2em;
-    cursor: pointer;
-    &:hover {
-        color: #ff6b6b;
-    }
-    /* display: none; */
-`;
 
 const TodoItemBlock = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    height: 75px;
-    /* cursor: default; */
-    &:hover {
-        ${Remove} {
-            display: initial;
-        }
-    }
+    padding-top: 10px;
+    padding-bottom: 10px;
 
     .textList {
         display: flex;
@@ -62,7 +42,7 @@ const Text = styled.div`
 `;
 
 function TodoItem({ id, done, text, date, checked }) {
-    const state = useTodoState();
+    const state = useShowState();
     return (
         <TodoItemBlock>
             {state.showEditMode ? (
@@ -86,7 +66,6 @@ function TodoItem({ id, done, text, date, checked }) {
                     </Text>
                 </>
             )}
-            {/* <RemoveTemplate props={{ id: id }}></RemoveTemplate> */}
         </TodoItemBlock>
     );
 }

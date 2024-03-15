@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useTodoState } from '../TodoContext';
+import { useTodoState, useShowDispatch } from '../TodoContext';
 import moment from 'moment';
 import TodoList from '../components/TodoList';
 
@@ -14,6 +14,7 @@ const ReportTemplateBlock = styled.div`
     /* min-height: calc(100% - 40px - 40px - 60px); */
     max-height: calc(100vh - 40px - 50px - 50px - 50px);
     overflow-y: auto;
+    padding-top: 3px;
 
     .todoTitle {
         padding-left: 32px;
@@ -60,28 +61,44 @@ function ReportTemplate() {
         return todoItems.filter((todo) => moment(todo.date).isBetween(sMinDate, sMaxDate, undefined, '[]') && !todo.completed);
     };
 
+    const dispatch = useShowDispatch();
+    const onclick = () => {
+        dispatch(
+            {
+                type: 'SHOWORHIDE',
+                showForm: false,
+                showSetting: false,
+                showEditMode: false,
+                showTodoList: true,
+                showReport: false,
+                showCalendar: false,
+            },
+            []
+        );
+    };
+
     return (
         <ReportTemplateBlock>
-            {/* <ReportHeaderBlock>
-                <h1>{moment().format('YYYY년 MM월 DD일 dddd')}</h1>
-            </ReportHeaderBlock> */}
+            <ReportHeaderBlock>
+                <h1>{moment().format('YYYY-MM-DD ddd')}</h1>
+            </ReportHeaderBlock>
             <ReportContentBlock>
-                <h3 className="todoTitle">
+                <h3 className="todoTitle" onClick={onclick}>
                     <span className="type">오늘</span> 할 일이 <span className="tasks-left">{fncReturnTodo('today').length}</span>개 남았어요.
                 </h3>
-                <TodoList list={fncReturnTodo('today')}>어쩌구</TodoList>
+                <TodoList list={fncReturnTodo('today')}></TodoList>
             </ReportContentBlock>
             <ReportContentBlock>
-                <h3 className="todoTitle">
+                <h3 className="todoTitle" onClick={onclick}>
                     <span className="type">이번주</span> 할 일이 <span className="tasks-left">{fncReturnTodo('week').length}</span>개 남았어요.
                 </h3>
-                <TodoList list={fncReturnTodo('week')}>어쩌구</TodoList>
+                <TodoList list={fncReturnTodo('week')}></TodoList>
             </ReportContentBlock>
             <ReportContentBlock>
-                <h3 className="todoTitle">
+                <h3 className="todoTitle" onClick={onclick}>
                     <span className="type">이번달</span> 할 일이 <span className="tasks-left">{fncReturnTodo('month').length}</span>개 남았어요.
                 </h3>
-                <TodoList list={fncReturnTodo('week')}>어쩌구</TodoList>
+                <TodoList list={fncReturnTodo('week')}></TodoList>
             </ReportContentBlock>
         </ReportTemplateBlock>
     );

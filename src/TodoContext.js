@@ -8,7 +8,8 @@ const showData = {
     showSetting: false,
     showEditMode: false,
     showTodoList: false,
-    showReport: true,
+    showReport: false,
+    showHome: true,
 };
 const todoListData = {
     minDate: todayDate,
@@ -18,28 +19,28 @@ const todoListData = {
     filter: null,
     todoItem: [
         {
-            date: '2024-03-14',
+            date: '2024-03-15',
             id: 1,
             content: '투두 리스트 어쩌구',
             completed: false,
             checked: false,
         },
         {
-            date: '2024-03-14',
+            date: '2024-03-15',
             id: 2,
             content: '투두 더미데이터 어쩌구',
             completed: true,
             checked: false,
         },
         {
-            date: '2024-03-13',
+            date: '2024-03-15',
             id: 3,
             content: '맛있는 거 먹기 어쩌구',
             completed: false,
             checked: false,
         },
         {
-            date: '2024-03-13',
+            date: '2024-03-15',
             id: 4,
             content: '집에 가고싶다 어쩌구',
             completed: true,
@@ -140,6 +141,7 @@ const todoListData = {
 };
 
 function componentReducer(state, action) {
+    // debugger;
     switch (action.type) {
         case 'SHOWORHIDE':
             return {
@@ -150,6 +152,7 @@ function componentReducer(state, action) {
                 showCalendar: action.showCalendar,
                 showTodoList: action.showTodoList,
                 showReport: action.showReport,
+                showHome: action.showHome,
             };
         default:
             return state;
@@ -253,10 +256,10 @@ const ComponentDispatchContext = createContext();
  * @returns
  */
 export function ComponentProvider({ children }) {
-    const [showState, showDispatch] = useReducer(componentReducer, showData);
+    const [showState, dispatch] = useReducer(componentReducer, showData);
     return (
         <ComponentStateContext.Provider value={showState}>
-            <ComponentDispatchContext.Provider value={showDispatch}>{children}</ComponentDispatchContext.Provider>
+            <ComponentDispatchContext.Provider value={dispatch}>{children}</ComponentDispatchContext.Provider>
         </ComponentStateContext.Provider>
     );
 }

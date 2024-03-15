@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { useTodoDispatch, useTodoState } from '../TodoContext';
+import { useShowState, useTodoDispatch, useTodoState } from '../TodoContext';
 import moment from 'moment';
 
 const TodoEditBlock = styled.div`
@@ -35,7 +35,7 @@ const ButtonBlock = styled.div`
         width: auto;
         background: #e9ecef;
         border-radius: 20px;
-        box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.3);
+        /* box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.3); */
     }
 
     #all {
@@ -45,6 +45,7 @@ const ButtonBlock = styled.div`
 
 function TodoEdit() {
     const state = useTodoState();
+    const showState = useShowState();
     const dispatch = useTodoDispatch();
     const [checkedText, setCheckedText] = useState('전체선택');
     const onclick = (e) => {
@@ -99,7 +100,7 @@ function TodoEdit() {
     };
     return (
         <>
-            {state.showEditMode ? (
+            {showState.showEditMode ? (
                 <TodoEditBlock>
                     <ButtonBlock>
                         <div id="all" onClick={onclick}>

@@ -6,14 +6,15 @@ import 'moment/locale/ko';
 
 const HeaderTemplateBlock = styled.div`
     font-size: 1em;
+    font-weight: 900;
     box-sizing: border-box;
-    position: relative;
     height: 40px;
     width: auto;
-    position: relative;
+    position: static;
+    top: 0;
     background: #6699ff;
     border-radius: 16px;
-    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+    /* box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3); */
     padding: 12px;
     display: flex;
     flex-direction: row;
@@ -36,13 +37,13 @@ const HeaderTemplateBlock = styled.div`
 `;
 
 const StyledButton = styled.button`
+    font-size: 1.5em;
     color: #ffffff;
     border: none;
     width: auto;
     background: none;
     padding: 0;
     cursor: pointer;
-    font-size: 1em;
 `;
 
 /**
@@ -59,7 +60,7 @@ function HeaderTemplate() {
         dispatch(
             {
                 type: 'SHOWORHIDE',
-                showForm: !showForm,
+                showForm: true,
                 showSetting: false,
                 showEditMode: false,
                 showCalendar: false,
@@ -69,13 +70,15 @@ function HeaderTemplate() {
         );
     }
 
-    // const refresh = () => window.location.replace('/');
+    const refresh = () => window.location.replace('/mashup-todolist');
     const today = moment().format('YYYY년 MM월 DD일 dddd');
     return (
         <HeaderTemplateBlock>
-            <div className="logo">{today}</div>
+            <div className="logo" onClick={refresh}>
+                !TODO
+            </div>
             <div className="btnGroup">
-                <StyledButton onClick={onclick}>추가</StyledButton>
+                <StyledButton onClick={onclick}>+</StyledButton>
             </div>
         </HeaderTemplateBlock>
     );

@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useTodoDispatch, useTodoState, useTodoDate } from '../TodoContext';
+import { useTodoDispatch, useTodoState, useTodoDate, useShowState, useShowDispatch } from '../TodoContext';
 import moment from 'moment';
 
 const FilterTemplateBlock = styled.div`
@@ -8,7 +8,7 @@ const FilterTemplateBlock = styled.div`
     position: relative;
     background: white;
     border-radius: 16px;
-    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+    /* box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3); */
     /* margin: 10px 20px 10px; */
     margin-top: 10px;
     padding: 0 12px;
@@ -29,20 +29,8 @@ const FilterTemplateBlock = styled.div`
     }
 `;
 
-const StyledButton = styled.button`
-    color: #000000;
-    border: none;
-    border-radius: 7px;
-    height: 60%;
-    width: auto;
-    background: none;
-    margin-left: 2px;
-    padding: 0;
-    cursor: pointer;
-    font-weight: 600;
-`;
-
 const StyledRadioBox = styled.fieldset`
+    z-index: 999;
     height: 100%;
     display: flex;
     flex-direction: row;
@@ -147,31 +135,111 @@ function FilterTemplate({ children }) {
         }
     }
 
+    const showState = useShowState();
+    const showDispatch = useShowDispatch();
     function fncRadioState(e) {
+        debugger;
         // console.log(e.target.id);
         // console.log(e.target.checked);
         const clickedID = e.target.id;
-        showTotalTodo(clickedID);
+        // showTotalTodo(clickedID);
+
+        if (clickedID === 'main') {
+            showDispatch(
+                {
+                    type: 'SHOWORHIDE',
+                    showCalendar: false,
+                    showForm: false,
+                    showSetting: false,
+                    showEditMode: false,
+                    showTodoList: false,
+                    showReport: true,
+                },
+                []
+            );
+        } else if (clickedID === 'calendar') {
+            showDispatch(
+                {
+                    type: 'SHOWORHIDE',
+                    showCalendar: true,
+                    showForm: false,
+                    showSetting: false,
+                    showEditMode: false,
+                    showTodoList: false,
+                    showReport: false,
+                },
+                []
+            );
+        } else if (clickedID === 'todolist') {
+            showDispatch(
+                {
+                    type: 'SHOWORHIDE',
+                    showCalendar: false,
+                    showForm: false,
+                    showSetting: false,
+                    showEditMode: false,
+                    showTodoList: true,
+                    showReport: false,
+                },
+                []
+            );
+        } else if (clickedID === 'add') {
+            showDispatch(
+                {
+                    type: 'SHOWORHIDE',
+                    showCalendar: false,
+                    showForm: true,
+                    showSetting: false,
+                    showEditMode: false,
+                    showTodoList: false,
+                    showReport: false,
+                },
+                []
+            );
+        }
     }
+
+    // const showState = state.showCalendar ? '달력숨기기' : '달력보기';
+    // function toggleCalendar() {
+    //     if (showState === '달력보기') {
+    //         showDispatch(
+    //             {
+    //                 type: 'SHOWORHIDE',
+    //                 showCalendar: true,
+    //             },
+    //             []
+    //         );
+    //     } else {
+    //         todoDate.current = moment().format('YYYY-MM-DD');
+    //         showDispatch(
+    //             {
+    //                 type: 'SHOWORHIDE',
+    //                 showCalendar: false,
+    //             },
+    //             []
+    //         );
+    //     }
+    // }
+
     return (
         <>
             <FilterTemplateBlock>
                 <StyledRadioBox>
                     <div>
-                        <input type="radio" id="all" name="filter" onChange={fncRadioState} />
-                        <label htmlFor="all">전체</label>
+                        <input type="radio" id="main" name="filter" onChange={fncRadioState} defaultChecked />
+                        <label htmlFor="main">메인</label>
                     </div>
                     <div>
-                        <input type="radio" id="day" name="filter" onChange={fncRadioState} defaultChecked />
-                        <label htmlFor="day">일별</label>
+                        <input type="radio" id="calendar" name="filter" onChange={fncRadioState} />
+                        <label htmlFor="calendar">달력</label>
                     </div>
                     <div>
-                        <input type="radio" id="month" name="filter" onChange={fncRadioState} />
-                        <label htmlFor="month">월별</label>
+                        <input type="radio" id="todolist" name="filter" onChange={fncRadioState} />
+                        <label htmlFor="todolist">일정</label>
                     </div>
                     <div>
-                        <input type="radio" id="week" name="filter" onChange={fncRadioState} />
-                        <label htmlFor="week">주간</label>
+                        <input type="radio" id="add" name="filter" onChange={fncRadioState} />
+                        <label htmlFor="add">추가</label>
                     </div>
                 </StyledRadioBox>
             </FilterTemplateBlock>
