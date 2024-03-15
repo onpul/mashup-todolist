@@ -1,5 +1,5 @@
 import React from 'react';
-import Main from './components/Main';
+import MainTemplate from './components/MainTemplate';
 import { TodoProvider, ComponentProvider } from './TodoContext';
 import { Routes, Route } from 'react-router-dom';
 
@@ -8,7 +8,7 @@ function App() {
         <ComponentProvider>
             <TodoProvider>
                 <Routes>
-                    <Route path="/" Component={Main} />
+                    <Route path="/mashup-todolist" Component={MainTemplate} />
                 </Routes>
             </TodoProvider>
         </ComponentProvider>

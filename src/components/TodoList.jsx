@@ -7,7 +7,7 @@ import moment from 'moment';
 const TodoListBlock = styled.div`
     display: flex;
     flex-direction: column;
-    padding: 20px 32px;
+    /* padding: 20px 32px; */
     /* max-height: 600px; */
     overflow: auto;
     ${(props) =>
@@ -18,13 +18,13 @@ const TodoListBlock = styled.div`
         `}
 `;
 
-function TodoList({ list }) {
+function TodoList({ list, margin }) {
     const state = useTodoState();
     const todoList = state.todoItem;
     const filteredList = list ? list : todoList.filter((todo) => moment(todo.date).isBetween(state.minDate, state.maxDate, undefined, '[]'));
 
     return (
-        <TodoListBlock $margin={list ? false : true}>
+        <TodoListBlock $list={list} $margin={margin}>
             {filteredList &&
                 filteredList.map((todo) => (
                     <TodoItem

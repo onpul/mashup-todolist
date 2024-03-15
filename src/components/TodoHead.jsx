@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import { useShowDispatch, useTodoDate, useTodoDispatch, useTodoState } from '../TodoContext';
+import { useShowState, useShowDispatch, useTodoDate, useTodoDispatch, useTodoState } from '../TodoContext';
 import moment from 'moment';
 import 'moment/locale/ko';
 
@@ -9,9 +9,9 @@ const TodoHeadBlock = styled.div`
     box-sizing: border-box;
     display: flex;
     justify-content: space-between;
-    padding-top: 48px;
-    padding-left: 32px;
-    padding-right: 32px;
+    padding-top: 30px;
+    /* padding-left: 32px;
+    padding-right: 32px; */
     padding-bottom: 24px;
     border-bottom: 1px solid #e9ecef;
     h1 {
@@ -110,6 +110,8 @@ const SettingMenuBlock = styled.div`
 function TodoHead() {
     const todoDate = useTodoDate();
     const state = useTodoState();
+    const showState = useShowState();
+    debugger;
     const todoItems = state.todoItem;
     let sTitle = null;
     let day = null;
@@ -155,6 +157,7 @@ function TodoHead() {
     const todoDispatch = useTodoDispatch();
     const showDispatch = useShowDispatch();
     function fncSetComponent(param) {
+        debugger;
         if (param === 'done') {
             todoDispatch({
                 type: 'SHOWDONELIST',
@@ -176,6 +179,9 @@ function TodoHead() {
                     showForm: param === 'add' ? true : false,
                     showSetting: param === 'setting' ? true : false,
                     showEditMode: param === 'edit' ? true : false,
+                    showCalendar: false,
+                    showTodoList: true,
+                    showReport: false,
                 },
                 []
             );
@@ -189,7 +195,7 @@ function TodoHead() {
     return (
         <>
             <TodoHeadBlock>
-                {state.showForm ? (
+                {showState.showForm ? (
                     <>
                         <div>
                             <h1>추가하기</h1>
@@ -218,7 +224,7 @@ function TodoHead() {
                     </>
                 )}
             </TodoHeadBlock>
-            {state.showSetting ? (
+            {showState.showSetting ? (
                 <SettingMenuBlock>
                     <div>
                         <ul>

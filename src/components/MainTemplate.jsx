@@ -1,17 +1,13 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { createGlobalStyle } from 'styled-components';
 import { useShowState } from '../TodoContext';
-import TodoTemplate from '../components/TodoTemplate';
-import TodoHead from '../components/TodoHead';
-import TodoList from '../components/TodoList';
-import TodoCreate from '../components/TodoCreate';
-import CalendarTemplate from '../components/CalendarTemplate';
-import FilterTemplate from '../components/FilterTemplate';
-import TodoEdit from '../components/TodoEdit';
-import ReportTemplate from '../components/ReportTemplate';
-import HeaderTemplate from '../components/HeaderTemplate';
-import FooterTemplate from '../components/FooterTemplate';
+import TodoTemplate from './TodoTemplate';
+import TodoCreateTemplate from './TodoCreateTemplate';
+import CalendarTemplate from './CalendarTemplate';
+import HeaderTemplate from './HeaderTemplate';
+import FooterTemplate from './FooterTemplate';
+import HomeTemplate from './HomeTemplate';
 
 const GlobalStyle = createGlobalStyle`
     /* 기본 적용 스타일 초기화 */
@@ -32,9 +28,9 @@ const GlobalStyle = createGlobalStyle`
         padding: 0;
         border: 0;
         font-size: 100%;
-        /* font: inherit; */
         vertical-align: baseline;
     }
+
     /* HTML5 display-role reset for older browsers */
     article, aside, details, figcaption, figure, 
     footer, header, hgroup, menu, nav, section {
@@ -94,39 +90,31 @@ const ContainerBlock = styled.div`
     flex-shrink: 1;
     flex-grow: 1;
     flex-basis: 1;
-    background: #ffffff;
+    /* background: #ffffff; */
     border-radius: 16px;
-    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+    /* box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3); */
     margin: 10px 0;
-    padding: 20px 0;
+    /* padding: 30px 24px; */
 `;
 
-const Main = () => {
+const MainTemplate = () => {
     const state = useShowState();
     const showCalendar = state.showCalendar;
     const showTodoList = state.showTodoList;
     const showForm = state.showForm;
-    const showReport = state.showReport;
+    const showHome = state.showHome;
 
     return (
         <>
             <GlobalStyle />
             <WrapperBlock className="wrapper">
                 <HeaderTemplate className="header" />
-                <FilterTemplate />
+                {/* <FilterTemplate /> */}
                 <ContainerBlock className="container">
+                    {showHome ? <HomeTemplate /> : <></>}
                     {showCalendar ? <CalendarTemplate /> : <></>}
-                    {showReport ? <ReportTemplate /> : <></>}
-                    {showTodoList ? (
-                        <TodoTemplate>
-                            <TodoHead />
-                            <TodoEdit />
-                            <TodoList />
-                        </TodoTemplate>
-                    ) : (
-                        <></>
-                    )}
-                    {showForm ? <TodoCreate /> : <></>}
+                    {showTodoList ? <TodoTemplate /> : <></>}
+                    {showForm ? <TodoCreateTemplate /> : <></>}
                 </ContainerBlock>
                 <FooterTemplate className="footer" />
             </WrapperBlock>
@@ -134,4 +122,4 @@ const Main = () => {
     );
 };
 
-export default Main;
+export default MainTemplate;

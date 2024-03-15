@@ -18,12 +18,12 @@ abbr {
     position: relative;
     line-height: 1.125em;
     height: auto;
-    box-shadow: 0 0 8px rgba(0, 0, 0, 0.04);
+    /* box-shadow: 0 0 8px rgba(0, 0, 0, 0.04); */
     align-items: center;
-    padding-top: 48px;
-    padding-bottom: 24px;
-    padding-left: 32px;
-    padding-right: 32px;
+    /* padding-top: 24px;
+    padding-bottom: 24px; */
+    /* padding-left: 32px;
+    padding-right: 32px; */
     display: flex;
     flex-direction: column;
 }

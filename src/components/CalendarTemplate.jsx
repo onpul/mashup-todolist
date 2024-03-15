@@ -4,39 +4,21 @@ import styled from 'styled-components';
 import './Calendar.css';
 import { useTodoState, useTodoDate, useTodoDispatch } from '../TodoContext';
 import moment from 'moment';
+// import ButtonToday from './ButtonToday';
 
 const CalendarTemplateBlock = styled.div`
     /* width: auto;
     height: auto; */
     min-width: 1em;
     position: relative;
-    background: white;
+    background: #ffffff;
+    border: 0;
     border-radius: 16px;
-    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
-    margin: 10px 20px 20px;
     align-items: center; // 컨텐츠 중앙 정렬
     display: flex;
     flex-direction: column;
-`;
-
-const ButtonToday = styled.div`
-    position: absolute;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 50px;
-    height: 25px;
-    margin-top: 10px;
-    margin-right: 70px;
-    margin-left: 100%;
-    text-align: center;
-    border-radius: 12px;
-    font-size: 0.8em;
-    line-height: 0.8em;
-    font-weight: 800;
-    background-color: #6699ff;
-    color: #ffffff;
-    border: 0;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+    padding: 15px;
 `;
 
 function CalendarTemplate({ children }) {
@@ -157,7 +139,12 @@ function CalendarTemplate({ children }) {
                 activeStartDate={activeStartDate}
                 onActiveStartDateChange={({ activeStartDate }) => setActiveStartDate(activeStartDate)}
             />
-            <ButtonToday onClick={handleTodayClick}>오늘</ButtonToday>
+            {/* <ButtonToday
+                text="오늘"
+                onClick={() => {
+                    handleTodayClick();
+                }}
+            /> */}
         </CalendarTemplateBlock>
     );
 }

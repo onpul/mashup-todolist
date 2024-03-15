@@ -2,18 +2,23 @@ import React, { useState } from 'react';
 import { styled } from 'styled-components';
 import { useTodoState, useTodoDispatch, useTodoNextId, useTodoDate } from '../TodoContext';
 import CheckCircleTemplate from './CheckCircleTemplate';
+import TodoHead from './TodoHead';
 
 const TodoCreateBlock = styled.div`
     height: auto;
     border-radius: 16px;
+    background-color: #ffffff;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+    height: 100%;
+    padding-left: 32px;
+    padding-right: 32px;
 `;
 
 const FormBlock = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    padding-left: 32px;
-    padding-right: 32px;
+
     /* padding-top: 5px; */
     /* padding-bottom: 5px; */
 `;
@@ -74,7 +79,7 @@ const AddButton = styled.div`
     }
 `;
 
-function TodoCreate() {
+function TodoCreateTemplate() {
     const [value, setValue] = useState('');
     const dispatch = useTodoDispatch();
     const nextId = useTodoNextId();
@@ -118,6 +123,7 @@ function TodoCreate() {
     return (
         <>
             <TodoCreateBlock>
+                <TodoHead />
                 <FormBlock>
                     <CheckCircleTemplate props={{ done: false, id: '', disabled: true }} />
                     <InsertForm onSubmit={onSubmit}>
@@ -137,4 +143,4 @@ function TodoCreate() {
     );
 }
 
-export default React.memo(TodoCreate);
+export default React.memo(TodoCreateTemplate);
